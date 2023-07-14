@@ -51,6 +51,12 @@ router.post('/auth/login', async(req, res) => {
         return res.json({err_message : "Uncorrect password"});
     }
 
+    //check if user is verified
+    if(user[0].verified == 0){
+        // redirect to verify email
+        return res.redirect(`/auth/verify-code?to=${user[0].user_id}`);
+    }
+
     //set session 
     req.session.auth = true;
     req.session.user = await user[0];
