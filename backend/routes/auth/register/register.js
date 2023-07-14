@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express   = require('express');
 const router    = express.Router();
-const path      = require('path');
 const bcrypt    = require('bcrypt');
 const util = require("util");
 const nodemailer = require("nodemailer");
@@ -12,6 +11,10 @@ const {Query}     = require('../../../server');
 // get register page
 router.get('/auth/register', (req, res) => {
     //check if user already loggedin 
+    if (req.session.auth){
+        return res.redirect('/');
+    }
+
     res.render('./auth/register.ejs');
 })
 
@@ -20,6 +23,9 @@ router.get('/auth/register', (req, res) => {
 router.post('/auth/register', async(req, res) => {
     console.log(req.body);
     // check if user already loggedin
+    if (req.session.auth){
+        return res.redirect('/');
+    }
 
     // check if user sent data
     if(!req.body.firstName || !req.body.lastName|| !req.body.email || !req.body.password){
@@ -28,14 +34,13 @@ router.post('/auth/register', async(req, res) => {
 
     const {firstName, lastName, email, password} = req.body;
 
-
     // check if user already exists
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-    const userExists = await asyncQuery(`SELECT * FROM users WHERE email='${email}'`);
+    const userExists = await asyncQuery(`SELECT * FROM users WHERE email= ?`,[email]);
     if(userExists.length > 0){
         return res.json({err_message: 'Email already takeing'})
     }
-
+ 
     // check if email is valid
     const emailRegx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if(!emailRegx.test(email)){
@@ -53,8 +58,11 @@ router.post('/auth/register', async(req, res) => {
     const userId = uuid();
     const query = `
     INSERT INTO users(user_id, first_name, last_name, email, password)
-    VALUES('${userId}', '${firstName}', '${lastName}','${email}', '${hashedPass}');`
-    Query.query(query,(err, result) => {
+    VALUES( ?, ?, ?,?, ?);`
+    Query.query(query, 
+        [userId, firstName, lastName, email, hashedPass], 
+        (err, result) => {
+
         if(err) throw err;
         console.log("user added successfully ✅")
 

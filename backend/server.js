@@ -1,16 +1,19 @@
 require('dotenv').config();
 const express   = require("express");
 const app       = express();
+const session   = require('express-session');
 const path      = require("path");
 const helmet    = require('helmet');
-const mysql     = require('mysql');
+const mysql     = require('mysql2');
+const cors      = require('cors');
 const PORT      = process.env.PORT || 4545;
 
 //middleware
+    app.use("/public",express.static('public'));
+    app.use(cors({origin: process.env.HOST ,credentials: true}))
     app.use(express.json({limit : '50mb'}));
     app.use(express.urlencoded({extended: true}));
-    app.use("/public",express.static('public'));
-    app.use(helmet());
+    app.use(helmet({contentSecurityPolicy: false}));
     app.set('view engine', 'ejs');
 // End middlewares
 
@@ -20,9 +23,22 @@ const PORT      = process.env.PORT || 4545;
         user : process.env.MYSQL_USER,
         password : process.env.MYSQL_PASSWORD,
         database : process.env.MYSQL_DBNAME,
+        multipleStatements : false // to prevent sql injection to run more then one command
     })
     module.exports.Query = mysqlQuery;
 //End database
+
+// session
+app.use(session({
+    secret : process.env.session_secret,// random characters for hashing the session
+    // resave : false,
+    //to prevent setting a new session every request
+    saveUninitialized : false,
+    // cookie : {
+    //     //maxAge :  14 * 24 * 3600000,// 14 days
+         secure: app.get('env') === 'production'?true:false,
+    // },
+}))
 
 
 //Routes
@@ -33,8 +49,10 @@ app.get('/hi', (req, res) => {
 
 //register
 app.use('/', require('./routes/auth/register/register'));
+
 // send verification code
 app.use('/', require('./routes/auth/verify'));
+
 // login
 app.use('/', require('./routes/auth/login/login'));
 

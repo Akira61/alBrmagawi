@@ -11,10 +11,10 @@ const {Query}     = require('../../server');
     STMP is mail server which is responsible for sending and recieving email.
     */
     const smtpTransport = nodemailer.createTransport({
-        service: "gmail",
+        service: process.env.SMTP_service,
         auth: {
-            user: "dafrfhd36@gmail.com",
-            pass: "D3a1F4r4F4h6D336"
+            user: process.env.SMTP_email,
+            pass: process.env.SMTP_password
         }
     });
     let rand,mailOptions,host,link;
@@ -22,6 +22,11 @@ const {Query}     = require('../../server');
  
 router.get('/auth/verify-code', async function(req,res){
     if(!req.query.to) return res.send('no email sent');
+
+    //check if user loggedin 
+    if (req.session.auth){
+        return res.redirect('/');
+    }
 
     // check if user exists
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
@@ -53,6 +58,12 @@ router.get('/auth/verify-code', async function(req,res){
 });
 
 router.get('/auth/verify',function(req,res){
+
+    //check if user loggedin 
+    if (req.session.auth){
+        return res.redirect('/');
+    }
+    
     console.log(req.protocol+":/"+req.get('host'));
     if((req.protocol+"://"+req.get('host'))==("http://"+host))
     {
