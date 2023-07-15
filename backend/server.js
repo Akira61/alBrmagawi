@@ -59,4 +59,7 @@ app.use('/', require('./routes/auth/login/login'));
 //fotgot password
 app.use('/', require('./routes/auth/forgot-password'))
 
+//contact us
+app.use('/', require('./routes/contact.us'));
+
 app.listen(PORT, ()=> console.log(`Listening on http://127.0.0.1:${PORT}`));
