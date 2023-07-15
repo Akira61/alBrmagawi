@@ -25,7 +25,7 @@ router.get('/auth/verify-code', async function(req,res){
 
     // check if user exists
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-    const user = await asyncQuery(`SELECT * FROM users WHERE user_id='${req.query.to}'`);
+    const user = await asyncQuery(`SELECT * FROM users WHERE user_id=?`, [req.query.to]);
     console.log(user);
     if(user.length == 0 || user[0].verified ==1){
         return res.json({err_message: 'user not found'})
@@ -53,7 +53,7 @@ router.get('/auth/verify-code', async function(req,res){
     });
 });
 
-router.get('/auth/verify',function(req,res){
+router.get('/auth/verify', async function(req,res){
 
     console.log(req.protocol+":/"+req.get('host'));
     if((req.protocol+"://"+req.get('host'))==("http://"+host))
@@ -67,6 +67,15 @@ router.get('/auth/verify',function(req,res){
             })
             console.log("email is verified");
 
+            //set session 
+            const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
+            const user = await asyncQuery(`SELECT * FROM users WHERE email=?`,[mailOptions.to]);
+            req.session.auth = true;
+            req.session.user = await user[0];
+
+            // change rand so user can't go back to the link in the email and verify
+            rand = Math.floor(100000 + Math.random() * 900000);
+            
             // res.end("<h1>Email "+mailOptions.to+" is been Successfully verified</h1>");
             res.redirect('/');
         }

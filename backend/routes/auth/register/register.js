@@ -69,7 +69,8 @@ router.post('/auth/register', async(req, res) => {
     })
 
     // send verification code
-    res.redirect(process.env.HOST + `/auth/verify-code?to=${userId}`)
+    // res.redirect(process.env.HOST + `/auth/verify-code?to=${userId}`)
+    res.redirect('/auth/login');
 })
 
 
