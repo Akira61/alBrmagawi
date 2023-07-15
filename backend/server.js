@@ -50,6 +50,11 @@ app.get('/hi', (req, res) => {
 //register
 app.use('/', require('./routes/auth/register/register'));
 
+//register option
+app.use('/', require('./routes/auth/register/options'));
+
+//teacher register
+app.use('/', require('./routes/auth/register/teacher'));
 // send verification code
 app.use('/', require('./routes/auth/verify'));
 

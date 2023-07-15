@@ -14,7 +14,6 @@ router.get('/auth/register', (req, res) => {
     if (req.session.auth){
         return res.redirect('/');
     }
-
     res.render('./auth/register.ejs');
 })
 
