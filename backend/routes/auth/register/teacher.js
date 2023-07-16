@@ -42,7 +42,11 @@ router.post('/auth/register/teacher', async (req, res) => {
     }
 
     //check if email already exists in teachers and users DB
-    const userExists = await asyncQuery(`SELECT * FROM teachers WHERE email= ?`,[req.body.email]);
+    // const userExists = await asyncQuery(`
+    // (SELECT * FROM teachers WHERE email = ?) 
+    // UNION 
+    // (SELECT * FROM users WHERE email = ?); `,[req.body.email, req.body.email]);
+    const userExists = await userExists(req.body.email, 'email');
     if(userExists.length >0){
         return res.json({err_message : "Email already taking"});
     }
@@ -71,7 +75,7 @@ router.post('/auth/register/teacher', async (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?);`,
     [uuid(), req.body.firstName, req.body.lastName,
          req.body.number, req.body.email,
-         req.body.password,req.body.gender,
+         hashedPass,req.body.gender,
          req.body.Designation, req.body.department,
          req.body.birth, req.body.education
     ], (err, result) => {

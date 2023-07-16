@@ -1,5 +1,7 @@
 # authantication paths
 /auth/register
+/auth/register/option
+/auth/register/teacher
 /auth/login
 /auth/verify-code
 /auth/verify

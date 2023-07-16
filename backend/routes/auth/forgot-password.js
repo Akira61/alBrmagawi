@@ -6,6 +6,7 @@ const bcrypt    = require('bcrypt');
 const path      = require('path');
 const nodemailer = require("nodemailer");
 const {Query}     = require('../../server');
+const { userExists } = require('./functions');
 
 
 /*
@@ -35,7 +36,12 @@ router.post('/auth/forgot-password', async(req, res) => {
 
     //check if email exists
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-    const user = await asyncQuery(`SELECT email FROM users WHERE email=?`,[email]);
+    // const user = await asyncQuery(`
+    // (SELECT * FROM teachers WHERE email = ?) 
+    // UNION 
+    // (SELECT * FROM users WHERE email = ?); `,[email,email]);
+    const user = await userExists(email, 'email')
+    console.log(user)
     if(user.length == 0)return res.send('email not found. Please try to <a href="/auth/register">sign up</a>');
 
     // generate random token
@@ -46,7 +52,7 @@ router.post('/auth/forgot-password', async(req, res) => {
     //send email link to reset password
     mailOptions={
         from : process.env.SMTP_email,
-        to : await user[0].email,// get email from user_id specifieded in the url
+        to : email,// get email from user_id specifieded in the url
         subject : "Reset password",
         html : "Hello,<br> Please Click on the link to reset your password.<br><a href="+link+">Click here to reset</a>" 
     }
@@ -99,7 +105,10 @@ router.post('/auth/forgot-password/reset-password', async(req, res) => {
 
     //update password
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-    const user = await asyncQuery(`UPDATE users SET password =? WHERE email=?`,[newPass, mailOptions.to]);
+    const user = await asyncQuery(`
+    UPDATE teachers SET password =? WHERE email=?;
+    UPDATE users SET password =? WHERE email=?;
+    `,[newPass, mailOptions.to,newPass, mailOptions.to]);
 
     // change rand so user can't go back to the link in the email and change the password
     rand = Math.floor(100000 + Math.random() * 900000);

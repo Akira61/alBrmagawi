@@ -6,6 +6,7 @@ const util = require("util");
 const nodemailer = require("nodemailer");
 const {v4 : uuid} = require("uuid");
 const {Query}     = require('../../../server');
+const { userExists } = require('../functions');
 
 
 // get register page
@@ -35,8 +36,12 @@ router.post('/auth/register', async(req, res) => {
 
     // check if user already exists
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-    const userExists = await asyncQuery(`SELECT * FROM users WHERE email= ?`,[email]);
-    if(userExists.length > 0){
+    // const userExists = await asyncQuery(`
+    // (SELECT * FROM teachers WHERE email = ?) 
+    // UNION 
+    // (SELECT * FROM users WHERE email = ?); `,[email,email]);
+    const user = await userExists(email, 'email')
+    if(user.length > 0){
         return res.json({err_message: 'Email already takeing'})
     }
  

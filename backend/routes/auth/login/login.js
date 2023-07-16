@@ -5,6 +5,7 @@ const session   = require('express-session');
 const bcrypt    = require('bcrypt');
 const util = require("util");
 const {Query}     = require('../../../server');
+const { userExists } = require('../functions');
 
 
 router.get('/auth/login', (req, res) => {
@@ -38,10 +39,19 @@ router.post('/auth/login', async(req, res) => {
         return res.json({err_message : "Email is unvalid. Please Write your Email correctly"})
     }
 
-    // check if user exists
+    // check if user or teacher exists
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-    const user = await asyncQuery(`SELECT * FROM users WHERE email= ?;`, [email]);
-    if (user.length == 0){
+    // const user = await asyncQuery(`
+    // (SELECT * FROM teachers WHERE email = ?) 
+    // UNION 
+    // (SELECT * FROM users WHERE email = ?); 
+    // `, [email,email]);
+    const user = await userExists(email, 'email');
+    console.log("%".repeat(29), user)
+    //const user = await asyncQuery(`SELECT * FROM users WHERE email= ?;`, [email]);
+    //const teacher = await asyncQuery(`SELECT * FROM teachers WHERE email= ?;`, [email]);
+    // console.log("-".repeat(30),user);
+    if (user.length == 0 ){
         return res.json({err_message : "User not found. Please Try To Sign Up"})
     }
 

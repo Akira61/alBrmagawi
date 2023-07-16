@@ -5,6 +5,7 @@ const util      = require('util');
 const path      = require('path');
 const nodemailer = require("nodemailer");
 const {Query}     = require('../../server');
+const { userExists } = require('./functions');
 
 /*
     Here we are configuring our SMTP Server details.
@@ -22,11 +23,17 @@ const {Query}     = require('../../server');
  
 router.get('/auth/verify-code', async function(req,res){
     if(!req.query.to) return res.send('no email sent');
-
+ 
     // check if user exists
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-    const user = await asyncQuery(`SELECT * FROM users WHERE user_id=?`, [req.query.to]);
-    console.log(user);
+    // const user = await asyncQuery(`
+    // (SELECT * FROM teachers WHERE email = ?) 
+    // UNION 
+    // (SELECT * FROM users WHERE email = ?); 
+    // `, [req.query.to, req.query.to]);
+    // console.log(user);
+    const user = await userExists(req.query.to, 'user_id');
+    console.log("%".repeat(29), user)
     if(user.length == 0 || user[0].verified ==1){
         return res.json({err_message: 'user not found'})
     }
@@ -61,7 +68,9 @@ router.get('/auth/verify', async function(req,res){
         console.log("Domain is matched. Information is from Authentic email");
         if(req.query.id==rand)
         {
-            Query.query(`UPDATE users SET verified = 1 WHERE email = ?`,[mailOptions.to], (err, result) => {
+            Query.query(`
+            UPDATE users SET verified = 1 WHERE email = ?;
+            UPDATE teachers SET verified = 1 WHERE email = ?;`,[mailOptions.to, mailOptions.to], (err, result) => {
                 if(err) console.log(err);
                 console.log("user verified updated");
             })
@@ -69,13 +78,16 @@ router.get('/auth/verify', async function(req,res){
 
             //set session 
             const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-            const user = await asyncQuery(`SELECT * FROM users WHERE email=?`,[mailOptions.to]);
+            const user = await asyncQuery(`
+            (SELECT * FROM teachers WHERE email = ?) 
+            UNION 
+            (SELECT * FROM users WHERE email = ?); `,[mailOptions.to, mailOptions.to]);
             req.session.auth = true;
             req.session.user = await user[0];
 
             // change rand so user can't go back to the link in the email and verify
             rand = Math.floor(100000 + Math.random() * 900000);
-            
+
             // res.end("<h1>Email "+mailOptions.to+" is been Successfully verified</h1>");
             res.redirect('/');
         }

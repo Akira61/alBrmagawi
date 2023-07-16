@@ -23,7 +23,7 @@ const PORT      = process.env.PORT || 4545;
         user : process.env.MYSQL_USER,
         password : process.env.MYSQL_PASSWORD,
         database : process.env.MYSQL_DBNAME,
-        multipleStatements : false // to prevent sql injection to run more then one command
+        multipleStatements : true //  to prevent sql injection to run more then one command
     })
     module.exports.Query = mysqlQuery;
 //End database
