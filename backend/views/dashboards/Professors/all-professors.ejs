@@ -475,7 +475,7 @@
 															<td style="color: #fff;"><%= e.birth_day %></td>
 															<td>
 																<a href="/dashboard/edit-professor?user_id=<%= e.user_id %>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-																<a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+																<a onclick="deleteProfessor('<%= e.user_id%>')" href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
 															</td>												
 														</tr>
 													<% }) %>
@@ -588,6 +588,19 @@
     <script src="/vendor/svganimation/vivus.min.js"></script>
     <script src="/vendor/svganimation/svg.animation.js"></script>
     <script src="/js/styleSwitcher.js"></script>
-	
+	<script>
+
+		async function deleteProfessor(user_id){
+			console.log(user_id)
+			const worning = confirm('are you sure?');
+			if(worning){
+				// const res = await fetch(`http://localhost:4545/dashboard/delete-professor?user_id=${user_id}`,{method : 'delete'})
+				const response = await fetch(`/dashboard/delete-professor?user_id=${user_id}`, {
+                method : "DELETE",
+                credentials :"include",
+            });
+			}
+		}
+	</script>
 </body>
 </html>

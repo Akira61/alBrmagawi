@@ -10,7 +10,7 @@ const PORT      = process.env.PORT || 4545;
 
 //middleware
     app.use(express.static('public'));
-    app.use(cors({origin: process.env.HOST ,credentials: true}))
+    app.use(cors({origin: process.env.HOST }))
     app.use(express.json({limit : '50mb'}));
     app.use(express.urlencoded({extended: true}));
     app.use(helmet({contentSecurityPolicy: false}));
