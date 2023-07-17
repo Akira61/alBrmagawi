@@ -9,7 +9,7 @@ const cors      = require('cors');
 const PORT      = process.env.PORT || 4545;
 
 //middleware
-    app.use("/public",express.static('public'));
+    app.use(express.static('public'));
     app.use(cors({origin: process.env.HOST ,credentials: true}))
     app.use(express.json({limit : '50mb'}));
     app.use(express.urlencoded({extended: true}));
@@ -66,5 +66,11 @@ app.use('/', require('./routes/auth/forgot-password'))
 
 //contact us
 app.use('/', require('./routes/contact.us'));
+
+// student dashboard
+app.use('/', require("./routes/dashboards/student"));
+
+// admin dashboard
+app.use('/', require("./routes/dashboards/admin"));
 
 app.listen(PORT, ()=> console.log(`Listening on http://127.0.0.1:${PORT}`));
