@@ -78,10 +78,12 @@ router.get('/auth/verify', async function(req,res){
 
             //set session 
             const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-            const user = await asyncQuery(`
-            (SELECT * FROM teachers WHERE email = ?) 
-            UNION 
-            (SELECT * FROM users WHERE email = ?); `,[mailOptions.to, mailOptions.to]);
+            // const user = await asyncQuery(`
+            // (SELECT * FROM teachers WHERE email = ?) 
+            // UNION 
+            // (SELECT * FROM users WHERE email = ?); `,[mailOptions.to, mailOptions.to]);
+            const user = await userExists(mailOptions.to,'email')
+            console.log(user);
             req.session.auth = true;
             req.session.user = await user[0];
 

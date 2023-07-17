@@ -5,7 +5,8 @@ const bcrypt    = require('bcrypt');
 const util = require("util");
 const nodemailer = require("nodemailer");
 const {v4 : uuid} = require("uuid");
-const {Query}     = require('../../../server');
+const { userExists } = require('../functions');
+const { Query } = require('../../../server');
 
 
 router.get('/auth/register/teacher', (req, res) => {
@@ -46,8 +47,8 @@ router.post('/auth/register/teacher', async (req, res) => {
     // (SELECT * FROM teachers WHERE email = ?) 
     // UNION 
     // (SELECT * FROM users WHERE email = ?); `,[req.body.email, req.body.email]);
-    const userExists = await userExists(req.body.email, 'email');
-    if(userExists.length >0){
+    const user = await userExists(req.body.email, 'email');
+    if(user.length >0){
         return res.json({err_message : "Email already taking"});
     }
 
@@ -71,13 +72,13 @@ router.post('/auth/register/teacher', async (req, res) => {
     (user_id, first_name, last_name , 
     phone_number, email, password, 
     gender, designation, department,
-    birth_day, education)
-    VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?);`,
+    birth_day, education, joining_date)
+    VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?);`,
     [uuid(), req.body.firstName, req.body.lastName,
          req.body.number, req.body.email,
          hashedPass,req.body.gender,
          req.body.Designation, req.body.department,
-         req.body.birth, req.body.education
+         req.body.birth, req.body.education, new Date()
     ], (err, result) => {
         if(err) throw err;
         console.log("teacher added successfully ✅");

@@ -4,12 +4,8 @@ const router    = express.Router();
 const util      = require('util');
 const path      = require('path');
 const nodemailer = require("nodemailer");
-const {Query}     = require('../../server');
+const { Query } = require('../../../../server');
 
-
-router.get('/dashboard/admin', (req, res) => {
-    res.render('./dashboards/admin.ejs')
-})
 
 // all Professors
 router.get('/dashboard/all-professors', async(req, res) => {
@@ -22,5 +18,7 @@ router.get('/dashboard/all-professors', async(req, res) => {
     console.log(teachers);
     res.render('./dashboards/Professors/all-professors.ejs', {data : teachers})
 })
+
+
 
 module.exports = router;

@@ -26,6 +26,9 @@ const { userExists } = require('./functions');
 
 // page where user enter the email
 router.get('/auth/forgot-password', (req, res) => {
+    if (req.session.auth){
+        return res.redirect('/');
+    }
     res.render('./auth/forgot-password.ejs')
 })
 

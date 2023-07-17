@@ -1,0 +1,24 @@
+
+
+const auth = {
+    login : '/auth/login',
+    studentRegister : '/auth/register',
+    teacherRegister : '/auth/register/teacher',
+    forgotPassword : '/auth/forgot-password',
+}
+
+const dashboards = {
+    admin : {
+        professors : {
+            allProfessors : '/dashboard/all-professors',
+            addProfessor  : '/dashboard/add-professor',
+        }
+    }
+}
+
+const URLs = {
+    HOST : 'http://127.0.0.1:4545',
+    index : '/',
+    auth : auth,
+    dashboards : dashboards,
+}

@@ -71,6 +71,7 @@ app.use('/', require('./routes/contact.us'));
 app.use('/', require("./routes/dashboards/student"));
 
 // admin dashboard
-app.use('/', require("./routes/dashboards/admin"));
+    app.use('/', require("./routes/dashboards/admin/admin"));
+//End admin dashboard
 
 app.listen(PORT, ()=> console.log(`Listening on http://127.0.0.1:${PORT}`));
