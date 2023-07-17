@@ -14,7 +14,7 @@ router.get('/dashboard/admin', (req, res) => {
 // Professors routes
     router.use('/', require('./professors/all-professors'));// get all professors
     router.use('/', require('./professors/add-professor')); // add professor
-    
+    router.use('/', require('./professors/edit.professor')); // edit professor
 //End Professors routes
 
 module.exports = router;

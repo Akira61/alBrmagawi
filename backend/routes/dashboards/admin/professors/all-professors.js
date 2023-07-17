@@ -11,9 +11,9 @@ const { Query } = require('../../../../server');
 router.get('/dashboard/all-professors', async(req, res) => {
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
     const teachers = await asyncQuery(`
-    SELECT first_name, last_name, phone_number,
+    SELECT user_id,first_name, last_name, phone_number,
     email, gender, designation, department, education,
-    birth_day FROM teachers
+    birth_day, joining_date FROM teachers
     `);
     console.log(teachers);
     res.render('./dashboards/Professors/all-professors.ejs', {data : teachers})
