@@ -70,6 +70,7 @@ router.post('/auth/login', async(req, res) => {
     //set session 
     req.session.auth = true;
     req.session.user = await user[0];
+    
     res.redirect('/');
 })
 

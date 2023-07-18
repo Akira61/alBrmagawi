@@ -6,16 +6,32 @@ const path      = require('path');
 const nodemailer = require("nodemailer");
 
 
-router.get('/dashboard/admin', (req, res) => {
+
+router.get('/dashboard/admin',isAdmin, (req, res) => {
     res.render('./dashboards/admin.ejs')
 })
+ 
 
-
-// Professors routes
+// Professors route
     router.use('/', require('./professors/all-professors'));// get all professors
     router.use('/', require('./professors/add-professor')); // add professor
     router.use('/', require('./professors/edit.professor')); // edit professor
     router.use('/', require('./professors/remove-professor')); // delete professor
 //End Professors routes
 
+// students route
+    router.use('/', require('./students/all-students')); //get all students
+//End student route
+
+function isAdmin(req, res, next){
+    // console.log(req.session.user)
+    // if(!req.session.auth){
+    //     return res.redirect('/')
+    // }
+    // if(req.session.user.role == 'admin'){
+    //     return next();
+    // }
+    //return res.redirect('/');
+    next()
+}
 module.exports = router;
