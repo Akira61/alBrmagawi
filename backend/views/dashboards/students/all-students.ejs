@@ -83,7 +83,7 @@
 															<td><a href="javascript:void(0);"><strong style="color: #fff;"><%= e.email %></strong></a></td>
 															<td style="color: #fff;"><%= e.joining_date %></td>
 															<td>
-																<a href="/dashboard/edit-professor?user_id=<%= e.user_id %>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+																<a href="/dashboard/admin/edit-student?user_id=<%= e.user_id %>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
 																<a onclick="deleteProfessor('<%= e.user_id%>')" href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
 															</td>												
 														</tr>
@@ -106,8 +106,8 @@
 														</button>
 														<div class="dropdown-menu dropdown-menu-right border py-0">
 															<div class="py-2">
-																<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-																<a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+																<a class="dropdown-item" href="/dashboard/admin/edit-student?user_id=<%= e.user_id %>">Edit</a>
+																<a class="dropdown-item text-danger" onclick="deleteProfessor('<%= e.user_id%>')" href="javascript:void(0);">Delete</a>
 															</div>
 														</div>
 													</div>
@@ -201,8 +201,7 @@
 			console.log(user_id)
 			const worning = confirm('are you sure?');
 			if(worning){
-				// const res = await fetch(`http://localhost:4545/dashboard/delete-professor?user_id=${user_id}`,{method : 'delete'})
-				const response = await fetch(`/dashboard/delete-professor?user_id=${user_id}`, {
+				const response = await fetch(`/dashboard/admin/delete-student?user_id=${user_id}`, {
                 method : "DELETE",
                 credentials :"include",
             });

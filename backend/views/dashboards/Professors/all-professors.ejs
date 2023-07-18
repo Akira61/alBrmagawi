@@ -110,8 +110,8 @@
 														</button>
 														<div class="dropdown-menu dropdown-menu-right border py-0">
 															<div class="py-2">
-																<a class="dropdown-item" href="javascript:void(0);">Edit</a>
-																<a class="dropdown-item text-danger" href="javascript:void(0);">Delete</a>
+																<a class="dropdown-item" href="/dashboard/edit-professor?user_id=<%= e.user_id %>">Edit</a>
+																<a class="dropdown-item text-danger" onclick="deleteProfessor('<%= e.user_id%>')" href="javascript:void(0);">Delete</a>
 															</div>
 														</div>
 													</div>

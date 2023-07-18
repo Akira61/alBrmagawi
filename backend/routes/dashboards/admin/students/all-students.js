@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const { Query } = require('../../../../server');
 
 
-router.get('/dashboard/admin/all-student', async(req, res) => {
+router.get('/dashboard/admin/all-students', async(req, res) => {
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
     const users = await asyncQuery(`
     SELECT user_id,first_name, last_name,

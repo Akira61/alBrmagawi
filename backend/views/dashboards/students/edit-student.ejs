@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Edumin - Bootstrap Admin Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link rel="stylesheet" href="/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+	
+	<!-- Pick date -->
+    <link rel="stylesheet" href="/vendor/pickadate/themes/default.css">
+    <link rel="stylesheet" href="/vendor/pickadate/themes/default.date.css">
+
+</head>
+
+<body>
+
+    <!-- side navbar -->
+	<%- include('../../components/dashboardNavbar.ejs') %>
+    
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body" style="background-color: #262932; margin-bottom: -11rem;">
+            <!-- row -->
+            <div class="container-fluid">
+			
+                <div class="row page-titles mx-0" style="background-color: #262932;">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4 style="color: #fff;">Edit Professor</h4>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active"><a href="edit-professor.html">Professors</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Professor</a></li>
+                        </ol>
+                    </div>
+                </div>
+				
+				<div class="row">
+					<div class="col-xl-12 col-xxl-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header" style="background-color: #262932;">
+								<h5 class="card-title" style="color: #fff;">Basic Info</h5>
+							</div>
+							<div class="card-body">
+                                <form action="/dashboard/admin/edit-student?user_id=<%= data[0].user_id %>" method="post">
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label" style="color: #fff;">First Name</label>
+												<input type="text" name="firstName" class="form-control" value="<%= data[0].first_name %>" style="background-color: #262932; color: #fff; border: 2px solid #383C45;" >
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label" style="color: #fff;">Last Name</label>
+												<input type="text" name="lastName" class="form-control" value="<%= data[0].last_name %>" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label" style="color: #fff;">Email Here</label>
+												<input type="text" name="email" class="form-control" value="<%= data[0].email %>" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
+											</div>
+										</div>
+										
+										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label" style="color: #fff;">Password</label>
+												<input type="password" class="form-control" placeholder="password" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label" style="color: #fff;">Confirm Password</label>
+												<input type="password" class="form-control" placeholder="password" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
+											</div>
+										</div> -->
+										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label" style="color: #fff;">Mobile Number</label>
+												<input type="text" name="number" class="form-control" value="<%= data[0].phone_number %>" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
+											</div>
+										</div> -->
+										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label" style="color: #fff;">Gender</label>
+												<select name="gender" class="form-control">
+													<option value="<%= data[0].gender %>" selected hidden><%= data[0].gender %></option>
+													<option value="Male">Male</option>
+													<option value="Female">Female</option>
+												</select>
+											</div>
+										</div>
+										 -->
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<div class="form-group fallback w-100">
+												<input type="file" name="file" class="dropify" data-default-file="" style="color: #828690;">
+											</div>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12">
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</div>
+								</form>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer" style="background-color: #262932;">
+            <div class="copyright">
+                <p style="color: #fff;">Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">AlBrmagawi</a> 2023</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+		<!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+<script src="/vendor/global/global.min.js"></script>
+	<script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="/js/custom.min.js"></script>
+	<script src="/js/dlabnav-init.js"></script>
+
+	<!-- Svganimation scripts -->
+    <script src="/vendor/svganimation/vivus.min.js"></script>
+    <script src="/vendor/svganimation/svg.animation.js"></script>
+    <script src="/js/styleSwitcher.js"></script>
+	
+	<!-- pickdate -->
+    <script src="/vendor/pickadate/picker.js"></script>
+    <script src="/vendor/pickadate/picker.time.js"></script>
+    <script src="/vendor/pickadate/picker.date.js"></script>
+	
+	<!-- Pickdate -->
+    <script src="/js/plugins-init/pickadate-init.js"></script>
+	
+</body>
+</html>

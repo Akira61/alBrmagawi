@@ -12,6 +12,10 @@ const dashboards = {
         professors : {
             allProfessors : '/dashboard/all-professors',
             addProfessor  : '/dashboard/add-professor',
+        },
+        students : {
+            all : '/dashboard/admin/all-students',
+            add : '/dashboard/admin/add-student'
         }
     }
 }
@@ -22,3 +26,5 @@ const URLs = {
     auth : auth,
     dashboards : dashboards,
 }
+
+module.exports.URLs = URLs;

@@ -21,6 +21,9 @@ router.get('/dashboard/admin',isAdmin, (req, res) => {
 
 // students route
     router.use('/', require('./students/all-students')); //get all students
+    router.use('/', require('./students/add-student')); // add student
+    router.use('/', require('./students/edit-student')); //edit student
+    router.use('/', require('./students/remove-student')); //delete student
 //End student route
 
 function isAdmin(req, res, next){
