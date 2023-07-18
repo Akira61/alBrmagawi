@@ -31,14 +31,14 @@
                 <div class="row page-titles mx-0" style="background-color: #262932;">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4 style="color: #fff;">All Students</h4>
+                            <h4 style="color: #fff;">All Staff</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Students</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All Students</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Staff</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All Staff</a></li>
                         </ol>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
 							<div id="list-view" class="tab-pane fade active show col-lg-12">
 								<div class="card">
 									<div class="card-header" style="background-color: #262932;">
-										<h4 class="card-title" style="color: #fff;">All Students</h4>
+										<h4 class="card-title" style="color: #fff;">All Staff</h4>
 										<a href="add-professor.html" class="btn btn-primary">+ Add new</a>
 									</div>
 									<div class="card-body">
@@ -65,7 +65,7 @@
 													<tr>
 														<th></th>
 														<th style="color: #fff;">Name</th>
-														<th style="color: #fff;">Education</th>
+														<th style="color: #fff;">Role</th>
 														<th style="color: #fff;">Mobile</th>
 														<th style="color: #fff;">Email</th>
 														<th style="color: #fff;">Joining Date</th>
@@ -78,12 +78,12 @@
 														<tr>
 															<td><img class="rounded-circle" width="35" src="/images/profile/education/Avatar.png" alt=""></td>
 															<td style="color: #fff;"><%= e.first_name + ' ' + e.last_name %></td>
-															<td style="color: #fff;"><%= e.education %></td>
+															<td style="color: #fff;"><%= e.role %></td>
 															<td><a href="javascript:void(0);"><strong style="color: #fff;"><%= e.phone_number %></strong></a></td>
 															<td><a href="javascript:void(0);"><strong style="color: #fff;"><%= e.email %></strong></a></td>
 															<td style="color: #fff;"><%= e.joining_date %></td>
 															<td>
-																<a href="/dashboard/admin/edit-student?user_id=<%= e.user_id %>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+																<a href="/dashboard/admin/edit-staff?user_id=<%= e.user_id %>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
 																<a onclick="deleteProfessor('<%= e.user_id%>')" href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
 															</td>												
 														</tr>
@@ -106,7 +106,7 @@
 														</button>
 														<div class="dropdown-menu dropdown-menu-right border py-0">
 															<div class="py-2">
-																<a class="dropdown-item" href="/dashboard/admin/edit-student?user_id=<%= e.user_id %>">Edit</a>
+																<a class="dropdown-item" href="/dashboard/admin/edit-staff?user_id=<%= e.user_id %>">Edit</a>
 																<a class="dropdown-item text-danger" onclick="deleteProfessor('<%= e.user_id%>')" href="javascript:void(0);">Delete</a>
 															</div>
 														</div>
@@ -201,7 +201,7 @@
 			console.log(user_id)
 			const worning = confirm('are you sure?');
 			if(worning){
-				const response = await fetch(`/dashboard/admin/delete-student?user_id=${user_id}`, {
+				const response = await fetch(`/dashboard/admin/delete-staff?user_id=${user_id}`, {
                 method : "DELETE",
                 credentials :"include",
             });

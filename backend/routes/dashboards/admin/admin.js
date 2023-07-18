@@ -26,6 +26,14 @@ router.get('/dashboard/admin',isAdmin, (req, res) => {
     router.use('/', require('./students/remove-student')); //delete student
 //End student route
 
+// Staff routes
+    router.use('/', require('./staff/all-staff')); // get all staff
+    router.use('/', require('./staff/add-staff')); // add staff
+    router.use('/', require('./staff/edit-staff')); // edit staff
+    router.use('/', require('./staff/remove-staff')); // remove staff
+// End staff routes
+
+
 function isAdmin(req, res, next){
     // console.log(req.session.user)
     // if(!req.session.auth){

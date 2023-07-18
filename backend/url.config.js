@@ -15,7 +15,11 @@ const dashboards = {
         },
         students : {
             all : '/dashboard/admin/all-students',
-            add : '/dashboard/admin/add-student'
+            add : '/dashboard/admin/add-student',
+        },
+        staff : {
+            all : '/dashboard/admin/all-staff',
+            add : '/dashboard/admin/add-staff'
         }
     }
 }
