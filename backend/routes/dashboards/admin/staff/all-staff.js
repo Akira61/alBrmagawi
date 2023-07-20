@@ -15,7 +15,7 @@ router.get('/dashboard/admin/all-staff', async(req, res) => {
     FROM staff
     `);
     console.log(users);
-    res.render('./dashboards/staff/all-staff.ejs', {data : users})
+    res.render('./dashboards/admin/staff/all-staff.ejs', {data : users})
 })
 
 module.exports = router;

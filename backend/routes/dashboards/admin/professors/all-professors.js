@@ -16,7 +16,7 @@ router.get('/dashboard/all-professors', async(req, res) => {
     birth_day, joining_date FROM teachers
     `);
     console.log(teachers);
-    res.render('./dashboards/Professors/all-professors.ejs', {data : teachers})
+    res.render('./dashboards/admin/Professors/all-professors.ejs', {data : teachers})
 })
 
 

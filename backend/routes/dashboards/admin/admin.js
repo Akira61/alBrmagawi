@@ -8,7 +8,7 @@ const nodemailer = require("nodemailer");
 
 
 router.get('/dashboard/admin',isAdmin, (req, res) => {
-    res.render('./dashboards/admin.ejs')
+    res.render('./dashboards/admin/admin.ejs')
 })
  
 

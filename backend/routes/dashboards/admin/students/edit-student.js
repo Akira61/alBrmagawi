@@ -23,7 +23,7 @@ router.get('/dashboard/admin/edit-student', async(req, res) => {
     }
 
     console.log(user);
-    res.render('./dashboards/students/edit-student.ejs', {data : user});
+    res.render('./dashboards/admin/students/edit-student.ejs', {data : user});
 })
 
 

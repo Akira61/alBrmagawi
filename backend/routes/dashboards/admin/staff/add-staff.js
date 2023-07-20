@@ -12,7 +12,7 @@ const { URLs } = require('../../../../url.config');
 
 
 router.get('/dashboard/admin/add-staff', (req, res) => {
-    res.render('./dashboards/staff/add-staff.ejs');
+    res.render('./dashboards/admin/staff/add-staff.ejs');
 })
 
 

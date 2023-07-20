@@ -11,7 +11,7 @@ const { Query } = require('../../../../server');
 
 
 router.get('/dashboard/add-professor', (req, res) => {
-    res.render('./dashboards/Professors/add-professor.ejs');
+    res.render('./dashboards/admin/Professors/add-professor.ejs');
 })
 
 

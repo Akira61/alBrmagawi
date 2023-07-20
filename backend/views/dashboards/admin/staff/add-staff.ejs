@@ -21,7 +21,7 @@
 <body>
 
     <!-- side navbar -->
-	<%- include('../../components/dashboardNavbar.ejs') %>
+	<%- include('../../../components/dashboardNavbar.ejs') %>
 		
         <!--**********************************
             Content body start
@@ -52,42 +52,49 @@
 								<h5 class="card-title" style="color: #fff;">Basic Info</h5>
 							</div>
 							<div class="card-body">
-                                <form action="/dashboard/admin/edit-staff?user_id=<%= data[0].user_id %>" method="post">
+                                <form action="/dashboard/admin/add-staff" method="post">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">First Name</label>
-												<input type="text" name="firstName" value="<%= data[0].first_name %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+												<input type="text" name="firstName" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Last Name</label>
-												<input type="text" name="lastName" value="<%= data[0].last_name %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+												<input type="text" name="lastName" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
 											</div>
 										</div>
                                         <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Number</label>
-                                                <input type="text" name="number" value="<%= data[0].phone_number %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+                                                <input type="text" name="number" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
                                             </div>
                                         </div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Email</label>
-												<input type="text" name="email" value="<%= data[0].email %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+												<input type="text" name="email" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
 											</div>
 										</div>
-                                        <!-- <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Password</label>
                                                 <input type="password" name="password" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
                                             </div>
-                                        </div> -->
+                                        </div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
 												<label class="form-label">Role</label>
-												<input type="text" name="role" value="<%= data[0].role %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+												<input type="text" name="role" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+											</div>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Verified Email</label>
+                                                <span>Don't send email verification</span>
+												<input type="checkbox" name="verified" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
 											</div>
 										</div>
 										<!-- <div class="col-lg-6 col-md-6 col-sm-12">

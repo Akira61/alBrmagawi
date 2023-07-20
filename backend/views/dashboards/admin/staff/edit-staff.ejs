@@ -3,7 +3,7 @@
 
 <head>
 	
-    <meta charset="utf-8">
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Edumin - Bootstrap Admin Dashboard </title>
@@ -21,26 +21,26 @@
 <body>
 
     <!-- side navbar -->
-	<%- include('../../components/dashboardNavbar.ejs') %>
-    
+	<%- include('../../../components/dashboardNavbar.ejs') %>
+		
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="content-body" style="background-color: #262932; margin-bottom: -11rem;">
+        <div class="content-body" style="background-color: #262932;">
             <!-- row -->
-            <div class="container-fluid">
-			
-                <div class="row page-titles mx-0" style="background-color: #262932;">
+            <div class="container-fluid" >
+				
+				<div class="row page-titles mx-0" style="background-color: #262932;">
                     <div class="col-sm-6 p-md-0">
                         <div class="welcome-text">
-                            <h4 style="color: #fff;">Edit Professor</h4>
+                            <h4 style="color: #fff;">Add Staff</h4>
                         </div>
                     </div>
                     <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                            <li class="breadcrumb-item active"><a href="edit-professor.html">Professors</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Edit Professor</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Staff</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Add Staff</a></li>
                         </ol>
                     </div>
                 </div>
@@ -52,63 +52,73 @@
 								<h5 class="card-title" style="color: #fff;">Basic Info</h5>
 							</div>
 							<div class="card-body">
-                                <form action="/dashboard/admin/edit-student?user_id=<%= data[0].user_id %>" method="post">
+                                <form action="/dashboard/admin/edit-staff?user_id=<%= data[0].user_id %>" method="post">
 									<div class="row">
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label" style="color: #fff;">First Name</label>
-												<input type="text" name="firstName" class="form-control" value="<%= data[0].first_name %>" style="background-color: #262932; color: #fff; border: 2px solid #383C45;" >
+												<label class="form-label">First Name</label>
+												<input type="text" name="firstName" value="<%= data[0].first_name %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
 											</div>
 										</div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label" style="color: #fff;">Last Name</label>
-												<input type="text" name="lastName" class="form-control" value="<%= data[0].last_name %>" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
+												<label class="form-label">Last Name</label>
+												<input type="text" name="lastName" value="<%= data[0].last_name %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
 											</div>
 										</div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Number</label>
+                                                <input type="text" name="number" value="<%= data[0].phone_number %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+                                            </div>
+                                        </div>
 										<div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label" style="color: #fff;">Email Here</label>
-												<input type="text" name="email" class="form-control" value="<%= data[0].email %>" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
+												<label class="form-label">Email</label>
+												<input type="text" name="email" value="<%= data[0].email %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
 											</div>
 										</div>
+                                        <!-- <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Password</label>
+                                                <input type="password" name="password" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+                                            </div>
+                                        </div> -->
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Role</label>
+												<input type="text" name="role" value="<%= data[0].role %>" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+											</div>
+										</div>
+										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Registration Date</label>
+												<input name="datepicker" class="datepicker-default form-control" id="datepicker" style="border: 1px solid #383c46;">
+											</div>
+										</div> -->
+										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
+											<div class="form-group">
+												<label class="form-label">Roll No.</label>
+												<input type="text" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
+											</div>
+										</div> -->
 										
 										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
 											<div class="form-group">
-												<label class="form-label" style="color: #fff;">Password</label>
-												<input type="password" class="form-control" placeholder="password" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
-											</div>
-										</div>
-										<div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label" style="color: #fff;">Confirm Password</label>
-												<input type="password" class="form-control" placeholder="password" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
+												<label class="form-label">Mobile Number</label>
+												<input type="text" class="form-control" style="background-color: #262932; border: 1px solid #383c46; color: #fff;">
 											</div>
 										</div> -->
-										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label" style="color: #fff;">Mobile Number</label>
-												<input type="text" name="number" class="form-control" value="<%= data[0].phone_number %>" style="background-color: #262932; color: #fff; border: 2px solid #383C45;">
-											</div>
-										</div> -->
-										<!-- <div class="col-lg-6 col-md-6 col-sm-12">
-											<div class="form-group">
-												<label class="form-label" style="color: #fff;">Gender</label>
-												<select name="gender" class="form-control">
-													<option value="<%= data[0].gender %>" selected hidden><%= data[0].gender %></option>
-													<option value="Male">Male</option>
-													<option value="Female">Female</option>
-												</select>
-											</div>
-										</div>
-										 -->
+
+	
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<div class="form-group fallback w-100">
-												<input type="file" name="file" class="dropify" data-default-file="" style="color: #828690;">
+												<input type="file" class="dropify" data-default-file="">
 											</div>
 										</div>
 										<div class="col-lg-12 col-md-12 col-sm-12">
 											<button type="submit" class="btn btn-primary">Submit</button>
+											<button type="submit" class="btn btn-light">Cencel</button>
 										</div>
 									</div>
 								</form>
@@ -116,7 +126,7 @@
                         </div>
                     </div>
 				</div>
-				
+                
             </div>
         </div>
         <!--**********************************
@@ -127,8 +137,8 @@
         <!--**********************************
             Footer start
         ***********************************-->
-        <div class="footer" style="background-color: #262932;">
-            <div class="copyright">
+        <div class="footer">
+            <div class="copyright" style="background-color: #262932;">
                 <p style="color: #fff;">Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">AlBrmagawi</a> 2023</p>
             </div>
         </div>

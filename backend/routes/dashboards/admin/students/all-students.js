@@ -14,7 +14,7 @@ router.get('/dashboard/admin/all-students', async(req, res) => {
     email FROM users
     `);
     console.log(users);
-    res.render('./dashboards/students/all-students.ejs', {data : users})
+    res.render('./dashboards/admin/students/all-students.ejs', {data : users})
 })
 
 module.exports = router;

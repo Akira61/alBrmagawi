@@ -23,7 +23,7 @@ router.get('/dashboard/admin/edit-staff', async(req, res) => {
     }
 
     console.log(user);
-    res.render('./dashboards/staff/edit-staff.ejs', {data : user});
+    res.render('./dashboards/admin/staff/edit-staff.ejs', {data : user});
 })
 
 
