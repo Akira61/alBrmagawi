@@ -6,6 +6,7 @@ const path      = require("path");
 const helmet    = require('helmet');
 const mysql     = require('mysql2');
 const cors      = require('cors');
+const multer    = require('multer');
 const PORT      = process.env.PORT || 4545;
 
 //middleware
@@ -41,6 +42,21 @@ app.use(session({
 }))
 
 
+// File system
+const storage = multer.diskStorage({
+    destination : (req, file, cb) => {
+        cb(null, "./public/uploads");
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + file.originalname;
+        cb(null, file.fieldname + '-' + uniqueSuffix)
+      }
+});
+const upload = multer({storage : storage})//save files in puloads 
+module.exports.Upload = upload;
+// End file system
+
+
 //Routes
 app.get('/hi', (req, res) => {
     res.send('<h1> Hi 👽 </h1>');
@@ -68,10 +84,14 @@ app.use('/', require('./routes/auth/forgot-password'))
 app.use('/', require('./routes/contact.us'));
 
 // student dashboard
-app.use('/', require("./routes/dashboards/student"));
+app.use('/', require("./routes/dashboards/student/student"));
 
 // admin dashboard
     app.use('/', require("./routes/dashboards/admin/admin"));
 //End admin dashboard
+
+// teacher dashboard
+    app.use('/', require('./routes/dashboards/teacher/teacher'))
+//End teacher dashboard
 
 app.listen(PORT, ()=> console.log(`Listening on http://127.0.0.1:${PORT}`));
