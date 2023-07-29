@@ -12,7 +12,7 @@ const PORT      = process.env.PORT || 4545;
 //middleware
     app.use(express.static('public'));
     app.use(cors({origin: process.env.HOST }))
-    app.use(express.json({limit : '50mb'}));
+    app.use(express.json(/*{limit : '50mb'}*/));
     app.use(express.urlencoded({extended: true}));
     app.use(helmet({contentSecurityPolicy: false}));
     app.set('view engine', 'ejs');
@@ -48,7 +48,7 @@ const storage = multer.diskStorage({
         cb(null, "./public/uploads");
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + file.originalname;
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9) + file.originalname.split(' ').join('');
         cb(null, file.fieldname + '-' + uniqueSuffix)
       }
 });

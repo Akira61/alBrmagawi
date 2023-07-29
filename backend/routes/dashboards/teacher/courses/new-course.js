@@ -61,14 +61,4 @@ router.post('/dashboard/teacher/course/new-course',Upload.single('thumbnail'), (
 })
 
 
-router.get('/dashboard/teacher/upload-course', (req, res) => {
-    res.render('./dashboards/courses/upload-course.ejs');
-})
-
-router.post('/dashboard/teacher/upload-course',Upload.single('contentType'), (req, res) => {
-    console.log(req.body);
-    console.log(req.file);
-    res.send(req.body)
-})
-
 module.exports = router;
