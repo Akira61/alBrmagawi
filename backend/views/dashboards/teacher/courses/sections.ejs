@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link rel="stylesheet" href="/vendor/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+	
+	<!-- Pick date -->
+    <link rel="stylesheet" href="/vendor/pickadate/themes/default.css">
+    <link rel="stylesheet" href="/vendor/pickadate/themes/default.date.css">
+
+    <title>Sections</title>
+</head>
+<body>
+    <!-- side navbar -->
+	<%- include('../../../components/teacherNavbar.ejs') %>
+
+    <div class="content-body" style=" background-color: #262932;color: #fff;">
+        <!-- row -->
+        <div class="container-fluid">
+                
+            <div class="row page-titles mx-0" style="background-color: #262932;">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4 style="color: #fff;">Add Course</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Add Course</a></li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="">
+                <div class="col-lg-12">
+
+                    <% sections.forEach(section => { %>
+                        <div class="card" style="background-color: #262932;color: #fff;">
+                            <div class="card-header" style="color: #fff;background-color: #454a59;">
+                                <h3 style="color: #fff;"><%= section %></h3>
+                              <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </div>
+                            <div class="newSection">
+                                <ul class="list-group list-group-flush">
+                                  <li class="list-group-item">
+                                    <div class="form-group">
+                                        <a href="/dashboard/teacher/course/<%= id %>/<%= section %>/upload-lesson" class="btn btn-link" style="color: #fff;"><i class="fa-solid fa-folder-plus mr-1"></i> New Lesson</a>
+                                    </div>
+                                    <!-- <div class="controls form-group my-3 col-lg-12 col-md-12 col-sm-12">
+                                        <input type="submit" value="Save" class="btn btn-primary" onclick="newSection()">
+                                        <input type="submit" value="Cancel" class="btn btn-primary">
+                                    </div> -->
+                                </li>
+                                </ul>
+                            </div>
+                          </div>
+                    <% }) %>
+
+                    <div class="card" style="background-color: #262932;">
+                        <div class="card-header" style="color: #fff;background-color: #454a59;">
+                          New Section
+                        </div>
+                        <div class="newSection">
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item">
+                                <div class="form-group">
+                                    <input type="text" id="newSectionInput" class="form-control" placeholder="section name" placeholder="section name" style="background-color: #262932;color: #fff; border: 1px solid #383c46;">
+                                </div>
+                                <div class="controls form-group my-3 col-lg-12 col-md-12 col-sm-12">
+                                    <input type="submit" value="Save" class="btn btn-primary" onclick="newSection()">
+                                    <!-- <input type="submit" value="Cancel" class="btn btn-primary"> -->
+                                </div>
+                            </li>
+                            </ul>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+
+
+    <!--**********************************
+        Footer start
+    ***********************************-->
+    <div class="footer">
+        <div class="copyright" style="background-color: #262932;">
+            <p style="color: #fff;">Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">AlBrmagawi</a> 2023</p>
+        </div>
+    </div>
+    <!--**********************************
+        Footer end
+    ***********************************-->
+
+    <script>
+        // new section
+        async function newSection(){
+            const input = document.querySelector('#newSectionInput').value;
+
+            console.log(input)
+            const res = await fetch('/dashboard/teacher/course/<%- id %>/new-section', {
+                method : 'POST',
+                headers : {'Content-Type': 'application/json'},
+                body : JSON.stringify({section : input})  
+            })
+            const data = await res.json();
+            console.log(data)
+            
+        }
+    </script>
+
+    <script src="https://kit.fontawesome.com/9365a412c7.js" crossorigin="anonymous"></script>
+
+ <!-- Required vendors -->
+ <script src="/vendor/global/global.min.js"></script>
+ <script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+ <script src="/js/custom.min.js"></script>
+ <script src="/js/dlabnav-init.js"></script>
+
+ <!-- Svganimation scripts -->
+ <script src="/vendor/svganimation/vivus.min.js"></script>
+ <script src="/vendor/svganimation/svg.animation.js"></script>
+ <script src="/js/styleSwitcher.js"></script>
+ 
+ <!-- pickdate -->
+ <script src="/vendor/pickadate/picker.js"></script>
+ <script src="/vendor/pickadate/picker.time.js"></script>
+ <script src="/vendor/pickadate/picker.date.js"></script>
+ 
+ <!-- Pickdate -->
+ <script src="/js/plugins-init/pickadate-init.js"></script>
+</body>
+</html>

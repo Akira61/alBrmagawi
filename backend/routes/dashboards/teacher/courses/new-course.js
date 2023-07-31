@@ -12,7 +12,7 @@ const { Upload, Query } = require('../../../../server');
 let thumbnail, title, price, type, about
 
 router.get('/dashboard/teacher/course/new-course', (req, res) => {
-    res.render('./dashboards/teacher/courses/general-info.ejs');
+    res.render('./dashboards/teacher/courses/add-course.ejs');
 })
 
 
@@ -40,7 +40,7 @@ router.post('/dashboard/teacher/course/new-course',Upload.single('thumbnail'), (
     if(req.body.price){
         if(!numRegex.test(req.body.price)) return res.json({err_message : "Price must be a number"})
     }
-   
+    
 
     // insert to DB
     Query.query(`

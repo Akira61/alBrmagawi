@@ -90,7 +90,7 @@
 															</td>
 															<td style="color: #fff;"><%= e.date %></td>
 															<td>
-																<a href="/dashboard/admin/edit-staff?user_id=<%= e.user_id %>" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+																<a href="/dashboard/teacher/course/<%= e.course_id %>/sections" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
 																<a onclick="deleteProfessor('<%= e.user_id%>')" href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
 															</td>												
 														</tr>
@@ -113,7 +113,7 @@
 														</button>
 														<div class="dropdown-menu dropdown-menu-right border py-0">
 															<div class="py-2">
-																<a class="dropdown-item" href="/dashboard/admin/edit-staff?user_id=<%= e.user_id %>">Edit</a>
+																<a class="dropdown-item" href="/dashboard/teacher/course/<%= e.course_id %>/sections">Edit</a>
 																<a class="dropdown-item text-danger" onclick="deleteProfessor('<%= e.user_id%>')" href="javascript:void(0);">Delete</a>
 															</div>
 														</div>

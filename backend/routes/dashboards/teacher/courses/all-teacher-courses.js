@@ -10,6 +10,9 @@ const { Upload, Query } = require('../../../../server');
 
 
 router.get('/dashboard/teacher/course/my-courses', async(req, res) => {
+    if(!req.session.auth){
+        return res.send("Please login");
+    }
     //get data
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
     const teacher = await asyncQuery(`

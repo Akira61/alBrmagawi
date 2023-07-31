@@ -8,13 +8,14 @@ const nodemailer = require("nodemailer");
 // check if the teacher who sent the request
 
 //routes
-router.get('/dashboard/teacher',auth, (req, res) => {
+router.get('/dashboard/teacher', (req, res) => {
     res.render('./dashboards/teacher/teacher.ejs');
 })
-
+ 
 // Courses
     router.use('/', require('./courses/all-teacher-courses')); // all teacher's courses
     router.use('/', require('./courses/new-course')); // new course info
+    router.use('/', require('./courses/sections')); // course sections
     router.use('/', require('./courses/upload-courses')); // upload the courses
 // End courses
 
