@@ -18,10 +18,16 @@ router.get('/dashboard/teacher/course/:id/sections', async(req, res) => {
     // check if course exists
     if(!course) return res.json({err_message : "Course Not Found."});
     console.log(course)
+    // course sections
     const sections = course[0].sections.split(',');
     console.log(sections);
 
-    res.render('./dashboards/teacher/courses/sections.ejs', {id, sections, course: course[0]});
+    // get course lessons
+    const lessons = await asyncQuery(`
+    SELECT title, section, lesson_id FROM lessons WHERE course_id = ?;`,[course[0].id]
+    );
+
+    res.render('./dashboards/teacher/courses/sections.ejs', {id, sections, course: course[0], lessons});
 })  
 
 
@@ -47,28 +53,6 @@ router.post('/dashboard/teacher/course/:id/new-section', async(req, res) => {
  
 })
 
-
-
-
-// upload lesson
-router.get('/dashboard/teacher/course/:id/:section/upload-lesson', async(req, res) => {
-    if(!req.params.id || !req.params.section) return res.json({err_message : "specify course id and section"});
-
-    const { id } = req.params;
-    const { section } = req.params;
-
-    const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
-    const course = await asyncQuery(`SELECT * FROM courses WHERE course_id = ?;`,[id]);
-
-    // check if course exists 
-    if(course.length == 0) return res.json({err_message : "Course Not Found."});
-
-    // check if section sent is exsists
-    const sections = course[0].sections.split(',');
-    console.log(sections);
-    if(!sections.includes(section)) return res.json({err_message : "section not found"});
-    res.send('success request ✅')
-})
  
 module.exports = router;
 

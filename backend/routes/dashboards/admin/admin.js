@@ -15,6 +15,7 @@ router.get('/dashboard/admin',isAdmin, (req, res) => {
 // Professors route
     router.use('/', require('./professors/all-professors'));// get all professors
     router.use('/', require('./professors/add-professor')); // add professor
+    router.use('/', require('./professors/accept-professor')); // accept or deniaed professor
     router.use('/', require('./professors/edit.professor')); // edit professor
     router.use('/', require('./professors/remove-professor')); // delete professor
 //End Professors routes

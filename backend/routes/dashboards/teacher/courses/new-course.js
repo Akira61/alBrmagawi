@@ -12,6 +12,7 @@ const { Upload, Query } = require('../../../../server');
 let thumbnail, title, price, type, about
 
 router.get('/dashboard/teacher/course/new-course', (req, res) => {
+    // res.render('./dashboards/teacher/courses/general-info.ejs');
     res.render('./dashboards/teacher/courses/add-course.ejs');
 })
 

@@ -71,6 +71,15 @@ router.post('/auth/login', async(req, res) => {
     req.session.auth = true;
     req.session.user = await user[0];
     
+    if(user[0].role == 'student'){
+        return res.redirect('/dashboard/student');
+    }
+    else if(user[0].role == 'teacher'){
+        return res.redirect('/dashboard/teacher');
+    }
+    else if(user[0].role == 'admin'){
+        return res.redirect('/dashboard/admin');
+    }
     res.redirect('/');
 })
 

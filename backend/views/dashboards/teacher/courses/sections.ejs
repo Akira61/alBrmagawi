@@ -57,6 +57,15 @@
                                         <input type="submit" value="Save" class="btn btn-primary" onclick="newSection()">
                                         <input type="submit" value="Cancel" class="btn btn-primary">
                                     </div> -->
+                                    <div class="lessons form-group">
+                                        <% lessons.forEach(lesson => { %>
+                                            <% if (lesson.section == section) { %>
+                                                <div class="form-group">
+                                                    <a href="<%= lesson.lesson_id %>" class="btn btn-link" style="color: #fff;"><%= lesson.title %></a>
+                                                </div>
+                                            <% } %>
+                                        <% }) %>
+                                    </div>
                                 </li>
                                 </ul>
                             </div>
