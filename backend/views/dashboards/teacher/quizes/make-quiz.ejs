@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #262932;
+        }
+        .app{
+            background-color: #fff;
+            width: 90%;
+            max-width: 600px;
+            margin: 100px auto 0;
+            border-radius: 10px;
+            padding: 30px;
+        }
+        .app h1{
+            font-size: 25px;
+            color: #001e4d;
+            font-weight: 600;
+            padding-bottom: 15px;
+        }
+        .app .quiz-info{
+            border-bottom: 1px solid #ababab;
+            padding-bottom: 30px;
+        }
+        .app .quiz-info .count span{
+            font: bold;
+            font-weight: 600;
+        }
+        .quiz {
+            padding: 20px 0;
+        }
+        .quiz h2{
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .btn{
+            background-color: #fff;
+            color: #222;
+            font-weight: 500;
+            width: 100%;
+            border: 1px solid #ababab;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: left;
+            border-radius: 4px;
+            /* cursor: pointer; */
+            transition: all 0.3s;
+        }
+
+        /* the effect will work as long as the btn not disabled */
+        .quiz #answer-buttons .btn:hover:not([disabled]){
+            /* background-color: #b8b8b8; */
+            /* color: #001e4d; */
+            /* font-weight: 600; */
+        }
+        
+        .quiz #next-btn{
+            background-color: #001e4d;
+            color: #fff;
+            width: 150px;
+            font-weight: 500;
+            border: 0;
+            padding: 10px;
+            margin:  20px auto 0;
+            border-radius: 4px;
+            display: block;
+            cursor: pointer;
+        }
+
+        #addAnswer{
+            background-color: #001e4d;
+            color: #fff;
+            width: 150px;
+            font-weight: 500;
+            border: 0;
+            padding: 10px;
+            margin:  20px auto 0;
+            border-radius: 4px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .correct{
+            background-color: #9aeabc;
+        }
+        .incorrect{
+            background: #ff9393;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="quiz-info">
+            <h1><%= section %> Quiz</h1>
+        </div>
+        <!-- Show dropdown all the lessons for this section IF the quiz for specific lesson -->
+        <% if (lessons) { %>
+            <label for="lesson" class="my-3">Choose Lesson</label>
+            <select name="" id="lesson" class="form-select ">
+                <!-- <option value="defaultOption" hidden>Choose Lesson</option> -->
+                <% lessons.forEach(lesson => { %>
+                    <option value="<%= lesson.id %>"><%= lesson.title %></option>
+                <% }) %>
+            </select>
+        <% } %>
+        <div class="quiz">
+            
+            <div class="question">
+                <h2 style="margin: 10px;">Question</h2>
+                <input class="btn shadow-sm" type="text" id="question" value="Question goes here">
+            </div>
+
+            <h2 style="margin: 10px;">Answers</h2>
+
+            <div id="answer-buttons">
+                <input class="form-control shadow-sm" type="text" value="answer 1">
+            </div>
+            
+            <a id="" href="#" onclick="addAnswer()">+ Add Answer</a>
+
+            <div class="correct-answer" style="padding-top: 25px;">
+                <label for="correct-answer">Correct Answer</label>
+                <input class="form-control shadow-sm" id="correct-answer" type="text" placeholder="The Right Answer ">
+            </div>
+            
+            <!-- <button id="addAnswer" onclick="addAnswer()">+ Add Answer</button> -->
+            
+            <button id="next-btn" >Save</button>
+            <button id="next-btn" onclick="addQuestion()">Save & Add Question</button>
+        </div>
+    </div>
+
+
+    <script>
+        //when you get json data from DB
+        
+
+        const questionElement = document.querySelector("#question");
+        const currentSpanQuestionNum = document.querySelector('#current-question');// the span on the top
+        const totalQuestions = document.querySelector('#total-questions')
+        const answerBtns = document.getElementById("answer-buttons");
+        const answers = document.querySelectorAll('.btn')
+        const nextBtn = document.getElementById("next-btn");
+        const quizDiv  = document.querySelector('.quiz')
+        const correctAnswer = document.querySelector('#correct-answer')
+
+
+        function SaveQuiz(){
+            const data = {
+                question : questionElement.value,
+                answers : [],
+                correctAnswer : correctAnswer.value,
+                lesson : document.querySelector('#lesson')? document.querySelector('#lesson').value : 'ForThisSection'
+            }
+            Array.from(answerBtns.children).forEach(answer => {
+                data.answers.push(answer.value);
+            })
+            data.answers.push(correctAnswer.value);
+
+            console.log(data)
+            const url = `/dashboard/teacher/course/<%=id%>/<%=section%>/create-quiz`
+            fetch(url, {
+                method : 'POST',
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify(data)
+            })
+        }
+        
+        // on next button click
+        nextBtn.addEventListener('click', SaveQuiz);
+
+
+        function addAnswer(){
+            const input = document.createElement('input');
+            input.value = 'Answer';
+            input.classList.add('form-control'); // to anable css style on the button
+            input.classList.add('my-2'); // to anable css style on the button
+            input.classList.add('shadow-sm'); // to anable css style on the button
+            answerBtns.appendChild(input);
+
+        }
+
+        function addQuestion(){
+            SaveQuiz();
+            resetForm()
+        }
+        function resetForm(){
+            nextBtn.style.display = 'none';
+            while(answerBtns.firstChild){
+                answerBtns.removeChild(answerBtns.firstChild);
+            }
+        }
+    </script>
+</body>
+</html>

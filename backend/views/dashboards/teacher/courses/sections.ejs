@@ -50,8 +50,18 @@
                             <div class="newSection">
                                 <ul class="list-group list-group-flush">
                                   <li class="list-group-item">
+                                    <!-- section buttons -->
                                     <div class="form-group">
                                         <a href="/dashboard/teacher/course/<%= id %>/<%= section %>/upload-lesson" class="btn btn-link" style="color: #fff;"><i class="fa-solid fa-folder-plus mr-1"></i> New Lesson</a>
+                                        <div class="dropdown d-inline">
+                                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
+                                                 <i class="fa-solid fa-pen-to-square"></i> Add Quiz
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                              <a class="dropdown-item" href="/dashboard/teacher/course/<%= id %>/<%= section %>/ForLesson/create-quiz">For a Lesson</a>
+                                              <a class="dropdown-item" href="/dashboard/teacher/course/<%= id %>/<%= section %>/ForThisSection/create-quiz">For This Section</a>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!-- <div class="controls form-group my-3 col-lg-12 col-md-12 col-sm-12">
                                         <input type="submit" value="Save" class="btn btn-primary" onclick="newSection()">

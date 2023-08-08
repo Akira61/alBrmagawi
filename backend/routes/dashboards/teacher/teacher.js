@@ -11,13 +11,18 @@ const nodemailer = require("nodemailer");
 router.get('/dashboard/teacher', (req, res) => {
     res.render('./dashboards/teacher/teacher.ejs');
 })
- 
+  
 // Courses
     router.use('/', require('./courses/all-teacher-courses')); // all teacher's courses
     router.use('/', require('./courses/new-course')); // new course info
     router.use('/', require('./courses/sections')); // course sections
     router.use('/', require('./courses/upload-courses')); // upload the courses
 // End courses
+
+//Quizes
+router.use('/', require('./quizes/showQuize')); // show quize
+router.use('/', require('./quizes/make-quiz')); // show quize
+// End quizes
 
 
 

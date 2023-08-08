@@ -16,7 +16,7 @@ router.get('/dashboard/teacher/course/:id/sections', async(req, res) => {
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
     const course = await asyncQuery(`SELECT * FROM courses WHERE course_id = ?;`,[id]);
     // check if course exists
-    if(!course) return res.json({err_message : "Course Not Found."});
+    if(course.length == 0) return res.json({err_message : "Course Not Found."});
     console.log(course)
     // course sections
     const sections = course[0].sections.split(',');
