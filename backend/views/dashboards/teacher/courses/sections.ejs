@@ -14,6 +14,17 @@
     <link rel="stylesheet" href="/vendor/pickadate/themes/default.date.css">
 
     <title>Sections</title>
+
+    <style>
+        .sectionTitle{
+            outline: 0 !important;
+            background-color: #454a59 !important;
+            color: #fff;
+            border-width: 0 0 1px !important;
+            padding: 10px;
+            border-color:gray !important;
+        }
+    </style>
 </head>
 <body>
     <!-- side navbar -->
@@ -41,11 +52,21 @@
             <div class="">
                 <div class="col-lg-12">
 
-                    <% sections.forEach(section => { %>
+                    <% sections.forEach((section, i) => { %>
                         <div class="card" style="background-color: #262932;color: #fff;">
                             <div class="card-header" style="color: #fff;background-color: #454a59;">
-                                <h3 style="color: #fff;"><%= section %></h3>
-                              <i class="fa-solid fa-ellipsis-vertical"></i>
+                                <div class="section-title<%= i %>">
+                                    <h3 style="color: #fff;"><%= section %></h3>
+                                </div>
+                                <div class="dropdown d-inline">
+                                    <button class="btn btn-link " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item" href="#" onclick="editSection('section-title<%= i %>', '<%= section %>','<%= i %>' )">Edit </a>
+                                  <a class="dropdown-item" href="#">Delete</a>
+                                </div>
+                            </div>
                             </div>
                             <div class="newSection">
                                 <ul class="list-group list-group-flush">
@@ -71,10 +92,26 @@
                                         <% lessons.forEach(lesson => { %>
                                             <% if (lesson.section == section) { %>
                                                 <div class="form-group">
-                                                    <a href="<%= lesson.lesson_id %>" class="btn btn-link" style="color: #fff;"><%= lesson.title %></a>
+                                                    <div>
+                                                        <a href="/course/<%= course.course_id %>/<%= lesson.lesson_id %>" class="btn btn-link" style="color: #fff;"><%= lesson.title %></a>
+
+                                                        <a href="/dashboard/teacher/course/<%= course.course_id %>/<%= lesson.lesson_id %>/edit-lesson" class="btn btn-info btn-sm float-right">Edit</a>
+                                                    </div>
                                                 </div>
+                                                
                                             <% } %>
-                                        <% }) %>
+                                            <% }) %>
+
+                                            <!-- <label for="">quiz</label>
+                                            <% quizzes.forEach(quiz => { %>
+                                             <% if (quiz.section_quiz && quiz.section == section) { %>
+                                              <div class="form-group">
+                                                <a href=<%=quiz.path %> > <%= quiz.question %> </a>
+                                              </div>
+                                             <% } else{%>
+                                                No Quiz
+                                             <%} %>
+                                            <% }) %> -->
                                     </div>
                                 </li>
                                 </ul>
@@ -136,6 +173,39 @@
             const data = await res.json();
             console.log(data)
             
+        }
+    </script>
+
+    <script>
+        function editSection(refrence, previoseTitle, i){
+            const sectionTitle = document.querySelector('.'+ refrence);
+            const inputID = `sectionTitle${i}`;
+            sectionTitle.innerHTML = `
+            <div class="form-inline">
+                <input id=${inputID} type="text" class="mp-2 sectionTitle" value="${previoseTitle}"/>
+                <a class="btn btn-outline-info saveSectionUpdate" onclick="updateSection('${previoseTitle}', '${inputID}')">Save</a>
+                <a class="btn btn-outline-info" href="#" onclick="cancelSectionUpdate('${previoseTitle}','${refrence}')">Cancel</a>
+            </div>
+
+            `
+        }
+
+        function updateSection(previoseSection, inputID){
+            const data = {
+                section :previoseSection,
+                newSection : document.querySelector('#'+inputID).value
+            }
+            console.log(data);
+            fetch(`/dashboard/teacher/course/<%- id %>/sections/update-section/`,{
+                method : 'PUT',
+                headers : {'Content-Type': 'application/json'},
+                body : JSON.stringify(data)
+            })
+        }
+
+        function cancelSectionUpdate(value, refrence){
+            const sectionTitle = document.querySelector('.'+ refrence)
+            sectionTitle.innerHTML = `<h3 style="color: #fff;">${value}</h3>`;
         }
     </script>
 

@@ -127,7 +127,7 @@
             <h2 style="margin: 10px;">Answers</h2>
 
             <div id="answer-buttons">
-                <input class="form-control shadow-sm" type="text" value="answer 1">
+                <!-- <input class="form-control shadow-sm" type="text" value="answer 1"> -->
             </div>
             
             <a id="" href="#" onclick="addAnswer()">+ Add Answer</a>
@@ -161,10 +161,11 @@
 
         function SaveQuiz(){
             const data = {
+                lesson : document.querySelector('#lesson')? document.querySelector('#lesson').value : 'ForThisSection',
                 question : questionElement.value,
                 answers : [],
                 correctAnswer : correctAnswer.value,
-                lesson : document.querySelector('#lesson')? document.querySelector('#lesson').value : 'ForThisSection'
+                path : window.location.pathname,
             }
             Array.from(answerBtns.children).forEach(answer => {
                 data.answers.push(answer.value);

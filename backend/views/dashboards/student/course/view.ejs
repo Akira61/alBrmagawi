@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #262932;
+        }
+        .app{
+            background-color: #fff;
+            width: 90%;
+            max-width: 600px;
+            margin: 100px auto 0;
+            border-radius: 10px;
+            padding: 30px;
+        }
+        .app h1{
+            font-size: 25px;
+            color: #001e4d;
+            font-weight: 600;
+            padding-bottom: 15px;
+        }
+        .app .quiz-info{
+            border-bottom: 1px solid #ababab;
+            padding-bottom: 30px;
+        }
+        .app .quiz-info .count span{
+            font: bold;
+            font-weight: 600;
+        }
+        .quiz {
+            padding: 20px 0;
+        }
+        .quiz h2{
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .quiz #answer-buttons .btn{
+            background-color: #fff;
+            color: #222;
+            font-weight: 500;
+            width: 100%;
+            border: 1px solid #ababab;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: left;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* the effect will work as long as the btn not disabled */
+        .quiz #answer-buttons .btn:hover:not([disabled]){
+            background-color: #b8b8b8;
+            /* color: #001e4d; */
+            /* font-weight: 600; */
+        }
+        .btn:disabled{
+            cursor: no-drop;
+        }
+        .quiz #next-btn{
+            background-color: #001e4d;
+            color: #fff;
+            width: 150px;
+            font-weight: 500;
+            border: 0;
+            padding: 10px;
+            margin:  20px auto 0;
+            border-radius: 4px;
+            display: none;
+            cursor: pointer;
+        }
+
+        .correct{
+            background-color: #9aeabc;
+        }
+        .incorrect{
+            background: #ff9393;
+        }
+    </style>
+</head>
+<body>
+    <div class="" style="text-align: center;padding: 40px;color: #d7d7d7;">
+            <h1>title : <%= lesson.title %></h1>
+            <!-- <div class="count"><small><span id="current-question">1</span> Out Of <span id="total-questions">10</span> Questions</small></div> -->
+            <h2 id="question">Lecture</h2>
+           <video class="btn" width="700" height="400" src="<%= lesson.content %>" controls poster="<%= lesson.thumbnail %>"></video>
+           <div class="description" style="padding: 20px;">
+            <h3>Description :</h3>
+            <br>
+            <p><%= lesson.description %></p>
+           </div>
+           <div class="quiz">
+            <% if (quiz) { %>
+                <!-- <a href="<%= quiz %>">Complete Lesson's quiz</a> -->
+                <h1>Quiz</h1>
+             <iframe width="500" height="700" src="<%= quiz %>" frameborder="0"></iframe>
+            <% } %>
+           </div>
+    </div>
+
+</body>
+</html>

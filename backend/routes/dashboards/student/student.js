@@ -11,4 +11,8 @@ router.get('/dashboard/student', (req, res) => {
     res.render('./dashboards/student.ejs')
 })
 
+// How student will view the Course
+    router.use('/', require('./course/view'));
+// End Of How student will view the Course
+
 module.exports = router;

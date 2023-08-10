@@ -52,14 +52,15 @@ router.post('/dashboard/teacher/course/:id/:section/create-quiz', async (req, re
 
     asyncQuery(`
     INSERT INTO quizzes
-    (quiz_id, lesson_id, question, answers, correct_answer, section_quiz)
-    VALUES (?,?,?,?,?,?)
+    (quiz_id, lesson_id, course_id, section, question, answers, correct_answer, section_quiz, path)
+    VALUES (?,?,?,?,?,?,?,?,?)
     `, 
     [uuid(), 
     req.body.lesson == 'ForThisSection'?null : req.body.lesson,
-    req.body.question,
+    course[0].id, section , req.body.question,
     answers,req.body.correctAnswer, 
-    req.body.lesson == 'ForThisSection'?1 : 0
+    req.body.lesson == 'ForThisSection'?1 : 0,
+    `/dashboard/teacher/course/${id}/${section}/${req.body.lesson}/quize`
     ])
 
 } )

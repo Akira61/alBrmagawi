@@ -13,10 +13,11 @@ router.get('/dashboard/teacher', (req, res) => {
 })
   
 // Courses
-    router.use('/', require('./courses/all-teacher-courses')); // all teacher's courses
+    router.use('/', require('./courses/all-courses')); // all teacher's courses
     router.use('/', require('./courses/new-course')); // new course info
     router.use('/', require('./courses/sections')); // course sections
     router.use('/', require('./courses/upload-courses')); // upload the courses
+    router.use('/', require('./courses/edit-course')); // edit course
 // End courses
 
 //Quizes
