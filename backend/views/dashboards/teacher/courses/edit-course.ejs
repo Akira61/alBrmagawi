@@ -129,6 +129,7 @@
            <div class="text-center py-3">
                <% if (quiz) { %>
                 <a href="#" class="btn btn-outline-danger">Remove Quiz</a>
+                <a class="btn btn-link" onclick="addQuiz()">+ Add Question</a>
                 <% }else {%>
                     <label for="">No Quiz Found</label>
                     <a class="btn btn-link" onclick="addQuiz()">+ Add Quiz</a>
@@ -174,7 +175,7 @@
     <script>
         function addQuiz(){
             const iframe = document.createElement('iframe')
-                iframe.src = '/dashboard/teacher/course/<%= courseID %>/<%= lesson.section %>/ForThisLesson/create-quiz'
+                iframe.src = '/dashboard/teacher/course/<%= courseID %>/<%- lesson.section %>/ForThisLesson/create-quiz'
                 iframe.width = '500'
                 iframe.height = '700'
                 document.querySelector('#add-quiz').appendChild(iframe)

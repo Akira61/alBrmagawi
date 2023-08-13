@@ -140,7 +140,8 @@
             <!-- <button id="addAnswer" onclick="addAnswer()">+ Add Answer</button> -->
             
             <button id="next-btn" >Save</button>
-            <button id="next-btn" onclick="addQuestion()">Save & Add Question</button>
+            <a id="next-btn text-center" href="/dashboard/teacher/course/<%= id %>/sections">Dashboard</a>
+            <!-- <button id="next-btn" onclick="addQuestion()">Save & Add Question</button> -->
         </div>
     </div>
 
@@ -161,7 +162,7 @@
 
         function SaveQuiz(){
             const data = {
-                lesson : document.querySelector('#lesson')? document.querySelector('#lesson').value : 'ForThisSection',
+                lesson : document.querySelector('#lesson').value? document.querySelector('#lesson').value : 'ForThisSection',
                 question : questionElement.value,
                 answers : [],
                 correctAnswer : correctAnswer.value,
@@ -173,14 +174,23 @@
             data.answers.push(correctAnswer.value);
 
             console.log(data)
-            const url = `/dashboard/teacher/course/<%=id%>/<%=section%>/create-quiz`
+            const url = `/dashboard/teacher/course/<%-id%>/<%-section%>/create-quiz`
             fetch(url, {
                 method : 'POST',
                 headers : {
                     "Content-Type" : "application/json"
                 },
                 body : JSON.stringify(data)
+            }).then(res => res.json())
+            .then(data=>{
+                console.log(data);
+                if(data.success){
+                    // window.location.reload();
+                    resetForm();
+                }
             })
+
+           
         }
         
         // on next button click
@@ -202,7 +212,6 @@
             resetForm()
         }
         function resetForm(){
-            nextBtn.style.display = 'none';
             while(answerBtns.firstChild){
                 answerBtns.removeChild(answerBtns.firstChild);
             }

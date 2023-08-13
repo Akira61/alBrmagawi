@@ -55,16 +55,16 @@
                     <% sections.forEach((section, i) => { %>
                         <div class="card" style="background-color: #262932;color: #fff;">
                             <div class="card-header" style="color: #fff;background-color: #454a59;">
-                                <div class="section-title<%= i %>">
-                                    <h3 style="color: #fff;"><%= section %></h3>
+                                <div class="section-title<%= i %>" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                    <h3 style="color: #fff;"><%= section.section %></h3>
                                 </div>
                                 <div class="dropdown d-inline">
                                     <button class="btn btn-link " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
                                         <i class="fa-solid fa-ellipsis-vertical"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                  <a class="dropdown-item" href="#" onclick="editSection('section-title<%= i %>', '<%= section %>','<%= i %>' )">Edit </a>
-                                  <a class="dropdown-item" href="#">Delete</a>
+                                  <a class="dropdown-item" href="#" onclick="editSection('section-title<%= i %>', '<%= section.section %>','<%= i %>' )">Edit </a>
+                                  <a class="dropdown-item" href="/dashboard/teacher/course/<%= id %>/sections/<%= section.section %>/delete-section/">Delete</a>
                                 </div>
                             </div>
                             </div>
@@ -73,14 +73,14 @@
                                   <li class="list-group-item">
                                     <!-- section buttons -->
                                     <div class="form-group">
-                                        <a href="/dashboard/teacher/course/<%= id %>/<%= section %>/upload-lesson" class="btn btn-link" style="color: #fff;"><i class="fa-solid fa-folder-plus mr-1"></i> New Lesson</a>
+                                        <a href="/dashboard/teacher/course/<%= id %>/<%= section.section %>/upload-lesson" class="btn btn-link" style="color: #fff;"><i class="fa-solid fa-folder-plus mr-1"></i> New Lesson</a>
                                         <div class="dropdown d-inline">
                                             <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #fff;">
                                                  <i class="fa-solid fa-pen-to-square"></i> Add Quiz
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                              <a class="dropdown-item" href="/dashboard/teacher/course/<%= id %>/<%= section %>/ForLesson/create-quiz">For a Lesson</a>
-                                              <a class="dropdown-item" href="/dashboard/teacher/course/<%= id %>/<%= section %>/ForThisSection/create-quiz">For This Section</a>
+                                              <a class="dropdown-item" href="/dashboard/teacher/course/<%= id %>/<%= section.section %>/ForLesson/create-quiz">For a Lesson</a>
+                                              <!-- <a class="dropdown-item" href="/dashboard/teacher/course/<%= id %>/<%= section.section %>/ForThisSection/create-quiz">For This Section</a> -->
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +90,7 @@
                                     </div> -->
                                     <div class="lessons form-group">
                                         <% lessons.forEach(lesson => { %>
-                                            <% if (lesson.section == section) { %>
+                                            <% if (lesson.section == section.section) { %>
                                                 <div class="form-group">
                                                     <div>
                                                         <a href="/course/<%= course.course_id %>/<%= lesson.lesson_id %>" class="btn btn-link" style="color: #fff;"><%= lesson.title %></a>
@@ -172,7 +172,7 @@
             })
             const data = await res.json();
             console.log(data)
-            
+            window.location.reload()
         }
     </script>
 
@@ -201,6 +201,7 @@
                 headers : {'Content-Type': 'application/json'},
                 body : JSON.stringify(data)
             })
+            window.location.reload();
         }
 
         function cancelSectionUpdate(value, refrence){

@@ -19,14 +19,13 @@ router.get('/dashboard/teacher/course/:id/:section/:lesson/quize', async(req, re
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
     const lessonQuery = await asyncQuery(`
     SELECT courses.course_id, lessons.* FROM lessons
-    INNER JOIN courses ON courses.course_id = ? WHERE lessons.lesson_id=?;`,[id, lesson]);
+    INNER JOIN courses ON courses.course_id = ? WHERE lessons.id=?;`,[id, lesson]);
     console.log(lessonQuery)
-
-    // check if course and section exists 
-    if(lessonQuery.length == 0 && lesson !== 'ForThisSection') return res.json({err_message : "Course Not Found."});
+    // check if course and lesson exists 
+    if(lessonQuery.length == 0 && lesson !== 'ForThisSection') return res.send(null);
 
     //get quizzes
-    const quizzes = await asyncQuery(`SELECT * FROM quizzes WHERE lesson_id = ? OR section_quiz=1;`,[lessonQuery.length !==0?lessonQuery[0].id:null]);
+    const quizzes = await asyncQuery(`SELECT * FROM quizzes WHERE lesson_id = ?;`,[lessonQuery.length !==0?lessonQuery[0].id:null]);
     console.log(quizzes);
     res.render('./dashboards/teacher/quizes/quize2.ejs', {quizzes : JSON.stringify(quizzes)})
 })

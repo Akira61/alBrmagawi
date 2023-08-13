@@ -90,9 +90,9 @@
 </head>
 <body>
     <div class="" style="text-align: center;padding: 40px;color: #d7d7d7;">
-            <h1>title : <%= lesson.title %></h1>
+            <h1><%= lesson.title %></h1>
             <!-- <div class="count"><small><span id="current-question">1</span> Out Of <span id="total-questions">10</span> Questions</small></div> -->
-            <h2 id="question">Lecture</h2>
+            <!-- <h2 id="question">Lecture</h2> -->
            <video class="btn" width="700" height="400" src="<%= lesson.content %>" controls poster="<%= lesson.thumbnail %>"></video>
            <div class="description" style="padding: 20px;">
             <h3>Description :</h3>

@@ -85,6 +85,7 @@
                                                     <i class="fa-solid fa-file-circle-plus"></i> 
                                                     Add lesson
                                                     </span>
+                                                    <span class="video-title"></span>
                                                     <video class="uploaded-video" height="" controls style="display: none;"></video>
 											</div>
 										</div>
@@ -148,6 +149,7 @@
                     console.log(content)
                     document.querySelector(".uploaded-video").style.display = "block";
                     document.querySelector(".uploaded-video").src = file.url;
+                    document.querySelector(".video-title").innerHTML = file.filename
                 }
             };
            client.picker(options).open();
@@ -220,11 +222,16 @@
                 body : formData
             })
             .then(res => res.json())
-            .then(data => console.log(data));
+            .then(data => {
+                console.log(data);
+                if(data.success){
+                    // clear session
+                    sessionStorage.clear();
+                    window.location.href = '/dashboard/teacher/course/<%= course_id %>/sections'; 
 
-            // clear session
-            sessionStorage.clear();
-            window.location.reload(); 
+                }
+            });
+
         }
 
     </script>

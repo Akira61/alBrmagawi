@@ -17,9 +17,12 @@ router.get('/dashboard/teacher/course/:courseID/:lessonID/edit-lesson', async(re
     const {courseID, lessonID} = req.params;
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
     const lessons = await asyncQuery(`
-    SELECT courses.course_id, lessons.* FROM lessons
-    INNER JOIN courses ON courses.course_id = ? WHERE 
-    lessons.lesson_id = ?;`
+    SELECT courses.course_id,course_sections.section,
+    lessons.id,lessons.lesson_id, lessons.title,lessons.content, lessons.thumbnail, lessons.description
+    FROM lessons
+    INNER JOIN courses ON courses.course_id = ? 
+    INNER JOIN course_sections ON course_sections.id = lessons.section 
+    WHERE lessons.lesson_id = ?;`
     ,[courseID, lessonID]);
     console.log(lessons)
     // check if course exists
@@ -29,14 +32,14 @@ router.get('/dashboard/teacher/course/:courseID/:lessonID/edit-lesson', async(re
     const quiz = await asyncQuery(`
     SELECT * FROM quizzes 
     WHERE lesson_id = ?;`,[lessons[0].id]);
-
+    console.log(quiz)
     // console.log(quiz);
     // check if quiz exists
    // if(quiz.length == 0) return res.json({err_message : "quiz Not Found."});
 
     res.render('./dashboards/teacher/courses/edit-course.ejs',{
         lesson : lessons[0], 
-        quiz : quiz[quiz.length -1]?quiz[quiz.length -1].path:null,
+        quiz : quiz.length==0?null:quiz[quiz.length -1].path,
         courseID
 })
 })
@@ -74,7 +77,7 @@ router.put('/dashboard/teacher/course/:courseID/:lessonID/edit-lesson', async(re
 
 
 // remove lesson
-router.delete("/dashboard/teacher/course/:courseID/:lessonID/delete-lesson", async (req,res)=> {
+router.get("/dashboard/teacher/course/:courseID/:lessonID/delete-lesson", async (req,res)=> {
     if(!req.params.courseID || !req.params.lessonID){
         return res.json({err_message : 'invalid url'});
     }
