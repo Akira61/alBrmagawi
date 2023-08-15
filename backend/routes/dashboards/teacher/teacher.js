@@ -25,6 +25,9 @@ router.use('/', require('./quizes/showQuize')); // show quize
 router.use('/', require('./quizes/make-quiz')); // show quize
 // End quizes
 
+// apps
+    router.use('/', require('./apps/email-compose'))// teacher sends emails
+// End apps
 
 
 

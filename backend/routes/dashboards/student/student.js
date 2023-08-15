@@ -8,7 +8,7 @@ const {Query}     = require('../../../server');
 
 
 router.get('/dashboard/student', (req, res) => {
-    res.render('./dashboards/student.ejs')
+    res.render('./dashboards/student/student.ejs')
 })
 
 // How student will view the Course

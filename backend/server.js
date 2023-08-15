@@ -29,7 +29,15 @@ const PORT      = process.env.PORT || 4545;
     module.exports.Query = mysqlQuery;
 //End database
 
+
 // session
+const ROLES = { // all the session roles 
+    ADMIN : 'admin',
+    TEACHER : 'teacher',
+    STUDENT : 'student',
+}
+module.exports.ROLES = ROLES;
+
 app.use(session({
     secret : process.env.session_secret,// random characters for hashing the session
     // resave : false,
