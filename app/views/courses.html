@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="courses">
+
+    </div>
+</body>
+
+<script>
+    const courses = document.querySelector('.courses');
+    fetch('http://127.0.0.1:4545/api/courses')
+    .then(res=> res.json())
+    .then(data => {
+        console.log(data)
+
+        for(let i=0; i < data.length; i++){
+            const container = document.createElement('div');
+            const thumbnail = document.createElement('img');
+            const title = document.createElement('h3');
+            const description = document.createElement('p');
+            const price = document.createElement('span');
+            //set up conatiner
+            container.id = i;
+            container.innerHTML = `
+            <h3>${data[i].title}</h3>
+            <img width=400 src='http://127.0.0.1:4545/${data[i].thumbnail}' />
+            <p>${data[i].description}</p>
+            <span>${data[i].price}</span>
+            <button type='button' onclick=addToCart('${data[i].course_id}')>add to cart</button>
+            <hr/>
+            `
+            courses.appendChild(container);
+        }
+    })
+    .catch(err => console.log(err))
+
+
+    // add to cart
+    function addToCart(course,courseData){
+        console.log(course, courseData)
+        fetch('/gateway', {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify({productID:course})
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.url)
+            window.location.href = data.url
+        })
+    }
+</script>
+</html>

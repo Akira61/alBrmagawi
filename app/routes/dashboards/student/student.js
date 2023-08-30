@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const {Query}     = require('../../../server');
 
 
-router.get('/dashboard/student', (req, res) => {
+router.get('/dashboards/student', (req, res) => {
     res.render('./dashboards/student/student.ejs')
 })
 

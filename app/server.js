@@ -5,13 +5,17 @@ const session   = require('express-session');
 const path      = require("path");
 const helmet    = require('helmet');
 const mysql     = require('mysql2');
+const util      = require('util')
 const cors      = require('cors');
 const multer    = require('multer');
 const PORT      = process.env.PORT || 4545;
 
 //middleware
     app.use(express.static('public'));
-    app.use(cors({origin: process.env.HOST }))
+    app.use(cors({
+        origin: [process.env.HOST,'http://127.0.0.1:5500','https://demo.MyFatoorah.com'],
+        credentials : true
+    }))
     app.use(express.json(/*{limit : '50mb'}*/));
     app.use(express.urlencoded({extended: true}));
     app.use(helmet({contentSecurityPolicy: false}));
@@ -27,6 +31,7 @@ const PORT      = process.env.PORT || 4545;
         multipleStatements : true //  to prevent sql injection to run more then one command
     })
     module.exports.Query = mysqlQuery;
+    module.exports.asyncQuery = util.promisify(mysqlQuery.query).bind(mysqlQuery); // make query async/await
 //End database
 
 
@@ -101,5 +106,9 @@ app.use('/', require("./routes/dashboards/student/student"));
 // teacher dashboard
     app.use('/', require('./routes/dashboards/teacher/teacher'))
 //End teacher dashboard
+
+//Cart
+    app.use('/',require('./routes/cart'));
+//End cart
 
 app.listen(PORT, ()=> console.log(`Listening on http://127.0.0.1:${PORT}`));
