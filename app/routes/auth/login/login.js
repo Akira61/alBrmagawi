@@ -6,6 +6,7 @@ const bcrypt    = require('bcrypt');
 const util = require("util");
 const {Query}     = require('../../../server');
 const { userExists } = require('../functions');
+const path = require('path');
 
 
 router.get('/auth/login', (req, res) => {
@@ -13,7 +14,8 @@ router.get('/auth/login', (req, res) => {
     if (req.session.auth){
         return res.redirect('/');
     }
-    res.render('./auth/login.ejs');
+    //res.render('./auth/login.ejs');
+    res.sendFile(path.join(__dirname + '../../../../views/auth/login.html'))
 })
 
 

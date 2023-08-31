@@ -6,11 +6,13 @@ const util = require("util");
 const nodemailer = require("nodemailer");
 const {v4 : uuid} = require("uuid");
 const {Query}     = require('../../../server');
+const path = require('path');
 
 
 // registration option student/teacher
 router.get('/auth/register/option', (req, res) => {
-    res.render('./auth/register.option.ejs')
+    //res.render('./auth/register.option.ejs')
+    res.sendFile(path.join(__dirname + '../../../../views/auth/register.option.html'))
 })
 
 router.post('/auth/register/option', (req, res) => {

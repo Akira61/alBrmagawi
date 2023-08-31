@@ -7,10 +7,12 @@ const nodemailer = require("nodemailer");
 const {v4 : uuid} = require("uuid");
 const { userExists } = require('../functions');
 const { Query } = require('../../../server');
+const path = require('path');
 
 
 router.get('/auth/register/teacher', (req, res) => {
-    res.render('./auth/teacher.register.ejs');
+    // res.render('./auth/teacher.register.ejs');
+    res.sendFile(path.join(__dirname + '../../../../views/auth/teacher.register.html'))
 });
 
 router.post('/auth/register/teacher', async (req, res) => {

@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 const {v4 : uuid} = require("uuid");
 const {Query}     = require('../../../server');
 const { userExists } = require('../functions');
+const path = require('path');
 
 
 // get register page
@@ -15,7 +16,8 @@ router.get('/auth/register', (req, res) => {
     if (req.session.auth){
         return res.redirect('/');
     }
-    res.render('./auth/register.ejs');
+    // res.render('./auth/register.ejs');
+    res.sendFile(path.join(__dirname + '../../../../views/auth/register.html'))
 })
 
 

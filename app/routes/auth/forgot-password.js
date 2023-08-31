@@ -29,7 +29,8 @@ router.get('/auth/forgot-password', (req, res) => {
     if (req.session.auth){
         return res.redirect('/');
     }
-    res.render('./auth/forgot-password.ejs')
+    // res.render('./auth/forgot-password.ejs')
+    res.sendFile(path.join(__dirname + '../../../views/auth/forgot-password.html'))
 })
 
 router.post('/auth/forgot-password', async(req, res) => {
@@ -79,11 +80,14 @@ router.get('/auth/forgot-password/reset-pass', (req, res) => {
 
         console.log("Domain is matched. Information is from Authentic email");
         if(req.query.id ==rand){
-            return res.render('./auth/reset-password.ejs');
+            // return res.render('./auth/reset-password.ejs');
+            return res.sendFile(path.join(__dirname + '../../../views/auth/reset-password.html'))
+
         }
         console.log("password couldn't be reset");
         // res.end("<h1>password couldn't be reset please try to <a href='/auth/fotgot-password'>reset password</a> again</h1>");
-        res.render('./error/error-400.ejs');
+        // res.render('./error/error-400.ejs');
+        res.sendFile(path.join(__dirname + '../../../views/error/error-400.html'))
         
     }else{
         res.end("<h1>Request is from unknown source</h1>");
