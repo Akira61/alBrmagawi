@@ -7,7 +7,6 @@ const nodemailer = require("nodemailer");
 const {Query, asyncQuery}     = require('../server');
 const fetch     = require('node-fetch');
 const request = require('request');
-const axios = require('axios');
 const { loginRequirement } = require('../auth/basicAuth');
 
 
