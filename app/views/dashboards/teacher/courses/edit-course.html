@@ -106,14 +106,26 @@
     </style>
 </head>
 <body>
-    <div class="" style="text-align: center;padding: 40px;color: #d7d7d7;">
-            <h1><input type="text" name=""  class="text-center" value="<%= lesson.title %>" id="title"></h1>
-            <!-- <input type="text" name="" class="" value="<%= lesson.title %>" id=""> -->
+    <div id="wrapper" class="" style="text-align: center;padding: 40px;color: #d7d7d7;">
+    </div>
+
+    
+    <script>
+        let serverData;
+        console.log(window.location.pathname+'-info')
+		fetch(window.location.pathname+'-info')
+		.then(res => res.json())
+		.then(data => {
+            serverData = data;// so data can be access anywhere
+            document.querySelector('#wrapper').innerHTML = 
+            `
+            <h1><input type="text" name=""  class="text-center" value="${data.lesson.title}" id="title"></h1>
+            <!-- <input type="text" name="" class="" value="${data.lesson.title }" id=""> -->
             <!-- <div class="count"><small><span id="current-question">1</span> Out Of <span id="total-questions">10</span> Questions</small></div> -->
             <!-- <h2 id="question my-3">Lecture Video :</h2> -->
             <div class="py-3">
                 <h3>Lesson :</h3>
-                <video id="courseVideo" class="btn" width="700" height="400" src="<%= lesson.content %>" controls poster="<%= lesson.thumbnail %>"></video>
+                <video id="courseVideo" class="btn" width="700" height="400" src="${data.lesson.content}" controls poster="${data.lesson.thumbnail }"></video>
             </div>
            <div class="text-center py-3">
                <button class="btn btn-outline-info" onclick="uploadLesson()">Update Video</button>
@@ -122,33 +134,39 @@
            <div class="description " style="padding: 20px;">
             <h3>Description :</h3>
             <br>
-            <textarea rows="8" cols="60" id="description" ><%= lesson.description %></textarea>
+            <textarea rows="8" cols="60" id="description" >${data.lesson.description }</textarea>
            </div>
 
            <h1>Quiz</h1>
            <div class="text-center py-3">
-               <% if (quiz) { %>
+            ${
+                data.quiz?`
                 <a href="#" class="btn btn-outline-danger">Remove Quiz</a>
-                <a class="btn btn-link" onclick="addQuiz()">+ Add Question</a>
-                <% }else {%>
-                    <label for="">No Quiz Found</label>
-                    <a class="btn btn-link" onclick="addQuiz()">+ Add Quiz</a>
-                <%} %>
+                <a class="btn btn-link" onclick="addQuiz()">+ Add Question</a>`
+                : `
+                <label for="">No Quiz Found</label>
+                <a class="btn btn-link" onclick="addQuiz()">+ Add Quiz</a>`
+            }
            </div>
 
            <div  id="add-quiz">
-            <!-- <iframe width="500" height="700" src="/dashboard/teacher/course/<%= courseID %>/<%= lesson.section %>/ForThisLesson/create-quiz" frameborder="0"></iframe> -->
+            <!-- <iframe width="500" height="700" src="/dashboard/teacher/course/${data.courseID}/${data.lesson.section }/ForThisLesson/create-quiz" frameborder="0"></iframe> -->
            </div>
            <div class="quiz">
-            <% if (quiz) { %>
-                <!-- <a href="<%= quiz %>">Complete Lesson's quiz</a> -->
-             <iframe width="500" height="700" src="<%= quiz %>" frameborder="0"></iframe>
-            <% } %>
+            ${
+                data.quiz? `
+                <!-- <a href="${data.quiz}">Complete Lesson's quiz</a> -->
+                <iframe width="500" height="700" src="${data.quiz}" frameborder="0"></iframe>
+                ` :''
+            }
+            
         </div>
 
         <button class="btn btn-outline-info" onclick="sendData()">Save</button>
-        <a href="/dashboard/teacher/course/<%- courseID %>/<%- lesson.lesson_id %>/delete-lesson" class="btn btn-outline-danger">Delete Lesson</a>
-    </div>
+        <a href="/dashboard/teacher/course/${data.courseID }/${ data.lesson.lesson_id }/delete-lesson" class="btn btn-outline-danger">Delete Lesson</a>
+            `
+        })
+    </script>
 
 
     <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
@@ -175,7 +193,7 @@
     <script>
         function addQuiz(){
             const iframe = document.createElement('iframe')
-                iframe.src = '/dashboard/teacher/course/<%= courseID %>/<%- lesson.section %>/ForThisLesson/create-quiz'
+                iframe.src = `/dashboard/teacher/course/${serverData.courseID }/${serverData.lesson.section}/ForThisLesson/create-quiz`
                 iframe.width = '500'
                 iframe.height = '700'
                 document.querySelector('#add-quiz').appendChild(iframe)
@@ -193,7 +211,7 @@
                 content : content== null? courseVideo.src : content.url,
             }
 
-            fetch('/dashboard/teacher/course/<%- courseID %>/<%- lesson.lesson_id %>/edit-lesson', {
+            fetch(window.location.pathname, {
                 method : "PUT",
                 headers : {
                     "Content-Type" : "application/json"

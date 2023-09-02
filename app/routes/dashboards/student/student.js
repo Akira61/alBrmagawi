@@ -7,8 +7,9 @@ const nodemailer = require("nodemailer");
 const {Query}     = require('../../../server');
 
 
-router.get('/dashboards/student', (req, res) => {
-    res.render('./dashboards/student/student.ejs')
+router.get('/dashboard/student', (req, res) => {
+    // res.render('./dashboards/student/student.ejs')
+    res.sendFile(path.join(__dirname + '../../../../views/dashboards/student/student.html'))
 })
 
 // How student will view the Course

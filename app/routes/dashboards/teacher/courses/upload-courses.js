@@ -9,15 +9,19 @@ const fs        = require('fs');
 const {v4 : uuid} = require('uuid');
 const { Upload, Query } = require('../../../../server');
 
- 
-
-router.get('/dashboard/teacher/course/upload-course', (req, res) => {
-    res.render('./dashboards/teacher/courses/upload-course.ejs');
-}) 
+  
   
 
-// upload lesson
+// load page
 router.get('/dashboard/teacher/course/:id/:section/upload-lesson', async(req, res) => {
+    if(!req.params.id || !req.params.section) return res.json({err_message : "specify course id and section"});
+    // res.render('./dashboards/teacher/courses/upload.ejs', {course_id : id, id : course[0].id , section : course_sections[0].id});
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/teacher/courses/upload.html'))
+})
+
+
+// upload lesson
+router.get('/dashboard/teacher/course/:id/:section/upload-lesson-info', async(req, res) => {
     if(!req.params.id || !req.params.section) return res.json({err_message : "specify course id and section"});
 
     const { id } = req.params;
@@ -38,8 +42,8 @@ router.get('/dashboard/teacher/course/:id/:section/upload-lesson', async(req, re
     const course_sections = await asyncQuery(`SELECT * FROM course_sections WHERE course_id = ? AND section =?;`, [course[0].id,section]);
     //if(course_sections.length == 0) return res.json({err_message : "section2 not found"});
     
-    res.render('./dashboards/teacher/courses/upload.ejs', {course_id : id, id : course[0].id , section : course_sections[0].id});
-
+    // res.render('./dashboards/teacher/courses/upload.ejs', {course_id : id, id : course[0].id , section : course_sections[0].id});
+    res.json({course_id : id, id : course[0].id , section : course_sections[0].id})
 })
 
 

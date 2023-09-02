@@ -26,8 +26,32 @@ router.get('/dashboard/teacher/course/:id/:section/:lesson/quize', async(req, re
 
     //get quizzes
     const quizzes = await asyncQuery(`SELECT * FROM quizzes WHERE lesson_id = ?;`,[lessonQuery.length !==0?lessonQuery[0].id:null]);
+
+    // res.render('./dashboards/teacher/quizes/quize2.ejs', {quizzes : JSON.stringify(quizzes)})
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/teacher/quizes/quize2.html'))
+})
+
+
+router.get('/dashboard/teacher/course/:id/:section/:lesson/quize-info', async(req, res) => {
+    
+    if(!req.params.id || !req.params.section || !req.params.lesson){
+        return res.json({err_message : "invalid url"});
+    }
+    const {id, section, lesson} = req.params;
+
+    const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
+    const lessonQuery = await asyncQuery(`
+    SELECT courses.course_id, lessons.* FROM lessons
+    INNER JOIN courses ON courses.course_id = ? WHERE lessons.id=?;`,[id, lesson]);
+    console.log(lessonQuery)
+    // check if course and lesson exists 
+    if(lessonQuery.length == 0 && lesson !== 'ForThisSection') return res.send(null);
+
+    //get quizzes
+    const quizzes = await asyncQuery(`SELECT * FROM quizzes WHERE lesson_id = ?;`,[lessonQuery.length !==0?lessonQuery[0].id:null]);
     console.log(quizzes);
-    res.render('./dashboards/teacher/quizes/quize2.ejs', {quizzes : JSON.stringify(quizzes)})
+    // res.render('./dashboards/teacher/quizes/quize2.ejs', {quizzes : JSON.stringify(quizzes)})
+    res.json({quizzes : quizzes})
 })
 
 

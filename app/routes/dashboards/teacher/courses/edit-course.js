@@ -9,7 +9,22 @@ const {v4 : uuid} = require('uuid');
 const { Upload, Query } = require('../../../../server');
 
 
+// load page
 router.get('/dashboard/teacher/course/:courseID/:lessonID/edit-lesson', async(req, res) => {
+    if(!req.params.courseID || !req.params.lessonID){
+        return res.json({err_message : 'invalid url'});
+    }
+    // res.render('./dashboards/teacher/courses/edit-course.ejs',{
+    //     lesson : lessons[0], 
+    //     quiz : quiz.length==0?null:quiz[quiz.length -1].path,
+    //     courseID
+    // })
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/teacher/courses/edit-course.html'))
+})
+
+
+
+router.get('/dashboard/teacher/course/:courseID/:lessonID/edit-lesson-info', async(req, res) => {
     if(!req.params.courseID || !req.params.lessonID){
         return res.json({err_message : 'invalid url'});
     }
@@ -37,12 +52,18 @@ router.get('/dashboard/teacher/course/:courseID/:lessonID/edit-lesson', async(re
     // check if quiz exists
    // if(quiz.length == 0) return res.json({err_message : "quiz Not Found."});
 
-    res.render('./dashboards/teacher/courses/edit-course.ejs',{
+    // res.render('./dashboards/teacher/courses/edit-course.ejs',{
+    //     lesson : lessons[0], 
+    //     quiz : quiz.length==0?null:quiz[quiz.length -1].path,
+    //     courseID
+    // })
+    res.json({
         lesson : lessons[0], 
         quiz : quiz.length==0?null:quiz[quiz.length -1].path,
         courseID
+    })
 })
-})
+
 
 
 router.put('/dashboard/teacher/course/:courseID/:lessonID/edit-lesson', async(req,res) => {

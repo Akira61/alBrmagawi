@@ -105,18 +105,13 @@
 <body>
     <div class="app">
         <div class="quiz-info">
-            <h1><%= section %> Quiz</h1>
+            <h1 id="title"><%= section %> Quiz</h1>
         </div>
-        <!-- Show dropdown all the lessons for this section IF the quiz for specific lesson -->
-        <% if (lessons) { %>
+       
             <label for="lesson" class="my-3">Choose Lesson</label>
             <select name="" id="lesson" class="form-select ">
                 <!-- <option value="defaultOption" hidden>Choose Lesson</option> -->
-                <% lessons.forEach(lesson => { %>
-                    <option value="<%= lesson.id %>"><%= lesson.title %></option>
-                <% }) %>
             </select>
-        <% } %>
         <div class="quiz">
             
             <div class="question">
@@ -137,15 +132,37 @@
                 <input class="form-control shadow-sm" id="correct-answer" type="text" placeholder="The Right Answer ">
             </div>
             
-            <!-- <button id="addAnswer" onclick="addAnswer()">+ Add Answer</button> -->
+            <!-- <button id="addAnswer" onclick="addAnswer()">+ Add Answer</button>  -->
             
-            <button id="next-btn" >Save</button>
-            <a id="next-btn text-center" href="/dashboard/teacher/course/<%= id %>/sections">Dashboard</a>
+             <button id="next-btn" >Save</button>
+            <a class="dashboard" id="next-btn text-center" href="/dashboard/teacher/course/<%= id %>/sections">Dashboard</a>
             <!-- <button id="next-btn" onclick="addQuestion()">Save & Add Question</button> -->
         </div>
     </div>
 
 
+
+    <!-- get data -->
+    <script>
+        let serverData;
+        fetch(window.location.pathname+'-info')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            serverData = data;
+
+            const title = document.querySelector('#title');
+            title.innerHTML = `${data.section} Quiz`;
+            // past all lessons in select
+            data.lessons.forEach(lesson => { 
+                document.querySelector('#lesson').innerHTML +=
+                `<option value="${lesson.id}">${lesson.title}</option>`
+            });
+            const dashboard = document.querySelector('.dashboard');
+            dashboard.href = `/dashboard/teacher/course/${data.id}/sections`
+        })
+
+    </script>
     <script>
         //when you get json data from DB
         
@@ -153,7 +170,7 @@
         const questionElement = document.querySelector("#question");
         const currentSpanQuestionNum = document.querySelector('#current-question');// the span on the top
         const totalQuestions = document.querySelector('#total-questions')
-        const answerBtns = document.getElementById("answer-buttons");
+        const answerBtns = document.querySelector("#answer-buttons");
         const answers = document.querySelectorAll('.btn')
         const nextBtn = document.getElementById("next-btn");
         const quizDiv  = document.querySelector('.quiz')
@@ -174,7 +191,7 @@
             data.answers.push(correctAnswer.value);
 
             console.log(data)
-            const url = `/dashboard/teacher/course/<%-id%>/<%-section%>/create-quiz`
+            const url = `/dashboard/teacher/course/${serverData.id}/${serverData.section}/create-quiz`
             fetch(url, {
                 method : 'POST',
                 headers : {

@@ -8,8 +8,18 @@ const bcrypt    = require('bcrypt');
 const {v4 : uuid} = require('uuid');
 const { Upload, Query } = require('../../../../server');
 
-
+//load page
 router.get('/dashboard/teacher/course/my-courses', async(req, res) => {
+    if(!req.session.auth){
+        return res.send("Please login");
+    }
+    // res.render('./dashboards/teacher/courses/all-teacher-courses.ejs', {data : teacher})
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/teacher/courses/all-teacher-courses.html'))
+})
+
+
+
+router.get('/dashboard/teacher/course/my-courses-info', async(req, res) => {
     if(!req.session.auth){
         return res.send("Please login");
     }
@@ -22,7 +32,8 @@ router.get('/dashboard/teacher/course/my-courses', async(req, res) => {
     if(!teacher){
         return res.send('didn\'t recognise you')
     }
-    res.render('./dashboards/teacher/courses/all-teacher-courses.ejs', {data : teacher})
+    // res.render('./dashboards/teacher/courses/all-teacher-courses.ejs', {data : teacher})
+    res.json({data : teacher});
 })
 
 

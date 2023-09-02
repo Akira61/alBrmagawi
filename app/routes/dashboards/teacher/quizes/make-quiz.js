@@ -9,7 +9,26 @@ const {v4 : uuid} = require('uuid');
 const { Upload, Query } = require('../../../../server');
 
 
+
+//load page
 router.get('/dashboard/teacher/course/:id/:section/:quizType/create-quiz', async(req, res) => {
+    if(!req.params.id || !req.params.section || !req.params.quizType){
+        return res.json({err_message : "invalid url"});
+    }
+    const {id, section, quizType} = req.params;
+
+    const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
+    const course = await asyncQuery(`SELECT * FROM courses WHERE course_id = ?;`,[id]);
+    // check if course and section exists 
+    if(course.length == 0) return res.json({err_message : "Course Not Found."});
+
+    // res.render('./dashboards/teacher/quizes/make-quiz.ejs', {id,section,quizType, lessons})
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/teacher/quizes/make-quiz.html'))
+})
+
+
+
+router.get('/dashboard/teacher/course/:id/:section/:quizType/create-quiz-info', async(req, res) => {
     if(!req.params.id || !req.params.section || !req.params.quizType){
         return res.json({err_message : "invalid url"});
     }
@@ -33,7 +52,8 @@ router.get('/dashboard/teacher/course/:id/:section/:quizType/create-quiz', async
     }
     console.log(lessons)
 
-    res.render('./dashboards/teacher/quizes/make-quiz.ejs', {id,section,quizType, lessons})
+    // res.render('./dashboards/teacher/quizes/make-quiz.ejs', {id,section,quizType, lessons})
+    res.json({id,section,quizType, lessons})
 })
 
 
