@@ -11,7 +11,8 @@ const { Query } = require('../../../../server');
 
 
 router.get('/dashboard/add-professor', (req, res) => {
-    res.render('./dashboards/admin/Professors/add-professor.ejs');
+    // res.render('./dashboards/admin/Professors/add-professor.ejs');
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/admin/Professors/add-professor.html'))
 })
 
 

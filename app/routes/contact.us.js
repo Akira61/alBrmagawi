@@ -8,8 +8,21 @@ const {Query}     = require('../server');
 
 
 router.get('/contact', (req, res) => {
-    res.render('contact.us.ejs', 
-    req.session.auth?{email : req.session.user.email}:{email : false});
+    // res.render('contact.us.ejs', 
+    // req.session.auth?{email : req.session.user.email}:{email : false});
+    res.sendFile(path.join(__dirname + '../../views/contact.us.html'))
+})
+
+// get user email and name and past it in the contact form
+router.get('/contact/userInfo', (req, res) => {
+    res.json(
+        req.session.auth?
+        {
+            email : req.session.user.email,
+            name:req.session.user.first_name+' '+req.session.user.last_name
+        }
+        :{email : false}
+    );
 })
 
 

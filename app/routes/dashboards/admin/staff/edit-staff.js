@@ -11,7 +11,14 @@ const { Query } = require('../../../../server');
 const { URLs } = require('../../../../url.config');
 
 
+//load page
 router.get('/dashboard/admin/edit-staff', async(req, res) => {
+    // res.render('./dashboards/admin/staff/edit-staff.ejs', {data : user});
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/admin/staff/edit-staff.html'))
+})
+
+
+router.get('/dashboard/admin/edit-staff-info', async(req, res) => {
     console.log(req.query.user_id);
     if(!req.query.user_id){
         return res.json({err_message : "no staff member data sent"});
@@ -23,7 +30,8 @@ router.get('/dashboard/admin/edit-staff', async(req, res) => {
     }
 
     console.log(user);
-    res.render('./dashboards/admin/staff/edit-staff.ejs', {data : user});
+    // res.render('./dashboards/admin/staff/edit-staff.ejs', {data : user});
+    res.json({data: user});
 })
 
 

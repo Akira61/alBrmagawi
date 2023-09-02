@@ -26,13 +26,14 @@
                                     <form class="main-form" action="/contact" method="post">
                                         <div class="form-group">
                                             <label><strong>Name</strong></label>
-                                            <input type="text" name="name" class="form-control" placeholder="your name">
+                                            <input id="name" type="text" name="name" class="form-control" placeholder="your name">
                                         </div>
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
-                                            <input type="email" name="email" class="form-control" placeholder="hello@example.com" value="<% if (email) { %>
+                                            <!-- <input id="email" type="email" name="email" class="form-control" placeholder="hello@example.com" value="<% if (email) { %>
                                             <%= email %>
-                                            <% } %>">
+                                            <% } %>"> -->
+                                            <input id="email" type="email" name="email" class="form-control" placeholder="hello@example.com" />
                                         </div>
                                         <div class="form-group">
                                             <label><strong>Message</strong></label>
@@ -51,7 +52,17 @@
         </div>
     </div>
 
-
+    <script>
+        fetch('/contact/userInfo')
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            if(data.email){
+                document.querySelector('#email').value = data.email;
+                document.querySelector('#name').value = data.name
+            }
+        })
+    </script>
     <!--**********************************
         Scripts
     ***********************************-->

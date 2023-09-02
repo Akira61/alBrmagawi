@@ -9,7 +9,8 @@ const nodemailer = require("nodemailer");
 
 //routes
 router.get('/dashboard/teacher', (req, res) => {
-    res.render('./dashboards/teacher/teacher.ejs');
+    // res.render('./dashboards/teacher/teacher.ejs');
+    res.sendFile(path.join(__dirname + '../../../../views/dashboards/teacher/teacher.html'))
 })
   
 // Courses

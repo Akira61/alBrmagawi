@@ -10,7 +10,14 @@ const { userExists } = require('../../../auth/functions');
 const { Query } = require('../../../../server');
 
 
+//load page
 router.get('/dashboard/edit-professor', async(req, res) => {
+    // res.render('./dashboards/admin/Professors/edit-professor.ejs', {data : user});
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/admin/Professors/edit-professor.html'))
+})
+
+// get professor info and send it to client
+router.get('/dashboard/edit-professor-info', async(req, res) => {
     console.log(req.query.user_id);
     if(!req.query.user_id){
         return res.json({err_message : "no professor data sent"});
@@ -22,8 +29,10 @@ router.get('/dashboard/edit-professor', async(req, res) => {
     }
 
     console.log(user);
-    res.render('./dashboards/admin/Professors/edit-professor.ejs', {data : user});
+    // res.render('./dashboards/admin/Professors/edit-professor.ejs', {data : user});
+    res.json({data : user});
 })
+
 
 
 

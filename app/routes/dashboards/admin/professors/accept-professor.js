@@ -7,8 +7,14 @@ const nodemailer = require("nodemailer");
 const { Query } = require('../../../../server');
 
 
-// all Professors with 0 accepted
+// load the page
 router.get('/dashboard/admin/professor/accept-denaied', async(req, res) => {
+    // res.render('./dashboards/admin/Professors/accept-professor.ejs', {data : teachers})
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/admin/Professors/accept-professor.html'))
+})
+
+// all Professors with 0 accepted
+router.get('/dashboard/admin/professor/accept-denaied-info', async(req, res) => {
     const asyncQuery = util.promisify(Query.query).bind(Query); // make query async/await
     const teachers = await asyncQuery(`
     SELECT user_id,first_name, last_name, phone_number,
@@ -16,7 +22,8 @@ router.get('/dashboard/admin/professor/accept-denaied', async(req, res) => {
     birth_day, joining_date FROM teachers WHERE accepted = 0
     `);
     console.log(teachers);
-    res.render('./dashboards/admin/Professors/accept-professor.ejs', {data : teachers})
+    // res.render('./dashboards/admin/Professors/accept-professor.ejs', {data : teachers})
+    res.json({data : teachers});
 })
 
 

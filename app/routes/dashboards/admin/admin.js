@@ -8,7 +8,8 @@ const nodemailer = require("nodemailer");
 
 
 router.get('/dashboard/admin',isAdmin, (req, res) => {
-    res.render('./dashboards/admin/admin.ejs')
+    // res.render('./dashboards/admin/admin.ejs')
+    res.sendFile(path.join(__dirname + '../../../../views/dashboards/admin/admin.html'))
 })
  
 

@@ -12,6 +12,12 @@ const { URLs } = require('../../../../url.config');
 
 
 router.get('/dashboard/admin/edit-student', async(req, res) => {
+    // res.render('./dashboards/admin/students/edit-student.ejs', {data : user});
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/admin/students/edit-student.html'))
+})
+
+
+router.get('/dashboard/admin/edit-student-info', async(req, res) => {
     console.log(req.query.user_id);
     if(!req.query.user_id){
         return res.json({err_message : "no studnet data sent"});
@@ -23,7 +29,8 @@ router.get('/dashboard/admin/edit-student', async(req, res) => {
     }
 
     console.log(user);
-    res.render('./dashboards/admin/students/edit-student.ejs', {data : user});
+    // res.render('./dashboards/admin/students/edit-student.ejs', {data : user});
+    res.json({data : user})
 })
 
 

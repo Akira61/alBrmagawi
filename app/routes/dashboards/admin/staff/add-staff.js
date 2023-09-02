@@ -12,7 +12,8 @@ const { URLs } = require('../../../../url.config');
 
 
 router.get('/dashboard/admin/add-staff', (req, res) => {
-    res.render('./dashboards/admin/staff/add-staff.ejs');
+    // res.render('./dashboards/admin/staff/add-staff.ejs');
+    res.sendFile(path.join(__dirname + '../../../../../views/dashboards/admin/staff/add-staff.html'))
 })
 
 
