@@ -25,7 +25,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="font-[Exo 2] ">
+      <header className="font-[Exo 2] md:sticky top-0 dark:bg-[#111927]">
         <nav className="flex justify-between items-center w-[92%] mx-auto py-5">
           <div>
             <a href="/">
