@@ -67,8 +67,8 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="flex items-center gap-6">
-            <a className="hover:underline hover:cursor-pointer">Login</a>
-            <a className="cta" href="#">
+            <a href="/login" className="hover:underline hover:cursor-pointer">Login</a>
+            <a className="cta" href="/register">
               <button className=" bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-5 py-2 rounded-sm hover:bg-slate-700">
                 Get Started
               </button>
