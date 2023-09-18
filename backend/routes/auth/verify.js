@@ -55,7 +55,7 @@ router.get('/auth/verify-code', async function(req,res){
         res.end("error");
     }else{
             console.log("Message sent: " + response);
-            res.send("verification code sent ✅");
+            res.json({success: true, message:"verification code sent ✅"});
         }
     });
 });

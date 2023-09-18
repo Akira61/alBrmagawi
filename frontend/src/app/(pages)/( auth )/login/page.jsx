@@ -1,6 +1,35 @@
+"use client";
 import Navbar from "@/app/(components)/Navbar";
+import { apiURLs } from "@/app/url.config";
+import axios from "axios";
+import { useState } from "react";
 
 export default function Login() {
+  let [email, setEmail] = useState();
+  let [password, setPassword] = useState();
+  let [error, setError] = useState();
+  async function sendData(e) {
+    e.preventDefault();
+    console.log(email, password);
+
+    const { data } = await axios.post(
+      apiURLs.auth.login.post,
+      { email: email, password: password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(data);
+    // handdel error
+    if(!data.success){
+      setError(data.err_message)
+    }
+    if(data.success){
+      location.href = '/'
+    }
+  }
   return (
     <>
       <Navbar />
@@ -13,14 +42,16 @@ export default function Login() {
             <h5 className="text-3xl py-5 text-center font-medium text-gray-900 dark:text-white">
               Login
             </h5>
+            <div className="text-red-500 text-center">{error}</div>
             <div className="relative z-0 w-full mb-6 grou]">
               <input
                 type="email"
-                name="floating_email"
+                name="email"
                 id="floating_email"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required=""
+                onChange={(e) => setEmail(e.target.value)}
               />
               <label
                 htmlFor="floating_email"
@@ -32,11 +63,12 @@ export default function Login() {
             <div className="relative z-0 w-full mb-6 pb-5 group">
               <input
                 type="password"
-                name="floating_password"
+                name="password"
                 id="floating_password"
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required=""
+                onChange={(e) => setPassword(e.target.value)}
               />
               <label
                 htmlFor="floating_password"
@@ -74,6 +106,7 @@ export default function Login() {
             <button
               type="submit"
               className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              onClick={(e) => sendData(e)}
             >
               Login
             </button>

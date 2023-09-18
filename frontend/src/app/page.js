@@ -9,6 +9,7 @@ import Banner from "./(components)/Home/Banner";
 import About from "./(components)/Home/About";
 import Carousel from "./(components)/Carousel";
 
+
 export default function Home() {
   return (
     <>

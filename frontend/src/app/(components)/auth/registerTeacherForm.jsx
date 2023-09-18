@@ -1,4 +1,55 @@
+"use client";
+import { apiURLs } from "@/app/url.config";
+import axios from "axios";
+import { useState } from "react";
+
 export default function RegisterTeacherForm() {
+  let [firstName, setFirstName] = useState();
+  let [lastName, setLastName] = useState();
+  let [email, setEmail] = useState();
+  let [phone, setPhone] = useState();
+  let [department, setDepartment] = useState();
+  let [education, setEducation] = useState();
+  let [position, setPosition] = useState();
+  let [password, setPassword] = useState();
+  let [confirmPassword, setConfirmPassword] = useState();
+  let [error, setError] = useState();
+
+  async function sendData(e) {
+    e.preventDefault();
+    console.log(department,position);
+    if (password !== confirmPassword) return setError("passwords dosn't match");
+
+    const { data } = await axios.post(
+      apiURLs.auth.register.teacher.post,
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        number : phone,
+        education: education,
+        department : department,
+        Designation : position,
+        gender : 'male',
+        birth : '00/00/0000',
+        password: password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(data);
+    // handdel error
+    if (!data.success) {
+      setError(data.err_message);
+    }
+    if (data.success) {
+      location.href = "/login";
+    }
+  }
+
   return (
     <>
       <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -6,6 +57,9 @@ export default function RegisterTeacherForm() {
           <h5 className="text-3xl py-5 text-center font-medium text-gray-900 dark:text-white">
             Teacher registeration
           </h5>
+          {/* show error messages */}
+          <div className="text-red-500 text-center">{error}</div>
+
           <div className="grid md:grid-cols-2 md:gap-6">
             <div className="relative z-0 w-full mb-6 group">
               <input
@@ -15,6 +69,7 @@ export default function RegisterTeacherForm() {
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required=""
+                onChange={(e) => setFirstName(e.target.value)}
               />
               <label
                 htmlFor="floating_first_name"
@@ -31,6 +86,7 @@ export default function RegisterTeacherForm() {
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required=""
+                onChange={(e) => setLastName(e.target.value)}
               />
               <label
                 htmlFor="floating_last_name"
@@ -49,6 +105,7 @@ export default function RegisterTeacherForm() {
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required=""
+                onChange={(e) => setEmail(e.target.value)}
               />
               <label
                 htmlFor="floating_email"
@@ -65,6 +122,7 @@ export default function RegisterTeacherForm() {
                 className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                 placeholder=" "
                 required=""
+                onChange={(e) => setPhone(e.target.value)}
               />
               <label
                 htmlFor="floating_email"
@@ -81,6 +139,7 @@ export default function RegisterTeacherForm() {
             <select
               id="underline_select"
               className="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
+              onChange={(e) => setDepartment(e.target.value)}
             >
               <option selected="">Choose a department</option>
               <option value="html">HTML</option>
@@ -105,6 +164,7 @@ export default function RegisterTeacherForm() {
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required=""
+              onChange={(e) => setPosition(e.target.value)}
             />
             <label
               htmlFor="floating_password"
@@ -121,6 +181,7 @@ export default function RegisterTeacherForm() {
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required=""
+              onChange={(e) => setEducation(e.target.value)}
             />
             <label
               htmlFor="floating_password"
@@ -137,6 +198,7 @@ export default function RegisterTeacherForm() {
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required=""
+              onChange={(e) => setPassword(e.target.value)}
             />
             <label
               htmlFor="floating_password"
@@ -153,6 +215,7 @@ export default function RegisterTeacherForm() {
               className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               placeholder=" "
               required=""
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <label
               htmlFor="floating_repeat_password"
@@ -175,21 +238,28 @@ export default function RegisterTeacherForm() {
               htmlFor="remember"
               className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             >
-                I accept the{" "}
-                <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">
-                  Terms of Service
-                </a>{" "}
-                and the{" "}
-                <a href="#" className="text-blue-700 hover:underline dark:text-blue-500">
-                  {" "}
-                  Privacy Policy
-                </a>
+              I accept the{" "}
+              <a
+                href="#"
+                className="text-blue-700 hover:underline dark:text-blue-500"
+              >
+                Terms of Service
+              </a>{" "}
+              and the{" "}
+              <a
+                href="#"
+                className="text-blue-700 hover:underline dark:text-blue-500"
+              >
+                {" "}
+                Privacy Policy
+              </a>
             </label>
           </div>
 
           <button
             type="submit"
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={(e) => sendData(e)}
           >
             Register
           </button>

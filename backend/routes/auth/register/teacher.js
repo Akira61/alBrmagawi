@@ -84,6 +84,7 @@ router.post('/auth/register/teacher', async (req, res) => {
     ], (err, result) => {
         if(err) throw err;
         console.log("teacher added successfully ✅");
+        res.json({success:true, message:'account created'});
     })
 
 

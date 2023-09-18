@@ -31,7 +31,7 @@ router.post('/auth/register', async(req, res) => {
 
     // check if user sent data
     if(!req.body.firstName || !req.body.lastName|| !req.body.email || !req.body.password){
-        return res.json({err_message : "Please Complete The Fields"});
+        return res.json({err_message : "Please Complete The Fields", success: false});
     }
 
     const {firstName, lastName, email, password} = req.body;
@@ -44,18 +44,18 @@ router.post('/auth/register', async(req, res) => {
     // (SELECT * FROM users WHERE email = ?); `,[email,email]);
     const user = await userExists(email, 'email')
     if(user.length > 0){
-        return res.json({err_message: 'Email already takeing'})
+        return res.json({err_message: 'Email already takeing', success:false})
     }
  
     // check if email is valid
     const emailRegx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if(!emailRegx.test(email)){
-        return res.json({err_message : "Email is unvalid. Please Write your Email correctly"})
+        return res.json({err_message : "Email is unvalid. Please Write your Email correctly", success:false})
     }
     
     //check if password is valid
     if(password.length < 5){
-        return res.json({err_message : "Password Must Be 6 Characters Or Longer"})
+        return res.json({err_message : "Password Must Be 6 Characters Or Longer", success:false})
     }
     //Hash user's password
     const hashedPass = await bcrypt.hash(password, 10);
@@ -63,10 +63,10 @@ router.post('/auth/register', async(req, res) => {
     // insert the user with unverified
     const userId = uuid();
     const query = `
-    INSERT INTO users(user_id, first_name, last_name, email, password)
-    VALUES( ?, ?, ?,?, ?);`
+    INSERT INTO users(user_id, first_name, last_name, email, password, joining_date)
+    VALUES( ?, ?, ?,?, ?,?);`
     Query.query(query, 
-        [userId, firstName, lastName, email, hashedPass], 
+        [userId, firstName, lastName, email, hashedPass, Date()], 
         (err, result) => {
 
         if(err) throw err;
@@ -76,7 +76,8 @@ router.post('/auth/register', async(req, res) => {
 
     // send verification code
     // res.redirect(process.env.HOST + `/auth/verify-code?to=${userId}`)
-    res.redirect('/auth/login');
+    // res.redirect('/auth/login');
+    res.json({success:true})
 })
 
 

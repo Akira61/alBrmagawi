@@ -24,7 +24,7 @@ router.post('/auth/login', async(req, res) => {
 
     //check if user already loggedin
     if (req.session.auth){
-        return res.redirect('/');
+        return res.json({success:false, err_message:'Already logged in'});
     }
 
     //check if if all data recived
@@ -54,7 +54,7 @@ router.post('/auth/login', async(req, res) => {
     //const teacher = await asyncQuery(`SELECT * FROM teachers WHERE email= ?;`, [email]);
     // console.log("-".repeat(30),user);
     if (user.length == 0 ){
-        return res.json({err_message : "User not found. Please Try To Sign Up"})
+        return res.json({err_message : "User not found. Please Try To Sign Up", success:false})
     }
 
     // compare passwords
@@ -74,15 +74,19 @@ router.post('/auth/login', async(req, res) => {
     req.session.user = await user[0];
     
     if(user[0].role == 'student'){
-        return res.redirect('/dashboard/student');
+        // return res.redirect('/dashboard/student');
+        return res.json({success:true, type:'student'})
     }
     else if(user[0].role == 'teacher'){
-        return res.redirect('/dashboard/teacher');
+        // return res.redirect('/dashboard/teacher');
+        return res.json({success:true, type:'teacher'})
     }
     else if(user[0].role == 'admin'){
-        return res.redirect('/dashboard/admin');
+        // return res.redirect('/dashboard/admin');
+        return res.json({success:true, type:'admin'})
     }
-    res.redirect('/');
+    // res.redirect('/');
+    res.json({success:true});
 })
 
 
