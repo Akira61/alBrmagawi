@@ -10,17 +10,32 @@ import {
   faXmark,
   faX,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 export default function Navbar() {
   const [icon, setIcon] = useState(faBarsStaggered);
   const [menu, setMenu] = useState("top-[-100%]");
-
+  const [userData, setUserData] = useState(false);
   function ToggleMenu(event) {
     //icon toggle
     icon == faBarsStaggered ? setIcon(faXmark) : setIcon(faBarsStaggered);
     //show and hide menu
     menu == "top-[-100%]" ? setMenu("top-[9%]") : setMenu("top-[-100%]");
+  }
+
+  useEffect(()=> {
+    userDetails()
+  },[])
+
+  //get user details from token
+  async function userDetails() {
+    try {
+      const { data } = await axios.get("/api/tokenData");
+      setUserData(data);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   }
 
   return (
@@ -29,7 +44,7 @@ export default function Navbar() {
         <nav className="flex justify-between items-center w-[92%] mx-auto py-5">
           <div>
             <a href="/">
-            <img className="h-14 mr-3" src="/logo.png" alt="Albrmagawi" />
+              <img className="h-14 mr-3" src="/logo.png" alt="Albrmagawi" />
             </a>
           </div>
           <div
@@ -67,17 +82,32 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="flex items-center gap-6">
-            <a href="/login" className="hover:underline hover:cursor-pointer">Login</a>
-            <a className="cta" href="/register">
-              <button className=" bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-5 py-2 rounded-sm hover:bg-slate-700">
-                Get Started
-              </button>
-            </a>
-            <FontAwesomeIcon
-              className="text-3xl cursor-pointer md:hidden"
-              icon={icon}
-              onClick={(e) => ToggleMenu(e)}
-            />
+            {userData ? (
+              <a className="cta" href="/profile">
+                <button className=" bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-5 py-2 rounded-sm hover:bg-slate-700">
+                  {userData.data.first_name}
+                </button>
+              </a>
+            ) : (
+              <>
+                <a
+                  href="/login"
+                  className="hover:underline hover:cursor-pointer"
+                >
+                  Login
+                </a>
+                <a className="cta" href="/register">
+                  <button className=" bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-5 py-2 rounded-sm hover:bg-slate-700">
+                    Get Started
+                  </button>
+                </a>
+                <FontAwesomeIcon
+                  className="text-3xl cursor-pointer md:hidden"
+                  icon={icon}
+                  onClick={(e) => ToggleMenu(e)}
+                />
+              </>
+            )}
           </div>
         </nav>
       </header>

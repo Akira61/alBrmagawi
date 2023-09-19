@@ -34,7 +34,6 @@ export default function Login() {
       location.href = "/";
     }
   }
-
   // login with nextjs route
   async function onLogin(e) {
     e.preventDefault();
