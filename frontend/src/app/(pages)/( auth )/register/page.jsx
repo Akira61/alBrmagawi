@@ -6,6 +6,7 @@ import RegisterTeacherForm from "@/app/(components)/auth/registerTeacherForm";
 import { apiURLs } from "@/app/url.config";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Register({ searchParams }) {
   //console.log(searchParams)
@@ -36,6 +37,7 @@ export default function Register({ searchParams }) {
   //   );
   //   console.log(data);
   // }
+  
 
   return (
     <>

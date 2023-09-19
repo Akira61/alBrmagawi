@@ -14,17 +14,24 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
+    "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.1",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
+    "install": "^0.13.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "13.4.19",
     "next-auth": "^4.23.1",
+    "nom": "^0.0.3",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-simple-typewriter": "^5.0.1",
+    "serverless-mysql": "^1.5.5",
     "sweetalert2": "^11.7.27",
     "tailwindcss": "3.3.3",
-    "typewriter-effect": "^2.20.1"
+    "typewriter-effect": "^2.20.1",
+    "uuid": "^9.0.1"
   }
 }

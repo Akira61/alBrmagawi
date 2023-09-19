@@ -1,9 +1,12 @@
 "use client";
 import { apiURLs } from "@/app/url.config";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function RegisterStudentForm() {
+  const route = useRouter();
   let [firstName, setFirstName] = useState();
   let [lastName, setLastName] = useState();
   let [email, setEmail] = useState();
@@ -37,12 +40,33 @@ export default function RegisterStudentForm() {
       location.href = "/";
     }
   }
+  // signup with nextjs route
+  async function onSignup(e) {
+    e.preventDefault()
+    if (password !== confirmPassword) return setError("passwords dosn't match");
+    try {
+      const { data } = await axios.post("/api/auth/signup/user", {
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+      console.log(data);
+      if(data.success){
+        route.push('/login')
+      }
+      setError(data.err_message)
+    } catch (error) {
+      toast.error(error);
+      setError(error);
+    }
+  }
   return (
     <>
       <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
         <form className="space-y-6" action="#">
           <h5 className="text-3xl py-5 text-center font-medium text-gray-900 dark:text-white">
-            ٍStudent registeration
+            Student registeration
           </h5>
           <div className="text-red-500 text-center">{error}</div>
           <div className="grid md:grid-cols-2 md:gap-6">
@@ -136,7 +160,7 @@ export default function RegisterStudentForm() {
           <button
             type="submit"
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={(e) => sendData(e)}
+            onClick={(e) => onSignup(e)}
           >
             Register
           </button>

@@ -2,6 +2,7 @@
 import { apiURLs } from "@/app/url.config";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function RegisterTeacherForm() {
   let [firstName, setFirstName] = useState();
@@ -50,6 +51,7 @@ export default function RegisterTeacherForm() {
     }
   }
 
+  
   return (
     <>
       <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">

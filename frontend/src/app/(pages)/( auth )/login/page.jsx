@@ -2,12 +2,16 @@
 import Navbar from "@/app/(components)/Navbar";
 import { apiURLs } from "@/app/url.config";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+// import toast from "react-hot-toast";
 
 export default function Login() {
+  const route = useRouter()
   let [email, setEmail] = useState();
   let [password, setPassword] = useState();
   let [error, setError] = useState();
+
   async function sendData(e) {
     e.preventDefault();
     console.log(email, password);
@@ -23,11 +27,31 @@ export default function Login() {
     );
     console.log(data);
     // handdel error
-    if(!data.success){
-      setError(data.err_message)
+    if (!data.success) {
+      setError(data.err_message);
     }
-    if(data.success){
-      location.href = '/'
+    if (data.success) {
+      location.href = "/";
+    }
+  }
+
+  // login with nextjs route
+  async function onLogin(e) {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("/api/auth/login", {
+        email,
+        password,
+      });
+      console.log(data);
+      if (data.success) {
+        // toast.success(data.message)
+        route.push("/dashboard/"+data.role);
+      }
+      setError(data.err_message);
+    } catch (error) {
+      // toast.error(error);
+      setError(error);
     }
   }
   return (
@@ -106,7 +130,7 @@ export default function Login() {
             <button
               type="submit"
               className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              onClick={(e) => sendData(e)}
+              onClick={(e) => onLogin(e)}
             >
               Login
             </button>
