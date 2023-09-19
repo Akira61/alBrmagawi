@@ -1,10 +1,12 @@
 "use client";
 import { apiURLs } from "@/app/url.config";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function RegisterTeacherForm() {
+  const route = useRouter()
   let [firstName, setFirstName] = useState();
   let [lastName, setLastName] = useState();
   let [email, setEmail] = useState();
@@ -18,7 +20,7 @@ export default function RegisterTeacherForm() {
 
   async function sendData(e) {
     e.preventDefault();
-    console.log(department,position);
+    console.log(department, position);
     if (password !== confirmPassword) return setError("passwords dosn't match");
 
     const { data } = await axios.post(
@@ -27,12 +29,12 @@ export default function RegisterTeacherForm() {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        number : phone,
+        number: phone,
         education: education,
-        department : department,
-        Designation : position,
-        gender : 'male',
-        birth : '00/00/0000',
+        department: department,
+        Designation: position,
+        gender: "male",
+        birth: "00/00/0000",
         password: password,
       },
       {
@@ -51,7 +53,34 @@ export default function RegisterTeacherForm() {
     }
   }
 
-  
+  // signup with nextjs route
+  async function onSignup(e) {
+    e.preventDefault();
+    if (password !== confirmPassword) return setError("passwords dosn't match");
+    try {
+      const { data } = await axios.post("/api/auth/signup/teacher", {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        number: phone,
+        education: education,
+        department: department,
+        Designation: position,
+        gender: "male",
+        birth: "00/00/0000",
+        password: password,
+      });
+      console.log(data);
+      if (data.success) {
+        toast.success('registered successfully')
+        route.push("/login");
+      }
+      setError(data.err_message);
+    } catch (error) {
+      toast.error(error);
+      setError(error);
+    }
+  }
   return (
     <>
       <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -261,7 +290,7 @@ export default function RegisterTeacherForm() {
           <button
             type="submit"
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={(e) => sendData(e)}
+            onClick={(e) => onSignup(e)}
           >
             Register
           </button>
