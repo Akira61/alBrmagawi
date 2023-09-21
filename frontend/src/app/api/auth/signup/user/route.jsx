@@ -2,14 +2,22 @@ import excuteQuery, { db } from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
+import sendEmail, { verifyEmail } from "@/app/helpers/mailer";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 // POST new user
-export async function POST(req, res) {
+export async function POST(req) {
   try {
     const reqBody = await req.json();
     //check if all values sent
     console.log("from api: ", reqBody);
-    if (!reqBody.firstName || !reqBody.lastName || !reqBody.email || !reqBody.password) {
+    if (
+      !reqBody.firstName ||
+      !reqBody.lastName ||
+      !reqBody.email ||
+      !reqBody.password
+    ) {
       return NextResponse.json({
         success: false,
         err_message: "the form is not complited",
@@ -20,7 +28,7 @@ export async function POST(req, res) {
     // check if email is valid
     const emailRegx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!emailRegx.test(email)) {
-      return res.json({
+      return NextResponse.json({
         err_message: "Email is unvalid. Please Write your Email correctly",
         success: false,
       });
@@ -28,7 +36,7 @@ export async function POST(req, res) {
 
     //check if password is valid
     if (password.length < 5) {
-      return res.json({
+      return NextResponse.json({
         err_message: "Password Must Be 6 Characters Or Longer",
         success: false,
       });
@@ -44,14 +52,21 @@ export async function POST(req, res) {
     }
     //Hash user's password
     const hashedPass = await bcrypt.hash(password, 10);
-    const query = `
-    INSERT INTO users(user_id, first_name, last_name, email, password, joining_date)
-    VALUES( ?, ?, ?,?, ?,?);`;
-    const newUser = await excuteQuery({
-      query: query,
-      values: [v4(), firstName, lastName, email, hashedPass, Date()],
+    //insert new user
+    const createUser = await prisma.users.create({
+      data: {
+        user_id: v4(),
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: hashedPass,
+        joining_date: Date(),
+      },
     });
-    console.log(newUser);
+    console.log(createUser);
+    
+    //send verification code
+    const verificationEmail = await verifyEmail(email,user[0].id,user[0].role)
     return NextResponse.json({
       success: true,
       message: "user created successfully✅",
@@ -60,9 +75,6 @@ export async function POST(req, res) {
     return NextResponse.json({ error: error.message, status: 500 });
   }
 }
-
-
-
 
 export default async function userExists(value, column) {
   // check if user exists

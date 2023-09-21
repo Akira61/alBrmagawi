@@ -40,6 +40,16 @@ export async function POST(req, res) {
       });
     }
 
+    //check if user verified 
+    if(!user[0].verified){
+        const verificationEmail = await verifyEmail(email,user[0].id,user[0].role)
+        return NextResponse.json({
+            success: false,
+            err_message: "your email is not verified",
+            status: 500,
+          });
+    }
+
     // set up session
     const tokenData = {
       id: user[0].id,

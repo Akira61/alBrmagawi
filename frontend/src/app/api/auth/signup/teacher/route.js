@@ -3,6 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import userExists from "../user/route";
+import sendEmail, { verifyEmail } from "@/app/helpers/mailer";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 
 // POST new user
 export async function POST(req, res) {
@@ -53,7 +57,10 @@ export async function POST(req, res) {
     // check if phone number already exists in teachers DB
     const phoneExists = await userExists(number, "phone_number");
     if (phoneExists.length > 0) {
-      return NextResponse.json({success:false, err_message: "Phone Number Already taking" });
+      return NextResponse.json({
+        success: false,
+        err_message: "Phone Number Already taking",
+      });
     }
 
     // check if email is valid
@@ -81,33 +88,28 @@ export async function POST(req, res) {
         status: 500,
       });
     }
+
     //Hash user's password
     const hashedPass = await bcrypt.hash(password, 10);
-    const query = `
-    INSERT INTO teachers 
-    (user_id, first_name, last_name , 
-    phone_number, email, password, 
-    gender, designation, department,
-    birth_day, education, joining_date)
-    VALUES (?, ?, ?, ?, ?, ?,?,?,?,?,?,?);`;
-    const newUser = await excuteQuery({
-      query: query,
-      values: [
-        v4(),
-        firstName,
-        lastName,
-        number,
-        email,
-        hashedPass,
-        gender,
-        Designation,
-        department,
-        birth,
-        education,
-        Date(),
-      ],
-    });
-    console.log(newUser);
+    //insert new teacher
+    const createTeacher = await prisma.teachers.create({
+        data: {
+            user_id: v4(),
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            phone_number: number,
+            password: hashedPass,
+            gender: gender,
+            designation: Designation,
+            department: department,
+            education: education,
+            birth_day: birth,
+            joining_date: Date(),
+        }
+    })
+    console.log(createTeacher);
+    
     return NextResponse.json({
       success: true,
       message: "user created successfully✅",
@@ -116,3 +118,5 @@ export async function POST(req, res) {
     return NextResponse.json({ error: error.message, status: 500 });
   }
 }
+
+

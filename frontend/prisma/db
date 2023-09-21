@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model contact {
+  name    String   @db.VarChar(255)
+  email   String   @db.VarChar(255)
+  message String   @db.Text
+  date    DateTime @db.Date
+
+  @@ignore
+}
+
+model course_sections {
+  id         Int     @id @default(autoincrement())
+  section_id String  @db.VarChar(255)
+  course_id  Int?
+  section    String? @unique(map: "section") @db.VarChar(255)
+
+  @@index([course_id], map: "section_courseID")
+}
+
+model courses {
+  id          Int      @id @default(autoincrement())
+  course_id   String   @db.VarChar(255)
+  teacher     Int
+  thumbnail   String   @db.VarChar(255)
+  title       String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  sections    String?  @default("section") @db.VarChar(255)
+  price       Int
+  students    Int      @default(0)
+  public      Int      @default(0) @db.TinyInt
+  date        DateTime @db.Date
+
+  @@index([teacher], map: "teacher_id")
+}
+
+model lessons {
+  id           Int      @id @default(autoincrement())
+  lesson_id    String   @db.VarChar(255)
+  course_id    Int
+  section      Int
+  title        String   @db.VarChar(255)
+  content      String   @db.VarChar(255)
+  blob_content Bytes?
+  thumbnail    String?  @db.VarChar(255)
+  content_type String   @db.VarChar(255)
+  description  String?  @db.VarChar(255)
+  public       Int      @default(1) @db.TinyInt
+  date         DateTime @db.Date
+
+  @@index([course_id], map: "courseID")
+  @@index([section], map: "lesson_section")
+}
+
+model orders {
+  id           Int      @id @default(autoincrement())
+  course_id    Int
+  user_id      Int
+  payment_id   String   @db.VarChar(255)
+  payment_data Json
+  date         DateTime @db.Date
+}
+
+model quizzes {
+  id             Int    @id @default(autoincrement())
+  quiz_id        String @db.VarChar(255)
+  lesson_id      Int?
+  course_id      Int
+  section        Int
+  question       String @db.VarChar(255)
+  answers        String @db.VarChar(255)
+  correct_answer String @db.VarChar(255)
+  section_quiz   Int    @default(0) @db.TinyInt
+  path           String @db.VarChar(255)
+
+  @@index([course_id], map: "course")
+  @@index([lesson_id], map: "lessonID")
+  @@index([section], map: "sectionID")
+}
+
+model staff {
+  id                        Int       @id @default(autoincrement())
+  user_id                   String    @db.VarChar(255)
+  first_name                String    @db.VarChar(255)
+  last_name                 String    @db.VarChar(255)
+  phone_number              String    @db.VarChar(255)
+  email                     String    @db.VarChar(255)
+  role                      String    @default("staff") @db.VarChar(255)
+  password                  String    @db.VarChar(255)
+  joining_date              String    @db.VarChar(255)
+  verified                  Int       @default(1) @db.TinyInt
+  verifyToken               String?   @db.VarChar(255)
+  verifyTokenExpire         DateTime? @db.Date
+  forgotPasswordToken       String?   @db.VarChar(255)
+  forgotPasswordTokenExpire DateTime? @db.Date
+}
+
+model teachers {
+  id                        Int       @id @default(autoincrement())
+  user_id                   String    @db.VarChar(255)
+  first_name                String    @db.VarChar(255)
+  last_name                 String    @db.VarChar(255)
+  phone_number              String    @db.VarChar(255)
+  email                     String    @db.VarChar(255)
+  password                  String    @db.VarChar(255)
+  role                      String    @default("teacher") @db.VarChar(255)
+  gender                    String    @db.VarChar(255)
+  designation               String    @db.VarChar(255)
+  department                String    @db.VarChar(255)
+  birth_day                 String    @db.VarChar(255)
+  education                 String    @db.VarChar(255)
+  joining_date              String    @db.VarChar(255)
+  accepted                  Int       @default(0) @db.TinyInt
+  verified                  Int       @default(0) @db.TinyInt
+  verifyToken               String?   @db.VarChar(255)
+  verifyTokenExpire         DateTime? @db.Date
+  forgotPasswordToken       String?   @db.VarChar(255)
+  forgotPasswordTokenExpire DateTime? @db.Date
+}
+
+model users {
+  id                        Int       @id @default(autoincrement())
+  user_id                   String    @db.VarChar(255)
+  first_name                String    @db.VarChar(255)
+  last_name                 String    @db.VarChar(255)
+  phone_number              String?   @db.VarChar(255)
+  email                     String    @db.VarChar(255)
+  password                  String    @db.VarChar(255)
+  role                      String    @default("student") @db.VarChar(255)
+  verified                  Int       @default(0) @db.TinyInt
+  verifyToken               String?   @db.VarChar(255)
+  verifyTokenExpire         String? @db.VarChar(255)
+  forgotPasswordToken       String?   @db.VarChar(255)
+  forgotPasswordTokenExpire String? @db.VarChar(255)
+  joining_date              String    @db.VarChar(255)
+}
