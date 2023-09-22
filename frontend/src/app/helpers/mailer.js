@@ -71,6 +71,8 @@ export default async function sendEmail({ email, emailType, userId }) {
   }
 }
 
+
+
 export async function verifyEmail(email, id, role) {
   try {
     const token = await bcrypt.hash(id.toString(), 10);
@@ -119,6 +121,7 @@ export async function verifyEmail(email, id, role) {
     };
     const mail = await transport.sendMail(mailOptions);
     console.log(mail);
+    return mail;
   } catch (error) {
     throw new Error(error.message);
   }

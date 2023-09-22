@@ -2,8 +2,9 @@ import excuteQuery, { db } from "@/app/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
-import sendEmail, { verifyEmail } from "@/app/helpers/mailer";
 import { PrismaClient } from "@prisma/client";
+import axios from "axios";
+import { verifyEmail } from "@/app/helpers/mailer";
 const prisma = new PrismaClient();
 
 // POST new user
@@ -64,9 +65,15 @@ export async function POST(req) {
       },
     });
     console.log(createUser);
-    
+
     //send verification code
-    const verificationEmail = await verifyEmail(email,user[0].id,user[0].role)
+    const verificationEmail = await verifyEmail(
+      email,
+      createUser.id,
+      createUser.role
+    );
+    
+
     return NextResponse.json({
       success: true,
       message: "user created successfully✅",

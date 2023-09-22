@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import userExists from "../signup/user/route";
 import jwt from "jsonwebtoken";
+import { verifyEmail } from "@/app/helpers/mailer";
 
 export async function POST(req, res) {
   try {
@@ -40,14 +41,19 @@ export async function POST(req, res) {
       });
     }
 
-    //check if user verified 
-    if(!user[0].verified){
-        const verificationEmail = await verifyEmail(email,user[0].id,user[0].role)
-        return NextResponse.json({
-            success: false,
-            err_message: "your email is not verified",
-            status: 500,
-          });
+    //check if user verified
+    if (!user[0].verified) {
+      //send verification code
+      const verificationEmail = await verifyEmail(
+        email,
+        user[0].id,
+        user[0].role
+      );
+      return NextResponse.json({
+        success: false,
+        err_message: "your email is not verified. Please check your inbox",
+        status: 500,
+      });
     }
 
     // set up session

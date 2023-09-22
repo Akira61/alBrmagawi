@@ -110,6 +110,13 @@ export async function POST(req, res) {
     })
     console.log(createTeacher);
     
+    //send verification code
+    const verificationEmail = await verifyEmail(
+      email,
+      createTeacher.id,
+      createTeacher.role
+    );
+
     return NextResponse.json({
       success: true,
       message: "user created successfully✅",

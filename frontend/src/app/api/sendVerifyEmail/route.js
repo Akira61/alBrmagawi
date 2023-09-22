@@ -15,8 +15,10 @@ const transport = nodemailer.createTransport({
  
 export async function GET(req) {
   try {
-    const email = await verifyEmail("test@teacher.com", 1, "teacher");
-    console.log(email);
+    // const body = await req.json();
+    // const {email,id,role} = body
+    const sendemail = await verifyEmail('jorad98215@ipniel.com', 3, 'student');
+    console.log(sendemail);
     // const token = `${randomUUID()}${randomUUID()}`.replace(/-/g, "");
     // // update user token based on role
     // let user;
