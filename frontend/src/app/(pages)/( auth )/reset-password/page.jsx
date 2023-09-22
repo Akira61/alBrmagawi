@@ -4,11 +4,36 @@ import Navbar from "@/app/(components)/Navbar";
 import { apiURLs } from "@/app/url.config";
 import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 export default function ResetPassword() {
   let [email, setEmail] = useState();
-  let [error, setError] =  useState();
+  let [error, setError] = useState();
+  let [success, setSuccess] = useState();
+
+  // send reset password page throw email
+  async function sendEmail(e) {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post("/api/auth/sendResetPasswordEmail", {
+        email,
+      });
+      if(data.success){
+        setSuccess(data.message)
+        setError('');
+        return toast.success('Reset password page sent throw email');
+      }
+      if(data.err_message){
+        return setError(data.err_message);
+      }
+
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+
   async function sendData(e) {
     e.preventDefault();
     console.log(email);
@@ -61,6 +86,7 @@ export default function ResetPassword() {
               Reset password
             </h5>
             <div className="text-red-500 text-center">{error}</div>
+            <div className="text-green-500 text-center">{success}</div>
             <div className="relative z-0 w-full mb-6 grou]">
               <input
                 type="email"
@@ -82,7 +108,7 @@ export default function ResetPassword() {
             <button
               type="submit"
               className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              onClick={(e) => sendData(e)}
+              onClick={(e) => sendEmail(e)}
             >
               Reset password
             </button>

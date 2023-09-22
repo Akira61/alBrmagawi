@@ -37,8 +37,8 @@ export async function POST(req) {
         where: {id: user[0].id},
         data: {
           verified: 1,
-          verifyToken: undefined,
-          verifyTokenExpire: 0,
+          verifyToken: "undefined",
+          verifyTokenExpire: "undefined",
         }
       })
     }else{
@@ -46,8 +46,8 @@ export async function POST(req) {
         where: {id: user[0].id},
         data: {
           verified: 1,
-          verifyToken: undefined,
-          verifyTokenExpire: 0,
+          verifyToken: "undefined",
+          verifyTokenExpire: "undefined",
         }
       })
     }

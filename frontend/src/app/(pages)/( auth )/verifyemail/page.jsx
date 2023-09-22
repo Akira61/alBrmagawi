@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function VerifyEmail() {
-  const [token, setToken] = useState("");
-  const [verified, setVerified] = useState(false);
-  const [error, setError] = useState(false);
+  let [token, setToken] = useState("");
+  let [verified, setVerified] = useState(false);
+  let [error, setError] = useState(false);
 
   // grap token from url
   useEffect(() => {
