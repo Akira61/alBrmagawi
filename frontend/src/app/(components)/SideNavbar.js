@@ -1,6 +1,7 @@
 "use client";
 import { Sidebar, Dropdown } from "flowbite-react";
 import { useState } from "react";
+import { UUID } from "crypto";
 import Head from "next/head";
 export default function SideNavbar() {
   const [open, setOpen] = useState(true);
@@ -9,12 +10,49 @@ export default function SideNavbar() {
     // { title: "Dashboard", src: "Chart_fill" },
     // { title: "Inbox", src: "Chat" },
     // { title: "Accounts", src: "User" },
-    { title: "Schedule ", src: "Calendar" },
-    { title: "Search", src: "Search" },
-    { title: "Analytics", src: "Chart" },
-    { title: "Files ", src: "Folder" },
-    { title: "Setting", src: "Setting", gap: true },
-    { title: "Logout", src: "Setting" },
+    { title: "Dashboard ", icon: "Chart" },
+    {
+      title: "Teachers ",
+      id: Date.now(),
+      icon: "User",
+      dropdown: [
+        { title: "All teachers", src: "#" },
+        { title: "Accept teacher", src: "#", icon: "" },
+        { title: "Add teacher", src: "#" },
+        { title: "Edit teacher", src: "#" },
+      ],
+    },
+    {
+      title: "Students",
+      id: Date.now(),
+      icon: "User",
+      dropdown: [
+        { title: "All students", src: "#" },
+        { title: "Add student" },
+        { title: "Edit student", icon: "" },
+      ],
+    },
+    {
+      title: "Staff",
+      id: Date.now(),
+      icon: "User",
+      dropdown: [
+        { title: "All staff", src: "#" },
+        { title: "Add staff" },
+        { title: "Edit staff", icon: "" },
+      ],
+    },
+    {
+      title: "Course",
+      id: Date.now(),
+      icon: "Folder",
+      dropdown: [{ title: "Add course", src: "#" }],
+    },
+    // { title: "Search", icon: "Search" },
+    // { title: "Analytics", icon: "Chart" },
+    // { title: "Files ", icon: "Folder" },
+    { title: "Settings", icon: "Setting", gap: true, bottom: true },
+    // { title: "Logout", icon: "Setting" },
   ];
   return (
     <>
@@ -28,13 +66,13 @@ export default function SideNavbar() {
       <nav className="fixed top-0 z-40 w-full ">
         <div className="px-3 py-3 lg:px-10 lg:pl-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center justify-start">
+            <div className="flex items-center justify-start ">
               <button
                 data-drawer-target="logo-sidebar"
                 data-drawer-toggle="logo-sidebar"
                 aria-controls="logo-sidebar"
                 type="button"
-                className="inline-flex items-center p-2 sm:hidden text-sm text-gray-500 rounded-lg duration-300  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2 sm:hidden text-sm text-gray-500 rounded-lg  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 onClick={() => setOpen(!open)}
               >
                 <span className="sr-only">Open sidebar</span>
@@ -155,7 +193,7 @@ export default function SideNavbar() {
             src="/icons/control.png"
             className={`absolute cursor-pointer ${
               open ? "-right-0" : ""
-            } top-3 md:top-9  md:block w-8 mr-1 border-dark-purple
+            } top-3 md:top-9 md:block w-8 mr-1 border-dark-purple
            border-2 rounded-full  ${!open && "rotate-180"}`}
             onClick={() => setOpen(!open)}
           />
@@ -179,25 +217,96 @@ export default function SideNavbar() {
             </h1> */}
           </div>
           <div className={`${!open ? "pt-8" : ""} `}>
-            <ul className="pt-6">
+            <ul className="pt-6" onClick={() => setOpen(true)}>
               {Menus.map((Menu, index) => (
-                <li
-                  key={index}
-                  className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg font-semibold items-center gap-x-4 hover:bg-slate-600
-              ${Menu.gap ? "mt-9" : "mt-2"} ${
-                    index === 0 && "bg-light-white"
-                  } `}
-                >
-                  <img src={`/icons/${Menu.src}.png`} />
-                  <h1
-                    className={`${!open && "hidden"} origin-left duration-200 `}
-                  >
-                    {Menu.title}
-                  </h1>
-                </li>
+                <>
+                  {Menu.dropdown ? (
+                    <li key={index}>
+                      <button
+                        type="button"
+                        className={`flex items-center ${
+                          Menu.gap ? "mt-9" : "mt-2"
+                        } ${
+                          index === 0 && "bg-light-white"
+                        } p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-200 ease-in-out  group hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700`}
+                        aria-controls={`dropdown-${Menu.title}`}
+                        data-collapse-toggle={`dropdown-${Menu.title}`}
+                      >
+                        {Menu.icon ? (
+                          <img src={`/icons/${Menu.icon}.png`} />
+                        ) : (
+                          ""
+                        )}
+                        <span
+                          className={`${
+                            !open && "hidden"
+                          } flex-1 ml-3 text-left text-lg font-semibold items-center whitespace-nowrap`}
+                        >
+                          {Menu.title}
+                        </span>
+                        <svg
+                          aria-hidden="true"
+                          className={`${!open && "hidden"} w-6 h-6`}
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                      <div className="">
+                        <ul
+                          id={`dropdown-${Menu.title}`}
+                          className="hidden cursor-pointer py-2 space-y-2"
+                        >
+                          {Menu.dropdown.map((item, index) => (
+                            <li>
+                              <a
+                                href={item.src}
+                                className="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 hover:underline dark:text-white dark:hover:bg-gray-700"
+                              >
+                                <>
+                                  {item.icon ? (
+                                    <img src={`/icons/${item.icon}.png`} />
+                                  ) : (
+                                    ""
+                                  )}
+                                  <span className="flex-1 ml-3 text-left">
+                                    {item.title}
+                                  </span>
+                                </>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </li>
+                  ) : (
+                    <li
+                      key={index}
+                      className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg font-semibold transition duration-200 ease-in-out items-center gap-x-4 hover:bg-slate-600
+                        ${Menu.gap ? "mt-9" : "mt-2"} ${
+                        index === 0 && "bg-light-white"
+                      } `}
+                    >
+                      <img src={`/icons/${Menu.icon}.png`} />
+                      <h1
+                        className={`${
+                          !open && "hidden"
+                        } origin-left duration-200 `}
+                      >
+                        {Menu.title}
+                      </h1>
+                    </li>
+                  )}
+                </>
               ))}
 
-              <li>
+              {/* <li>
                 <button
                   type="button"
                   className={`flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-700 ease-in-out  group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700`}
@@ -264,8 +373,8 @@ export default function SideNavbar() {
                     </a>
                   </li>
                 </ul>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <button
                   type="button"
                   className="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -332,66 +441,9 @@ export default function SideNavbar() {
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> */}
 
-              <li>
-                <button
-                  type="button"
-                  className={`${
-                    !open && "hidden"
-                  } flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700`}
-                  aria-controls="dropdown-example"
-                  data-collapse-toggle="dropdown-example"
-                >
-                  <img src={`/icons/Folder.png`} />
-
-                  <span className="flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg font-semibold items-center gap-x-4">
-                    E-commerce
-                  </span>
-                  <svg
-                    className="w-3 h-3"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 10 6"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="m1 1 4 4 4-4"
-                    />
-                  </svg>
-                </button>
-                <ul id="dropdown-example" className="hidden py-2 space-y-2">
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    >
-                      Products
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    >
-                      Billing
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                    >
-                      Invoice
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
+              {/*
               {/* <li>
               <Dropdown label="Dropdown button">
                 <Dropdown.Item>Dashboard</Dropdown.Item>
