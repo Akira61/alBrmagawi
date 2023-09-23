@@ -1,33 +1,24 @@
-"use client"
+"use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function Profile() {
   //get user details from token
-  let [userData, setUserData] = useState()
-  useEffect(()=> {
-    userDetails()
-  },[])
+  let [userData, setUserData] = useState("");
+  useEffect(() => {
+    userDetails();
+  }, []);
   async function userDetails() {
     try {
       const { data } = await axios.get("/api/tokenData");
-      setUserData(data);
+      setUserData(data.data);
     } catch (error) {
       throw new Error(error.message);
     }
   }
   return (
     <>
-      <p>
-        {userData ? 
-                <h1>{userData.data.first_name}</h1>
-             : (
-              <>
-              please login
-              </>
-            )
-            }
-      </p>
+      <p>{userData ? <h1>{userData.first_name}</h1> : <>please login</>}</p>
     </>
   );
 }

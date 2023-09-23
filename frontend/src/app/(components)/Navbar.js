@@ -32,7 +32,7 @@ export default function Navbar() {
   async function userDetails() {
     try {
       const { data } = await axios.get("/api/tokenData");
-      setUserData(data);
+      return setUserData(data.data);
     } catch (error) {
       throw new Error(error.message);
     }
@@ -82,10 +82,10 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="flex items-center gap-6">
-            {userData.length>0 ? (
+            {userData.first_name ? (
               <a className="cta" href="/profile">
                 <button className=" bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-5 py-2 rounded-sm hover:bg-slate-700">
-                  {userData.data.first_name}
+                  {userData.first_name}
                 </button>
               </a>
             ) : (
@@ -101,13 +101,13 @@ export default function Navbar() {
                     Get Started
                   </button>
                 </a>
-                <FontAwesomeIcon
-                  className="text-3xl cursor-pointer md:hidden"
-                  icon={icon}
-                  onClick={(e) => ToggleMenu(e)}
-                />
               </>
             )}
+            <FontAwesomeIcon
+              className="text-3xl cursor-pointer md:hidden"
+              icon={icon}
+              onClick={(e) => ToggleMenu(e)}
+            />
           </div>
         </nav>
       </header>
