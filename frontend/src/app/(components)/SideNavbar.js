@@ -3,6 +3,7 @@ import { Sidebar, Dropdown } from "flowbite-react";
 import { useState } from "react";
 import { UUID } from "crypto";
 import Head from "next/head";
+import { configURL } from "../url.config";
 export default function SideNavbar() {
   const [open, setOpen] = useState(true);
 
@@ -16,8 +17,8 @@ export default function SideNavbar() {
       id: Date.now(),
       icon: "User",
       dropdown: [
-        { title: "All teachers", src: "#" },
-        { title: "Accept teacher", src: "#", icon: "" },
+        { title: "All teachers", src: configURL.dashboard.admin.teacher.all},
+        { title: "Accept teacher", src: configURL.dashboard.admin.teacher.acceptDenaied, icon: "" },
         { title: "Add teacher", src: "#" },
         { title: "Edit teacher", src: "#" },
       ],
@@ -181,7 +182,7 @@ export default function SideNavbar() {
         </div>
       </nav>
 
-      <div className="flex fixed z-40">
+      <div className="flex z-40"> {/*add 'fixed' to className*/}
         <div
           className={` overflow-y-auto overflow-x-hidden h-full ${
             open ? "w-72" : "hidden md:block md:w-20"

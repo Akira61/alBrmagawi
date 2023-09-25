@@ -82,7 +82,7 @@ export default function Navbar() {
             </ul>
           </div>
           <div className="flex items-center gap-6">
-            {userData.first_name ? (
+            {userData ? (
               <a className="cta" href="/profile">
                 <button className=" bg-gradient-to-r from-sky-500 to-indigo-500 text-white px-5 py-2 rounded-sm hover:bg-slate-700">
                   {userData.first_name}

@@ -1,6 +1,7 @@
 const apiBaseURL = "http://127.0.0.1:4545";
 
 export const apiURLs = {
+  baseURL: "http://127.0.0.1:4545",
   auth: {
     login: {
       post: apiBaseURL + "/auth/login",
@@ -17,6 +18,19 @@ export const apiURLs = {
       post: apiBaseURL + "/auth/forgot-password",
     },
   },
+  dashboard: {
+    teachers: {
+      all: apiBaseURL + "/dashboard/all-professors-info",
+    },
+  },
 };
-export const URLs = {};
-console.log(URLs);
+export const configURL = {
+  dashboard: {
+    admin: {
+      teacher: {
+        all: "/dashboard/admin/teachers/all-teachers",
+        acceptDenaied: "/dashboard/admin/teachers/accept-denaied",
+      },
+    },
+  },
+};
