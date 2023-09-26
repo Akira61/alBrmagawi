@@ -38,8 +38,8 @@ export default function SideNavbar() {
       id: Date.now(),
       icon: "User",
       dropdown: [
-        { title: "All staff", src: "#" },
-        { title: "Add staff" },
+        { title: "All staff", src: configURL.dashboard.admin.staff.all },
+        { title: "Add staff", src: configURL.dashboard.admin.staff.add },
         // { title: "Edit staff", icon: "" },
       ],
     },

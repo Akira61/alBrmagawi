@@ -35,6 +35,10 @@ export const configURL = {
       student: {
         all: "/dashboard/admin/students/all",
         add: "/dashboard/admin/students/add"
+      },
+      staff: {
+        all: "/dashboard/admin/staff/all",
+        add: "/dashboard/admin/staff/add"
       }
     },
   },
