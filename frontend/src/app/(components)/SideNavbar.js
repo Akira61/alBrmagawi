@@ -19,8 +19,8 @@ export default function SideNavbar() {
       dropdown: [
         { title: "All teachers", src: configURL.dashboard.admin.teacher.all},
         { title: "Accept teacher", src: configURL.dashboard.admin.teacher.acceptDenaied, icon: "" },
-        { title: "Add teacher", src: "#" },
-        { title: "Edit teacher", src: "#" },
+        { title: "Add teacher", src: configURL.dashboard.admin.teacher.add },
+        // { title: "Edit teacher", src: "#" },
       ],
     },
     {
@@ -28,9 +28,9 @@ export default function SideNavbar() {
       id: Date.now(),
       icon: "User",
       dropdown: [
-        { title: "All students", src: "#" },
-        { title: "Add student" },
-        { title: "Edit student", icon: "" },
+        { title: "All students", src: configURL.dashboard.admin.student.all},
+        { title: "Add student",src:configURL.dashboard.admin.student.add },
+        // { title: "Edit student", icon: "" },
       ],
     },
     {
@@ -40,7 +40,7 @@ export default function SideNavbar() {
       dropdown: [
         { title: "All staff", src: "#" },
         { title: "Add staff" },
-        { title: "Edit staff", icon: "" },
+        // { title: "Edit staff", icon: "" },
       ],
     },
     {

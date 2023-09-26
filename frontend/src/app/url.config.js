@@ -30,7 +30,12 @@ export const configURL = {
       teacher: {
         all: "/dashboard/admin/teachers/all-teachers",
         acceptDenaied: "/dashboard/admin/teachers/accept-denaied",
+        add: "/dashboard/admin/teachers/add",
       },
+      student: {
+        all: "/dashboard/admin/students/all",
+        add: "/dashboard/admin/students/add"
+      }
     },
   },
 };
