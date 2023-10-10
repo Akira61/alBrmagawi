@@ -1,6 +1,8 @@
 import { getDataFromToken } from "@/app/helpers/getDataFromToken";
 import { NextResponse } from "next/server";
 import excuteQuery from "@/app/lib/db";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 export async function GET(req) {
   try {
@@ -14,11 +16,12 @@ export async function GET(req) {
         userData.role == "student"
           ? "users"
           : userData.role === "teacher"
-          ? "teacher"
+          ? "teachers"
           : "admin"
       } WHERE id=?;`,
       values: [userData.id],
     });
+
     console.log(user);
     return NextResponse.json({
       message: "user found ✅",

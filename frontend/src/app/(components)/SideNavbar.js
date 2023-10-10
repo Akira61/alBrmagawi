@@ -1,5 +1,4 @@
 "use client";
-import { Sidebar, Dropdown } from "flowbite-react";
 import { useState } from "react";
 import { UUID } from "crypto";
 import Head from "next/head";
@@ -17,8 +16,12 @@ export default function SideNavbar() {
       id: Date.now(),
       icon: "User",
       dropdown: [
-        { title: "All teachers", src: configURL.dashboard.admin.teacher.all},
-        { title: "Accept teacher", src: configURL.dashboard.admin.teacher.acceptDenaied, icon: "" },
+        { title: "All teachers", src: configURL.dashboard.admin.teacher.all },
+        {
+          title: "Accept teacher",
+          src: configURL.dashboard.admin.teacher.acceptDenaied,
+          icon: "",
+        },
         { title: "Add teacher", src: configURL.dashboard.admin.teacher.add },
         // { title: "Edit teacher", src: "#" },
       ],
@@ -28,8 +31,8 @@ export default function SideNavbar() {
       id: Date.now(),
       icon: "User",
       dropdown: [
-        { title: "All students", src: configURL.dashboard.admin.student.all},
-        { title: "Add student",src:configURL.dashboard.admin.student.add },
+        { title: "All students", src: configURL.dashboard.admin.student.all },
+        { title: "Add student", src: configURL.dashboard.admin.student.add },
         // { title: "Edit student", icon: "" },
       ],
     },
@@ -55,6 +58,10 @@ export default function SideNavbar() {
     { title: "Settings", icon: "Setting", gap: true, bottom: true },
     // { title: "Logout", icon: "Setting" },
   ];
+
+  const teacher = [
+    { title: "Create course ",src:'3', icon: "Chart" },
+  ]
   return (
     <>
       <Head>
@@ -182,7 +189,9 @@ export default function SideNavbar() {
         </div>
       </nav>
 
-      <div className="flex z-40"> {/*add 'fixed' to className*/}
+      <div className="flex z-40">
+        {" "}
+        {/*add 'fixed' to className*/}
         <div
           className={` overflow-y-auto overflow-x-hidden h-full ${
             open ? "w-72" : "hidden md:block md:w-20"
@@ -265,7 +274,7 @@ export default function SideNavbar() {
                           className="hidden cursor-pointer py-2 space-y-2"
                         >
                           {Menu.dropdown.map((item, index) => (
-                            <li>
+                            <li key={index}>
                               <a
                                 href={item.src}
                                 className="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 hover:underline dark:text-white dark:hover:bg-gray-700"
@@ -460,6 +469,7 @@ export default function SideNavbar() {
           <h1 className="text-2xl font-semibold ">Home Page</h1>
         </div> */}
       </div>
+      
       <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     </>
   );

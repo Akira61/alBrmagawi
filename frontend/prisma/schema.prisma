@@ -30,11 +30,11 @@ model courses {
   id          Int      @id @default(autoincrement())
   course_id   String   @db.VarChar(255)
   teacher     Int
-  thumbnail   String   @db.VarChar(255)
+  thumbnail   String?   @db.VarChar(255)
   title       String   @db.VarChar(255)
-  description String   @db.VarChar(255)
+  description String?   @db.VarChar(255)
   sections    String?  @default("section") @db.VarChar(255)
-  price       Int
+  price       Int?
   students    Int      @default(0)
   public      Int      @default(0) @db.TinyInt
   date        DateTime @db.Date

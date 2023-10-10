@@ -23,7 +23,7 @@ export async function POST(req, res) {
     //check if user already exists
     const user = await userExists(email, "email");
     console.log(user);
-    if (user.length <= 0) {
+    if (user.length == 0) {
       return NextResponse.json({
         success: false,
         err_message: "user not found. please try to signup",
@@ -40,7 +40,7 @@ export async function POST(req, res) {
         status: 500,
       });
     }
-
+    
     //check if user verified
     if (!user[0].verified) {
       //send verification code
@@ -49,13 +49,14 @@ export async function POST(req, res) {
         user[0].id,
         user[0].role
       );
+      console.log(verificationEmail)
       return NextResponse.json({
         success: false,
         err_message: "your email is not verified. Please check your inbox",
         status: 500,
       });
     }
-
+    
     // set up session
     const tokenData = {
       id: user[0].id,

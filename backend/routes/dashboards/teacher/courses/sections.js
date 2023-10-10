@@ -31,7 +31,7 @@ router.get('/dashboard/teacher/course/:id/sections-info', async(req, res) => {
     SELECT section FROM course_sections WHERE course_id=?;
     `, [course[0].id])
     console.log(sections.section);
-
+    
     // get course lessons
     const lessons = await asyncQuery(`
     SELECT lessons.title, course_sections.section, 
