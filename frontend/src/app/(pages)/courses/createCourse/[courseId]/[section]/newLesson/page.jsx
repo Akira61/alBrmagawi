@@ -59,6 +59,7 @@ export default function NewLesson({ params }) {
       }
       if (data.success) {
         setSaveBtn("save");
+        window.location.replace(`/courses/createCourse/${courseId}/sections`)
         return toast.success(data.message);
       }
     } catch (error) {
@@ -209,7 +210,7 @@ export default function NewLesson({ params }) {
         <div className="relative z-0 w-full mb-6 group">
           <Switch
             checked={enabled}
-            onChange={() => setEnabled(1)}
+            onChange={() => setEnabled(!enabled)}
             id="switch"
             className={`${
               enabled ? "bg-blue-600" : "bg-gray-200"

@@ -4,35 +4,61 @@ import AddSection from "@/app/(components)/courses/sections/AddSection";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { AiOutlineFolderAdd } from "react-icons/ai";
+import { HiOutlineVideoCamera } from "react-icons/hi";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 export default function CourseSections({ params }) {
   const { courseId } = params;
   const [open, setOpen] = useState(false);
   const [toggleNewSection, setToggleNewSection] = useState(false);
+  const [courseData, setCourseData] = useState([]);
   const [newSection, setNewSection] = useState();
   const [data, setData] = useState([]);
-//   let sectionsData = [
-//     {
-//       title: "interduction",
-//       sections:
-//         "lfjdljddjlfdskjfldskfjdslfjdsldsfjdslfjdslfjdslfdjslkfdsjfldsjflkdsjflkdsjflkdsjflkdsjf;lkdsfldsjflkdsjflkdsjfldsjfldsjfd;lsifj;sld",
-//     },
-//     {
-//       title: "interduction",
-//       sections:
-//         "lfjdljddjlfdskjfldskfjdslfjdsldsfjdslfjdslfjdslfdjslkfdsjfldsjflkdsjflkdsjflkdsjflkdsjf;lkdsfldsjflkdsjflkdsjfldsjfldsjfd;lsifj;sld",
-//     },
-//     {
-//       title: "interduction",
-//       sections:
-//         "lfjdljddjlfdskjfldskfjdslfjdsldsfjdslfjdslfjdslfdjslkfdsjfldsjflkdsjflkdsjflkdsjflkdsjf;lkdsfldsjflkdsjflkdsjfldsjfldsjfd;lsifj;sld",
-//     },
-//   ];
+  //   let sectionsData = [
+  //     {
+  //       title: "interduction",
+  //       sections:
+  //         "lfjdljddjlfdskjfldskfjdslfjdsldsfjdslfjdslfjdslfdjslkfdsjfldsjflkdsjflkdsjflkdsjflkdsjf;lkdsfldsjflkdsjflkdsjfldsjfldsjfd;lsifj;sld",
+  //     },
+  //     {
+  //       title: "interduction",
+  //       sections:
+  //         "lfjdljddjlfdskjfldskfjdslfjdsldsfjdslfjdslfjdslfdjslkfdsjfldsjflkdsjflkdsjflkdsjflkdsjf;lkdsfldsjflkdsjflkdsjfldsjfldsjfd;lsifj;sld",
+  //     },
+  //     {
+  //       title: "interduction",
+  //       sections:
+  //         "lfjdljddjlfdskjfldskfjdslfjdsldsfjdslfjdslfjdslfdjslkfdsjfldsjflkdsjflkdsjflkdsjflkdsjf;lkdsfldsjflkdsjflkdsjfldsjfldsjfd;lsifj;sld",
+  //     },
+  //   ];
 
-  useEffect(async () => {
-    await getSections();
+  useEffect(()=>{
+    //get course data
+    getCourse()
+    async function getCourse(){
+      try {
+        const { data } = await axios.get(
+          `/api/courses/${courseId}/getCourseDetails`
+        );
+        console.log(data);
+        if (data.err_message) {
+          return toast.error(data.err_message);
+        }
+        if (data.success) {
+          console.log(data.course)
+          setCourseData(data.course)
+        }
+      } catch (error) {
+        return toast.error(error.message);
+      }
+
+    }
+  },[])
+
+  useEffect(() => {
+    getSections();
   }, []);
   //get sections
   async function getSections() {
@@ -43,12 +69,19 @@ export default function CourseSections({ params }) {
         return toast.error(data.err_message);
       }
       let sections = [];
-      data.sections.map((element) => {
-        console.log(element.section);
+      data.sections.map((section) => {
+        console.log(section.section);
+        let lessons = [];
+        data.lessons.map((lesson) => {
+          //check if current lesson belong to current section
+          if (lesson.section == section.id) {
+            lessons.push(lesson);
+          }
+        });
         sections.push({
-          title: element.section,
-          sectionId: element.id,
-          lessons: [{title:"none", src:"#"}],
+          title: section.section,
+          sectionId: section.id,
+          lessons: lessons,
         });
         // sectionsData.push({
         //   title: element.section,
@@ -56,7 +89,7 @@ export default function CourseSections({ params }) {
         // });
       });
       setData(sections);
-      console.log("data: ",sections)
+      console.log("data: ", sections);
     } catch (error) {
       return console.log("error: ", error.message);
     }
@@ -99,8 +132,29 @@ export default function CourseSections({ params }) {
     <>
       <Toaster />
       <section className="h-screen pt-3">
-        {/* <button onClick={() => setPopup(true)}>Add section</button> */}
         <div className="px-[40px]">
+          {/* course settings */}
+          <>
+            <section className="bg-white dark:bg-gray-900">
+              <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-6">
+                <div className=" gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                  <div className="text-center text-gray-500 dark:text-gray-400">
+                    <img
+                      className="mx-auto mb-4 w-36 h-36 rounded-full"
+                      src={ `/courses/thumbnails/${courseData.thumbnail}`}
+                      alt="Bonnie Avatar"
+                    />
+
+                    <Link href={`/courses/createCourse/${courseId}/courseSettings`}>
+                      <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-md w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Course settings
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </>
           {data.map((data, index) => {
             console.log("loop: ", data);
             return (

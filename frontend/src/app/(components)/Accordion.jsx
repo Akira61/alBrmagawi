@@ -3,6 +3,9 @@ import Head from "next/head";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { HiOutlineVideoCamera } from "react-icons/hi";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { BiEdit } from "react-icons/bi";
 // import { initFlowbite } from "flowbite";
 // import { Dropdown } from "flowbite-react";
 import { useEffect } from "react";
@@ -16,6 +19,7 @@ import { CiEdit } from "react-icons/ci";
 import Dropdown from "./Dropdown";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Accordion({
   open,
@@ -70,6 +74,22 @@ export default function Accordion({
       }
     } catch (error) {
       return toast.error(error.message);
+    }
+  }
+
+  //delete lesson
+  async function deleteLesson(lesson){
+    try {
+      const {data} = await axios.delete(`/api/courses/${courseId}/${lesson.id}/deleteLesson`);
+      if(data.success){
+        window.location.reload();
+        return toast.success(data.message);
+      }
+      if(data.err_message){
+        return toast.error(data.err_message);
+      }
+    } catch (error) {
+      toast.error(error.message)
     }
   }
   return (
@@ -210,7 +230,10 @@ export default function Accordion({
         <Collapse isOpened={open}>
           <div className="bg-gray-800 px-[50px] pb-[20px]">
             <div className="controls pt-7 py-2">
-              <a href="#" className="flex font-semibold hover:underline ">
+              <a
+                href={`/courses/createCourse/${courseId}/${title}/newLesson`}
+                className="flex font-semibold hover:underline hover:text-gray-300"
+              >
                 <AiOutlinePlusSquare className="mx-1 text-2xl cursor-pointer text-white" />
                 New lesson
               </a>
@@ -218,11 +241,36 @@ export default function Accordion({
 
             <ol type="1">
               {section.map((element, index) => (
-                <li className="pt-3" key={index}>
-                  <span>- </span>
-                  <a className="hover:underline" href={element.src} key={index}>
-                    {element.title}
-                  </a>
+                <li className="pt-3 flex justify-between " key={index}>
+                  <div className="flex">
+                    <HiOutlineVideoCamera />
+                    <a
+                      className="px-2 cursor-pointer hover:text-gray-500"
+                      href={element.src}
+                      key={index}
+                    >
+                      {element.title}
+                    </a>
+                  </div>
+                  <div className="flex gap-2">
+                  <Link
+                    href={`/courses/createCourse/${courseId}/${title}/${element.id}/editLesson`}
+                  >
+                    <BiEdit
+                      title="Edit"
+                      className="cursor-pointer text-xl hover:text-gray-500"
+                    />
+                  </Link>
+                  <Link
+                    href={`#`}
+                    onClick={()=> deleteLesson(element)}
+                  >
+                    <RiDeleteBinLine
+                      title="Delete"
+                      className="cursor-pointer text-xl hover:text-gray-500"
+                    />
+                  </Link>
+                  </div>
                 </li>
               ))}
             </ol>
