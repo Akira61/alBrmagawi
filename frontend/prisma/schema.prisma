@@ -30,9 +30,9 @@ model courses {
   id          Int      @id @default(autoincrement())
   course_id   String   @db.VarChar(255)
   teacher     Int
-  thumbnail   String?   @db.VarChar(255)
+  thumbnail   String?  @db.VarChar(255)
   title       String   @db.VarChar(255)
-  description String?   @db.VarChar(255)
+  description String?  @db.VarChar(255)
   sections    String?  @default("section") @db.VarChar(255)
   price       Int?
   students    Int      @default(0)
@@ -141,4 +141,27 @@ model users {
   forgotPasswordToken       String? @db.VarChar(255)
   forgotPasswordTokenExpire String? @db.VarChar(255)
   joining_date              String  @db.VarChar(255)
+}
+
+model ctfs {
+  id           Int    @id @default(autoincrement())
+  title        String @db.VarChar(255)
+  thumbnail    String @db.VarChar(255)
+  level        String @db.VarChar(255)
+  rating       Int
+  userOwns     Int
+  systemOwns   Int
+  matchineType String @db.VarChar(255)
+  flag         String @db.VarChar(255)
+  description  String @db.VarChar(255)
+  joining_date String @db.VarChar(255)
+}
+
+model blogs {
+  id        Int    @id @default(autoincrement())
+  blog_id   String @unique(map: "blogId") @db.VarChar(255)
+  title     String @db.VarChar(255)
+  content   Json
+  thumbnail String @db.VarChar(255)
+  author    String @db.VarChar(255)
 }
