@@ -7,8 +7,11 @@ import { Animator } from "@arwes/react-animator";
 import { Text } from "@arwes/react-text";
 import Box from "./Box";
 import Popup from "./Popup";
+import { useConfetti } from "../../providers/Confetti";
 
 const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
+  const { activate } = useConfetti();
+
   return (
     <>
       <tr
@@ -146,7 +149,12 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
 
                       <div className="mt-4 flex items-center gap-4">
                         <Box>
-                          <button className="py-4 px-6">Submit flag</button>
+                          <button
+                            onClick={() => activate()}
+                            className="py-4 px-6"
+                          >
+                            Submit flag
+                          </button>
                         </Box>
                         <Box>
                           <button
@@ -169,7 +177,7 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
           className="flex items-center px-5 py-6 font-medium text-jaguar whitespace-nowrap dark:text-white"
           style={{
             marginLeft: `${indent}rem`,
-            borderLeft: indent ? "1px solid hsl(200, 87%, 26.42%)" : ""
+            borderLeft: indent ? "1px solid hsl(200, 87%, 26.42%)" : "",
           }}
         >
           <div className="relative">

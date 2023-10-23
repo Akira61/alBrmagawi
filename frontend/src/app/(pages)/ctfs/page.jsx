@@ -7,9 +7,11 @@ import {
   BleepsProvider,
 } from "@arwes/react";
 import AllCTFs from "../../(components)/ctf/AllCTFs";
+import Confetti from "../../(components)/ctf/Confetti";
 import Background from "../../(components)/ctf/Background";
 import Illuminator from "../../(components)/ctf/Illuminator";
 import "../../style/ctfs.css";
+import ConfettiProvider from "../../providers/Confetti";
 
 const animatorsSettings = {
   duration: {
@@ -25,7 +27,12 @@ const bleepsSettings = {
   },
   bleeps: {
     assemble: {
-      sources: [{ src: "https://arwes.dev/assets/sounds/assemble.mp3", type: "audio/mpeg" }],
+      sources: [
+        {
+          src: "https://arwes.dev/assets/sounds/assemble.mp3",
+          type: "audio/mpeg",
+        },
+      ],
     },
     click: {
       sources: [
@@ -45,10 +52,13 @@ export default function Allctfs() {
     <AnimatorGeneralProvider {...animatorsSettings}>
       <Animator combine manager="stagger" active={active}>
         <BleepsProvider {...bleepsSettings}>
-          <Illuminator />
-          {/* <Background /> */}
-          <Theme />
-          <AllCTFs />
+          <ConfettiProvider>
+            <Illuminator />
+            <Background />
+            <Theme />
+            <AllCTFs />
+            <Confetti />
+          </ConfettiProvider>
         </BleepsProvider>
       </Animator>
     </AnimatorGeneralProvider>
