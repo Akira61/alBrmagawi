@@ -1,8 +1,7 @@
-import { getDataFromToken } from "@/app/helpers/getDataFromToken";
+import { getDataFromToken } from "../../helpers/getDataFromToken";
 import { NextResponse } from "next/server";
-import excuteQuery from "@/app/lib/db";
+import excuteQuery from "../../lib/db";
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 
 export async function GET(req) {
   try {

@@ -1,0 +1,7 @@
+html, body {
+  scrollbar-color: hsla(284,87%,26.42%,1) transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsla(284, 87%, 26.42%, 1) !important;
+}
