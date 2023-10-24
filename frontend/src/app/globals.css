@@ -23,5 +23,10 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: #111927 !important;
-  font-family: 'neue-haas-unica', sans-serif !important;
+  font-family: "neue-haas-unica", sans-serif !important;
+}
+
+th,
+td {
+  vertical-align: middle !important;
 }
