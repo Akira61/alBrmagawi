@@ -13,7 +13,7 @@ import toast, { Toaster } from "react-hot-toast";
 export default function AllCTFs() {
   const [showCTF, setShowCTF] = useState(-1);
   const [flag, setFlag] = useState("");
-
+  const [ctfs,setCtfs] = useState([]);
   function closeModal() {
     setShowCTF(-1);
   }
@@ -21,116 +21,116 @@ export default function AllCTFs() {
   function openModal(index) {
     setShowCTF(index);
   }
-  const ctfs = [
-    {
-      id: 1,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-      title: "Aeswhat",
-      level: "hard",
-      rating: 5.0,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: "hmmmm!   author : Otoom",
-    },
-    {
-      id: 2,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png",
-      title: "Binary_1",
-      level: "easy",
-      rating: 2.0,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "linux",
-      description: `it looks familiar
+  // let ctfs = [
+  //   {
+  //     id: 1,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
+  //     title: "Aeswhat",
+  //     level: "hard",
+  //     rating: 5.0,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: "hmmmm!   author : Otoom",
+  //   },
+  //   {
+  //     id: 2,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png",
+  //     title: "Binary_1",
+  //     level: "easy",
+  //     rating: 2.0,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "linux",
+  //     description: `it looks familiar
 
-      author : otoom`,
-    },
-    {
-      id: 3,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "Crack it",
-      level: "medium",
-      rating: 3.5,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: `!1 is False
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 3,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "Crack it",
+  //     level: "medium",
+  //     rating: 3.5,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: `!1 is False
 
-      author : otoom`,
-    },
-    {
-      id: 4,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "CryptoAnalyst",
-      level: "hard",
-      rating: 5.0,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: `I found this clipping on the mathematics professor's desk
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 4,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "CryptoAnalyst",
+  //     level: "hard",
+  //     rating: 5.0,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: `I found this clipping on the mathematics professor's desk
 
-      can you help me to understand it ?!
+  //     can you help me to understand it ?!
       
-      author : otoom`,
-    },
-    {
-      id: 5,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "FTW",
-      level: "easy",
-      rating: 3.0,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: ` what _ _ ?  you want to complete it :)
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 5,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "FTW",
+  //     level: "easy",
+  //     rating: 3.0,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: ` what _ _ ?  you want to complete it :)
 
-      author : otoom`,
-    },
-    {
-      id: 6,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "RSA101",
-      level: "hard",
-      rating: 4.5,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: `Break it !!
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 6,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "RSA101",
+  //     level: "hard",
+  //     rating: 4.5,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: `Break it !!
 
-      author : otoom`,
-    },
-    {
-      id: 7,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "SHA-1",
-      level: "medium",
-      rating: 3.5,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: `This looks like a hash of some kind INTEL says,
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 7,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "SHA-1",
+  //     level: "medium",
+  //     rating: 3.5,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: `This looks like a hash of some kind INTEL says,
 
-      It is wrapped with brackets ' { } '
-      Then a 4 letter l33t sp34k word
-      Then a underscore '_' as a seperator
-      Then end with 4 numbers.
+  //     It is wrapped with brackets ' { } '
+  //     Then a 4 letter l33t sp34k word
+  //     Then a underscore '_' as a seperator
+  //     Then end with 4 numbers.
       
-      This is the Regex {[A-Za-z0-9]+_[0-9]+}
-      Example: {c0d3_1234}
+  //     This is the Regex {[A-Za-z0-9]+_[0-9]+}
+  //     Example: {c0d3_1234}
       
-      Provide the answer in flag format ;)
+  //     Provide the answer in flag format ;)
       
-      author : saif`,
-    },
-  ];
+  //     author : saif`,
+  //   },
+  // ];
 
   //get first blood
   async function firstBlood() {
@@ -148,6 +148,7 @@ export default function AllCTFs() {
       try {
         const { data } = await axios.get(`/api/ctfs/getAll`);
         console.log(data);
+        setCtfs(data.data);
       } catch (error) {
         console.log(error.message);
       }

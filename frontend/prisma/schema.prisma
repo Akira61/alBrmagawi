@@ -146,6 +146,7 @@ model users {
 model ctfs {
   id           Int    @id @default(autoincrement())
   title        String @db.VarChar(255)
+  links        Json?
   thumbnail    String @db.VarChar(255)
   level        String @db.VarChar(255)
   rating       Int
@@ -154,7 +155,7 @@ model ctfs {
   matchineType String @db.VarChar(255)
   flag         String @db.VarChar(255)
   first_blood  Int?
-  description  String @db.VarChar(255)
+  description  String @db.Text
   joining_date String @db.VarChar(255)
 
   @@index([first_blood], map: "firstBlood")

@@ -14,6 +14,8 @@ export async function GET(req) {
       userOwns: true,
       systemOwns: true,
       rating: true,
+      first_blood: true,
+      links: true,
       matchineType: true,
       joining_date: true,
     },
