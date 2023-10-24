@@ -1,6 +1,6 @@
 "use client";
 import { Dialog } from "@headlessui/react";
-import React from "react";
+import React, { useState } from "react";
 import { VscTerminalLinux } from "react-icons/vsc";
 import { ImWindows } from "react-icons/im";
 import { Animator } from "@arwes/react-animator";
@@ -8,16 +8,49 @@ import { Text } from "@arwes/react-text";
 import Box from "./Box";
 import Popup from "./Popup";
 import { useConfetti } from "../../providers/Confetti";
+import Link from "next/link";
+import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
   const { activate } = useConfetti();
+  const [flag, setFlag] = useState("");
+  //submit flag
+
+  async function submitFlag(ctfId) {
+    try {
+      const { data } = await axios.post(`/api/ctfs/submitFlag`, {
+        ctfId: ctfId,
+        flag: flag,
+      });
+      if (data.err_message) {
+        return toast.error(data.err_message);
+      }
+      //check if first blood
+      else if (data.firstBlood) {
+        activate();
+        toast.success(data.message);
+        closeModal();
+      }
+      // if not fist blood but success
+      else if (data.success) {
+        activate();
+        toast.success(data.message);
+        closeModal();
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   return (
     <>
+    <Toaster />
       <tr
         onClick={() => {
           showCTFId === ctf.id ||
-            ctf.children?.some((child) => child.id === showCTFId)
+          ctf.children?.some((child) => child.id === showCTFId)
             ? setShowCTFId(-1)
             : setShowCTFId(ctf.id);
         }}
@@ -39,17 +72,15 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                       <Dialog.Title
                         as="h3"
                         className="flex items-center bg-no-repeat max-w-full h-auto w-full text-lg font-medium leading-6 text-jaguar"
-                      // style={{backgroundImage: "url('https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png')"}}
+                        // style={{backgroundImage: "url('https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png')"}}
                       >
                         <div className="flex items-center flex-1">
                           <img
-                            src={
-                              "https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png"
-                            }
+                            src={ctf.thumbnail}
                             alt="iMac Front Image"
                             className="w-auto h-14 mr-3"
                           />
-                          <span className="text-white">Payment successful</span>
+                          <span className="text-white">{ctf.title}</span>
                         </div>
                         <Box>
                           <button
@@ -91,40 +122,36 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                                   as="dd"
                                   className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"
                                 >
-                                  Lorem ipsum dolor sit, amet consectetur
-                                  adipisicing elit. Dignissimos neque rem itaque
-                                  harum, perspiciatis ea quia voluptatem dolorum
-                                  rerum pariatur, consequatur, aspernatur quis
-                                  distinctio quo? Dolorem aut, neque non ex
-                                  libero optio rerum delectus hic expedita
-                                  illum, deserunt eos. Neque aut enim
-                                  praesentium odio saepe! Porro facere voluptas,
-                                  nemo enim, aspernatur ratione mollitia magnam
-                                  libero magni, quia alias beatae id itaque sunt
-                                  hic vel? Error animi ipsam delectus molestias,
-                                  voluptatem, culpa ut temporibus consequuntur
-                                  deserunt excepturi voluptates earum laborum
-                                  obcaecati quod et explicabo quae tempora
-                                  distinctio! Quia quaerat perspiciatis, sed
-                                  itaque excepturi eos repellat saepe, tempore
-                                  earum ipsam aliquam! Quaerat laudantium natus
-                                  officia voluptatum, possimus consequatur
-                                  obcaecati id reiciendis vero in
-                                  exercitationem. Quis, explicabo perferendis?
-                                  Odio ipsam consequatur iure numquam suscipit
-                                  exercitationem illum quisquam sapiente veniam
-                                  quasi saepe beatae delectus commodi nam, nulla
-                                  minus modi eos. Dolore, officiis quo,
-                                  quibusdam autem nesciunt reiciendis maiores,
-                                  deleniti perferendis aperiam cum eum
-                                  reprehenderit.
+                                  {ctf.description}
                                 </Text>
                               </Animator>
-
-                              <dt>Category</dt>
-                              <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                                Electronics/PC
-                              </dd>
+                              {ctf.links ? (
+                                <>
+                                  <Text
+                                    as="h1"
+                                    className="mb-2 pt-10 font-semibold leading-none text-jaguar dark:text-white"
+                                  >
+                                    Links
+                                  </Text>
+                                  <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                                    {ctf.links.data.map((link, i) => (
+                                      <>
+                                        <p>
+                                          <Link
+                                            target="_blank"
+                                            className="underline"
+                                            href={link.link}
+                                          >
+                                            {link.title}
+                                          </Link>
+                                        </p>
+                                      </>
+                                    ))}
+                                  </dd>
+                                </>
+                              ) : (
+                                ""
+                              )}
                             </Animator>
                           </dl>
 
@@ -136,6 +163,7 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                               className="block py-2.5 px-0 w-full text-sm text-jaguar bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                               placeholder=" "
                               required=""
+                              onChange={(e)=> setFlag(e.target.value)}
                             />
                             <label
                               htmlFor="floating_email"
@@ -150,8 +178,9 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                       <div className="mt-4 flex items-center gap-4">
                         <Box>
                           <button
-                            onClick={() => activate()}
+                            onClick={() => submitFlag(ctf.id)}
                             className="py-4 px-6"
+    
                           >
                             Submit flag
                           </button>
@@ -214,12 +243,13 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
         <td className="px-4 py-2 font-medium text-jaguar whitespace-nowrap dark:text-white">
           <div className="flex items-center">
             <div
-              className={`inline-block w-4 h-4 mr-2 ${ctf.level == "easy"
+              className={`inline-block w-4 h-4 mr-2 ${
+                ctf.level == "easy"
                   ? "bg-green-400"
                   : ctf.level == "medium"
-                    ? "bg-orange-500"
-                    : "bg-red-700"
-                } rounded-full`}
+                  ? "bg-orange-500"
+                  : "bg-red-700"
+              } rounded-full`}
             />
             <span className="uppercase text-sm tracking-tight font-extrabold text-gray-500 dark:text-gray-400">
               {ctf.level}

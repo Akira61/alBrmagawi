@@ -16,7 +16,7 @@ export default function AllCTFs() {
   const [showCTFId, setShowCTFId] = useState(-1);
   const [showCTF, setShowCTF] = useState(-1);
   const [flag, setFlag] = useState("");
-  const [_, setCtfs] = useState([]);
+  const [ctfs, setCtfs] = useState([]);
   function closeModal() {
     setShowCTF(-1);
   }
@@ -73,158 +73,158 @@ export default function AllCTFs() {
     }
   }
 
-  const ctfs = [
-    {
-      id: 1,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-      title: "Aeswhat",
-      level: "hard",
-      rating: 5.0,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: "hmmmm!   author : Otoom",
-      children: [
-        {
-          id: 8391,
-          thumbnail:
-            "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-          title: "Aeswhat",
-          level: "hard",
-          rating: 5.0,
-          userOwns: 0,
-          systemOwns: 0,
-          matchineType: "windows",
-          description: "hmmmm!   author : Otoom",
-        },
-        {
-          id: 8389,
-          thumbnail:
-            "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-          title: "Aeswhat",
-          level: "hard",
-          rating: 5.0,
-          userOwns: 0,
-          systemOwns: 0,
-          matchineType: "windows",
-          description: "hmmmm!   author : Otoom",
-        },
-      ],
-    },
-    {
-      id: 2,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png",
-      title: "Binary_1",
-      level: "easy",
-      rating: 2.0,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "linux",
-      description: `it looks familiar
+  // const ctfs = [
+  //   {
+  //     id: 1,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
+  //     title: "Aeswhat",
+  //     level: "hard",
+  //     rating: 5.0,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: "hmmmm!   author : Otoom",
+  //     children: [
+  //       {
+  //         id: 8391,
+  //         thumbnail:
+  //           "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
+  //         title: "Aeswhat",
+  //         level: "hard",
+  //         rating: 5.0,
+  //         userOwns: 0,
+  //         systemOwns: 0,
+  //         matchineType: "windows",
+  //         description: "hmmmm!   author : Otoom",
+  //       },
+  //       {
+  //         id: 8389,
+  //         thumbnail:
+  //           "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
+  //         title: "Aeswhat",
+  //         level: "hard",
+  //         rating: 5.0,
+  //         userOwns: 0,
+  //         systemOwns: 0,
+  //         matchineType: "windows",
+  //         description: "hmmmm!   author : Otoom",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png",
+  //     title: "Binary_1",
+  //     level: "easy",
+  //     rating: 2.0,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "linux",
+  //     description: `it looks familiar
 
-      author : otoom`,
-      children: [
-        {
-          id: 887,
-          thumbnail:
-            "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-          title: "Aeswhat",
-          level: "hard",
-          rating: 5.0,
-          userOwns: 0,
-          systemOwns: 0,
-          matchineType: "windows",
-          description: "hmmmm!   author : Otoom",
-        },
-        {
-          id: 819,
-          thumbnail:
-            "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-          title: "Aeswhat",
-          level: "hard",
-          rating: 5.0,
-          userOwns: 0,
-          systemOwns: 0,
-          matchineType: "windows",
-          description: "hmmmm!   author : Otoom",
-        },
-      ],
-    },
-    {
-      id: 3,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "Crack it",
-      level: "medium",
-      rating: 3.5,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: `!1 is False
+  //     author : otoom`,
+  //     children: [
+  //       {
+  //         id: 887,
+  //         thumbnail:
+  //           "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
+  //         title: "Aeswhat",
+  //         level: "hard",
+  //         rating: 5.0,
+  //         userOwns: 0,
+  //         systemOwns: 0,
+  //         matchineType: "windows",
+  //         description: "hmmmm!   author : Otoom",
+  //       },
+  //       {
+  //         id: 819,
+  //         thumbnail:
+  //           "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
+  //         title: "Aeswhat",
+  //         level: "hard",
+  //         rating: 5.0,
+  //         userOwns: 0,
+  //         systemOwns: 0,
+  //         matchineType: "windows",
+  //         description: "hmmmm!   author : Otoom",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "Crack it",
+  //     level: "medium",
+  //     rating: 3.5,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: `!1 is False
 
-      author : otoom`,
-    },
-    {
-      id: 4,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "CryptoAnalyst",
-      level: "hard",
-      rating: 5.0,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: `I found this clipping on the mathematics professor's desk
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 4,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "CryptoAnalyst",
+  //     level: "hard",
+  //     rating: 5.0,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: `I found this clipping on the mathematics professor's desk
 
-      can you help me to understand it ?!
+  //     can you help me to understand it ?!
       
-      author : otoom`,
-    },
-    {
-      id: 5,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "FTW",
-      level: "easy",
-      rating: 3.0,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: ` what _ _ ?  you want to complete it :)
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 5,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "FTW",
+  //     level: "easy",
+  //     rating: 3.0,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: ` what _ _ ?  you want to complete it :)
 
-      author : otoom`,
-    },
-    {
-      id: 6,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "RSA101",
-      level: "hard",
-      rating: 4.5,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: `Break it !!
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 6,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "RSA101",
+  //     level: "hard",
+  //     rating: 4.5,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: `Break it !!
 
-      author : otoom`,
-    },
-    {
-      id: 7,
-      thumbnail:
-        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-      title: "SHA-1",
-      level: "medium",
-      rating: 3.5,
-      userOwns: 0,
-      systemOwns: 0,
-      matchineType: "windows",
-      description: `Break it !!
+  //     author : otoom`,
+  //   },
+  //   {
+  //     id: 7,
+  //     thumbnail:
+  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+  //     title: "SHA-1",
+  //     level: "medium",
+  //     rating: 3.5,
+  //     userOwns: 0,
+  //     systemOwns: 0,
+  //     matchineType: "windows",
+  //     description: `Break it !!
 
-      author : otoom`,
-    },
-  ];
+  //     author : otoom`,
+  //   },
+  // ];
 
   return (
     <>
@@ -232,7 +232,7 @@ export default function AllCTFs() {
       <section style={openSans.style} className="py-3 sm:py-20 bg-jaguar">
         <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
           <div className="relative overflow-hidden sm:rounded-lg">
-            <>
+            {/* <>
               <div class="max-w-screen-md mb-8 lg:mb-16">
                 <Animator active={true} combine manager="sequence">
                   <Animator>
@@ -249,7 +249,7 @@ export default function AllCTFs() {
                   </Animator>
                 </Animator>
               </div>
-            </>
+            </> */}
 
             <div className="flex flex-col px-8 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
               <div className="w-full md:w-1/2">

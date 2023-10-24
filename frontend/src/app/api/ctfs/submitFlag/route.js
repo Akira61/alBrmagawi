@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import { verifyJwtToken } from "@/app/helpers/getDataFromToken";
+import { verifyJwtToken } from "../../../helpers/getDataFromToken";
 const prisma = new PrismaClient();
 
 export async function POST(req) {
