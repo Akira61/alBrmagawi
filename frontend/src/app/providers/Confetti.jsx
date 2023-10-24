@@ -1,14 +1,7 @@
 "use client";
 import { createContext, useContext, useState } from "react";
 
-interface IConfetti {
-  active: boolean;
-  activate: () => void;
-  toggle: () => void;
-  deactivate: () => void;
-}
-
-const ConfettiContext = createContext<IConfetti | null>(null);
+const ConfettiContext = createContext(null);
 
 const ConfettiProvider = ({ children }) => {
   const [active, setActive] = useState(false);
