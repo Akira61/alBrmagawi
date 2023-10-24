@@ -57,7 +57,7 @@ export const config = {
     "/register",
     "/verifyemail",
     "/courses/createCourse/:path*",
-    "/ctfs",
+    // "/ctfs",
     "/courses",
   ],
 };

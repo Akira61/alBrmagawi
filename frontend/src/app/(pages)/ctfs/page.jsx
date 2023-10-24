@@ -1,12 +1,12 @@
 "use client";
-import Theme from "../../providers/Theme";
+import Theme from "@/app/providers/Theme";
 import { useState } from "react";
 import {
   AnimatorGeneralProvider,
   Animator,
   BleepsProvider,
 } from "@arwes/react";
-import AllCTFs from "../../(components)/ctf/AllCTFs";
+import AllCTFs from "@/app/(components)/ctf/AllCTFs";
 import Confetti from "../../(components)/ctf/Confetti";
 import Background from "../../(components)/ctf/Background";
 import Illuminator from "../../(components)/ctf/Illuminator";
