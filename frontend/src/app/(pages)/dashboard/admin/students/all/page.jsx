@@ -129,7 +129,7 @@ export default function AllTeachers() {
                 </thead>
                 <tbody>
                   {students.map((student, i) => (
-                    <tr className="bg-white border-b font-semibold dark:bg-gray-800 dark:border-gray-700 ">
+                    <tr key={i} className="bg-white border-b font-semibold dark:bg-gray-800 dark:border-gray-700 ">
                       <td className="px-6 py-4">
                         <img
                           src="https://source.unsplash.com/random/300x200

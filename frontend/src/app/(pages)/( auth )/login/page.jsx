@@ -134,7 +134,7 @@ export default function Login() {
               Login
             </button>
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <a
                 href="/register"
                 className="text-blue-700 hover:underline dark:text-blue-500"

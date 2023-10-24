@@ -86,6 +86,7 @@ export default function AddSection() {
             </div>
           </div>
         </div>
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
       </>
     </>

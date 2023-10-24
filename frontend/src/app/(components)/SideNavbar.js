@@ -200,6 +200,7 @@ export default function SideNavbar() {
         >
           <img
             src="/icons/control.png"
+            alt=""
             className={`absolute cursor-pointer ${
               open ? "-right-0" : ""
             } top-3 md:top-9 md:block w-8 mr-1 border-dark-purple
@@ -210,6 +211,7 @@ export default function SideNavbar() {
             <a href="/">
               <img
                 src="/logo.png"
+                alt=""
                 className={`${
                   !open && "rotate-[360deg] w-[1px]"
                 } cursor-pointer w-48 mb-5 duration-500 ${
@@ -242,7 +244,7 @@ export default function SideNavbar() {
                         data-collapse-toggle={`dropdown-${Menu.title}`}
                       >
                         {Menu.icon ? (
-                          <img src={`/icons/${Menu.icon}.png`} />
+                          <img src={`/icons/${Menu.icon}.png`} alt=""/>
                         ) : (
                           ""
                         )}
@@ -280,7 +282,7 @@ export default function SideNavbar() {
                               >
                                 <>
                                   {item.icon ? (
-                                    <img src={`/icons/${item.icon}.png`} />
+                                    <img src={`/icons/${item.icon}.png`} alt=""/>
                                   ) : (
                                     ""
                                   )}
@@ -302,7 +304,7 @@ export default function SideNavbar() {
                         index === 0 && "bg-light-white"
                       } `}
                     >
-                      <img src={`/icons/${Menu.icon}.png`} />
+                      <img src={`/icons/${Menu.icon}.png`} alt=""/>
                       <h1
                         className={`${
                           !open && "hidden"
@@ -468,7 +470,7 @@ export default function SideNavbar() {
           <h1 className="text-2xl font-semibold ">Home Page</h1>
         </div> */}
       </div>
-      
+      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
       <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
     </>
   );

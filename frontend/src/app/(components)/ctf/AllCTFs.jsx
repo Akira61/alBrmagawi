@@ -266,6 +266,7 @@ export default function AllCTFs() {
                   {ctfs.map((ctf, index) => (
                     <tr
                       onClick={() => openModal(index)}
+                      key={index}
                       className="border-b cursor-pointer dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
                       <>

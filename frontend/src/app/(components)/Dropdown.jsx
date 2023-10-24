@@ -14,7 +14,7 @@ export default function Dropdown({ title, items }) {
           className={`focus:outline-none absolute origin-top-left w-fit divide-y p-4 text-black divide-gray-100 rounded-md bg-white shadow-lg`}
         >
           {items.map((item, index) => (
-            <div className="py-1">
+            <div key={index} className="py-1">
               <Menu.Item>
                 {({ active }) => (
                   <a

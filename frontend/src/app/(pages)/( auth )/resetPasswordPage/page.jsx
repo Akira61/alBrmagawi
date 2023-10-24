@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function resetPasswordPage() {
+export default function ResetPasswordPage() {
   let [password, setPssword] = useState("");
   let [confirmPassword, setConfirmPassword] = useState("");
   let [token, setToken] = useState("");
@@ -11,10 +11,13 @@ export default function resetPasswordPage() {
 
   // grap token from url
   useEffect(() => {
+    seTokken();
+  }, []);
+  
+  function seTokken(){
     const urlToken = window.location.search.split("=")[1];
     setToken(urlToken || "");
-  }, []);
-
+  }
   async function reset() {
     try {
       if (token.length > 0) {

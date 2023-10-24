@@ -14,9 +14,9 @@ export default function Testimonials() {
           </svg>
           <blockquote>
             <p className="text-2xl italic font-medium text-gray-900 dark:text-white">
-              "Flowbite is just awesome. It contains tons of predesigned
+            &apos;Flowbite is just awesome. It contains tons of predesigned
               components and pages starting from login screen to complex
-              dashboard. Perfect choice for your next SaaS application."
+              dashboard. Perfect choice for your next SaaS application.&apos;
             </p>
           </blockquote>
           <figcaption className="flex items-center justify-center mt-6 space-x-3">
