@@ -7,7 +7,7 @@ const MyConfetti = () => {
   const { active, deactivate } = useConfetti();
   const { width, height } = useWindowSize();
 
-  if (!window || !active) return null;
+  if (typeof window !== "undefined" || !active) return null;
 
   return (
     <div className="fixed inset-0 z-50 pointer-events-none">
