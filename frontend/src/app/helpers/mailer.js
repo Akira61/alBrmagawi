@@ -2,7 +2,6 @@ import nodemailer from "nodemailer";
 import excuteQuery from "../lib/db";
 import bcrypt from "bcrypt";
 import userExists from "../api/auth/signup/user/route";
-import { randomUUID } from "crypto";
 import { PrismaClient } from "@prisma/client";
 import { env } from "process";
 const prisma = new PrismaClient();

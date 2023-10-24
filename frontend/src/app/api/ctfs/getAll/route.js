@@ -19,5 +19,5 @@ export async function GET(req) {
     },
   });
   console.log(allCTFs);
-  NextResponse.json({ data: allCTFs });
+  return NextResponse.json({ data: allCTFs });
 }

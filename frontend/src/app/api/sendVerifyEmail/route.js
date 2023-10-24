@@ -1,5 +1,4 @@
 const { NextResponse } = require("next/server");
-import { randomUUID } from "crypto";
 import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";

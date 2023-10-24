@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { UUID } from "crypto";
 import Head from "next/head";
 import { configURL } from "../url.config";
 export default function SideNavbar() {

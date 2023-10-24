@@ -31,7 +31,7 @@ export default function Login() {
       setError(data.err_message);
     }
     if (data.success) {
-      location.href = "/";
+      return route.push("/");
     }
   }
   // login with nextjs route
@@ -45,7 +45,7 @@ export default function Login() {
       console.log(data);
       if (data.success) {
         // toast.success(data.message)
-        route.push("/dashboard/"+data.role);
+        route.push("/");
       }
       setError(data.err_message);
     } catch (error) {

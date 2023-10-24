@@ -32,9 +32,10 @@ export default function Navbar() {
   async function userDetails() {
     try {
       const { data } = await axios.get("/api/tokenData");
+      // console.log("jwt token: ", data)
       return setUserData(data.data);
     } catch (error) {
-      throw new Error(error.message);
+      throw new console.log("error: ",error.message);
     }
   }
 

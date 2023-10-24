@@ -153,8 +153,11 @@ model ctfs {
   systemOwns   Int
   matchineType String @db.VarChar(255)
   flag         String @db.VarChar(255)
+  first_blood  Int?
   description  String @db.VarChar(255)
   joining_date String @db.VarChar(255)
+
+  @@index([first_blood], map: "firstBlood")
 }
 
 model blogs {

@@ -7,14 +7,20 @@ const openSans = Open_Sans({ subsets: ["cyrillic"] });
 import { VscTerminalLinux } from "react-icons/vsc";
 import { ImWindows } from "react-icons/im";
 import { CTF } from "./CTF";
-import mongoose from "mongoose";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
-// mongoose.connect(process.env.mongodb, ()=> {
-//   console.log("mongodb connected")
-// })
 export default function AllCTFs() {
-  const [showCTF, setShowCTF] = useState(false);
+  const [showCTF, setShowCTF] = useState(-1);
+  const [flag, setFlag] = useState("");
+
+  function closeModal() {
+    setShowCTF(-1);
+  }
+
+  function openModal(index) {
+    setShowCTF(index);
+  }
   const ctfs = [
     {
       id: 1,
@@ -110,12 +116,31 @@ export default function AllCTFs() {
       userOwns: 0,
       systemOwns: 0,
       matchineType: "windows",
-      description: `Break it !!
+      description: `This looks like a hash of some kind INTEL says,
 
-      author : otoom`,
+      It is wrapped with brackets ' { } '
+      Then a 4 letter l33t sp34k word
+      Then a underscore '_' as a seperator
+      Then end with 4 numbers.
+      
+      This is the Regex {[A-Za-z0-9]+_[0-9]+}
+      Example: {c0d3_1234}
+      
+      Provide the answer in flag format ;)
+      
+      author : saif`,
     },
-
   ];
+
+  //get first blood
+  async function firstBlood() {
+    try {
+      const { data } = await axios.get("/api/ctfs/firstBlood");
+      console.log(data);
+    } catch (error) {
+      console.log(window.location.pathname, error.message);
+    }
+  }
   useEffect(() => {
     // get all ctfs
     getCTFs();
@@ -127,9 +152,38 @@ export default function AllCTFs() {
         console.log(error.message);
       }
     }
+    //get first blood
+    firstBlood();
   }, []);
+
+  //submit flag
+  async function submitFlag(ctfId) {
+    try {
+      const { data } = await axios.post(`/api/ctfs/submitFlag`, {
+        ctfId: ctfId,
+        flag: flag,
+      });
+      if(data.err_message){
+        return toast.error(data.err_message)
+      }
+      //check if first blood
+      else if(data.firstBlood){
+        toast.success(data.message)
+        closeModal();
+      }
+      // if not fist blood but success
+      else if(data.success){
+        toast.success(data.message)
+        closeModal()
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   return (
     <>
+    <Toaster />
       <section
         style={openSans.style}
         className="bg-gray-50 dark:bg-gray-900 py-3 sm:py-20"
@@ -181,176 +235,8 @@ export default function AllCTFs() {
                   </div>
                 </form>
               </div>
-
-              <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                <div className="flex items-center space-x-3 w-full md:w-auto">
-                  <button
-                    id="actionsDropdownButton"
-                    data-dropdown-toggle="actionsDropdown"
-                    className="w-full border-none md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    type="button"
-                  >
-                    <svg
-                      className="-ml-1 mr-1.5 w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      />
-                    </svg>
-                    Actions
-                  </button>
-                  <div
-                    id="actionsDropdown"
-                    className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-                  >
-                    <ul
-                      className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                      aria-labelledby="actionsDropdownButton"
-                    >
-                      <li>
-                        <a
-                          href="#"
-                          className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        >
-                          Mass Edit
-                        </a>
-                      </li>
-                    </ul>
-                    <div className="py-1">
-                      <a
-                        href="#"
-                        className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                      >
-                        Delete all
-                      </a>
-                    </div>
-                  </div>
-                  <button
-                    id="filterDropdownButton"
-                    data-dropdown-toggle="filterDropdown"
-                    className="w-full border-none md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-900 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                    type="button"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      className="h-4 w-4 mr-2 text-gray-400"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    Filter
-                    <svg
-                      className="-mr-1 ml-1.5 w-5 h-5"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                    >
-                      <path
-                        clipRule="evenodd"
-                        fillRule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      />
-                    </svg>
-                  </button>
-                  <div
-                    id="filterDropdown"
-                    className="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700"
-                  >
-                    <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                      Choose brand
-                    </h6>
-                    <ul
-                      className="space-y-2 text-sm"
-                      aria-labelledby="filterDropdownButton"
-                    >
-                      <li className="flex items-center">
-                        <input
-                          id="apple"
-                          type="checkbox"
-                          defaultValue=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="apple"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Apple (56)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="fitbit"
-                          type="checkbox"
-                          defaultValue=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="fitbit"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Microsoft (16)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="razor"
-                          type="checkbox"
-                          defaultValue=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="razor"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Razor (49)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="nikon"
-                          type="checkbox"
-                          defaultValue=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="nikon"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Nikon (12)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="benq"
-                          type="checkbox"
-                          defaultValue=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="benq"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          BenQ (74)
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
+            {/* table */}
             <div className="overflow-x-auto">
               <table className="w-full text-md text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-800 dark:text-gray-400">
@@ -378,177 +264,143 @@ export default function AllCTFs() {
                 <tbody>
                   {ctfs.map((ctf, index) => (
                     <tr
-                      onClick={() => setShowCTF(true)}
+                      onClick={() => openModal(index)}
                       className="border-b cursor-pointer dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
-                      {showCTF ? (
-                        <>
-                          <Transition appear show={showCTF} as={Fragment}>
-                            <Dialog
-                              as="div"
-                              className="relative z-10"
-                              onClose={() => setShowCTF(false)}
+                      <>
+                        <Transition appear show={showCTF==index?true:false} as={Fragment}>
+                          <Dialog
+                            as="div"
+                            className="relative z-10"
+                            onClose={() => closeModal}
+                          >
+                            <Transition.Child
+                              as={Fragment}
+                              enter="ease-out duration-300"
+                              enterFrom="opacity-0"
+                              enterTo="opacity-100"
+                              leave="ease-in duration-200"
+                              leaveFrom="opacity-100"
+                              leaveTo="opacity-0"
                             >
-                              <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0"
-                                enterTo="opacity-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                              >
-                                <div className="fixed inset-0 bg-black bg-opacity-25" />
-                              </Transition.Child>
+                              <div className="fixed inset-0 bg-black bg-opacity-25" />
+                            </Transition.Child>
 
-                              <div className="fixed inset-0 overflow-y-auto">
-                                <div className="flex min-h-full items-center justify-center p-4 text-center">
-                                  <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                  >
-                                    <Dialog.Panel className="w-full transform rounded-2xl p-10 bg-gray-800 text-left align-middle shadow-xl transition-all ">
-                                      <Dialog.Title
-                                        as="h3"
-                                        className="flex bg-no-repeat max-w-full h-auto w-full text-lg font-medium leading-6 text-gray-900"
-                                        // style={{backgroundImage: "url('https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png')"}}
+                            <div className="fixed inset-0 overflow-y-auto">
+                              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                                <Transition.Child
+                                  as={Fragment}
+                                  enter="ease-out duration-300"
+                                  enterFrom="opacity-0 scale-95"
+                                  enterTo="opacity-100 scale-100"
+                                  leave="ease-in duration-200"
+                                  leaveFrom="opacity-100 scale-100"
+                                  leaveTo="opacity-0 scale-95"
+                                >
+                                  <Dialog.Panel className="w-full transform rounded-2xl p-10 bg-gray-800 text-left align-middle shadow-xl transition-all ">
+                                    <Dialog.Title
+                                      as="h3"
+                                      className="flex bg-no-repeat max-w-full h-auto w-full text-lg font-medium leading-6 text-gray-900"
+                                      // style={{backgroundImage: "url('https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png')"}}
+                                    >
+                                      <div className="flex items-center">
+                                        <img
+                                          src={
+                                            "https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png"
+                                          }
+                                          alt="iMac Front Image"
+                                          className="w-auto h-14 mr-3"
+                                        />
+                                        <span className="text-white">
+                                          {ctf.title}
+                                        </span>
+                                      </div>
+                                      <button
+                                        type="button"
+                                        onClick={closeModal}
+                                        className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                       >
-                                        <div className="flex items-center">
-                                          <img
-                                            src={
-                                              "https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png"
-                                            }
-                                            alt="iMac Front Image"
-                                            className="w-auto h-14 mr-3"
+                                        <svg
+                                          aria-hidden="true"
+                                          className="w-5 h-5"
+                                          fill="currentColor"
+                                          viewBox="0 0 20 20"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
                                           />
-                                          <span className="text-white">
-                                            Payment successful
-                                          </span>
-                                        </div>
-                                        <button
-                                          type="button"
-                                          onClick={() => setShowCTF(false)}
-                                          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        >
-                                          <svg
-                                            aria-hidden="true"
-                                            className="w-5 h-5"
-                                            fill="currentColor"
-                                            viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg"
+                                        </svg>
+                                        <span className="sr-only">
+                                          Close modal
+                                        </span>
+                                      </button>
+                                    </Dialog.Title>
+                                    <div className="mt-2">
+                                      <form>
+                                        <dl>
+                                          <h1 className="mb-2 pt-10 font-semibold leading-none text-gray-900 dark:text-white">
+                                            Description
+                                          </h1>
+                                          <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                                            {ctf.description}
+                                          </dd>
+                                          <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+                                            Links
+                                          </dt>
+                                          <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                                            Electronics/PC
+                                          </dd>
+                                        </dl>
+
+                                        <div className="relative z-0 w-full mb-6 group">
+                                          <input
+                                            type="text"
+                                            name="floating_email"
+                                            id="floating_email"
+                                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                            placeholder=" "
+                                            required=""
+                                            onChange={(e) =>
+                                              setFlag(e.target.value)
+                                            }
+                                          />
+                                          <label
+                                            htmlFor="floating_email"
+                                            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                                           >
-                                            <path
-                                              fillRule="evenodd"
-                                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                              clipRule="evenodd"
-                                            />
-                                          </svg>
-                                          <span className="sr-only">
-                                            Close modal
-                                          </span>
-                                        </button>
-                                      </Dialog.Title>
-                                      <div className="mt-2">
-                                        <form>
-                                          <dl>
-                                            <h1 className="mb-2 pt-10 font-semibold leading-none text-gray-900 dark:text-white">
-                                              Description
-                                            </h1>
-                                            <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                                              Lorem ipsum dolor sit, amet
-                                              consectetur adipisicing elit.
-                                              Dignissimos neque rem itaque
-                                              harum, perspiciatis ea quia
-                                              voluptatem dolorum rerum pariatur,
-                                              consequatur, aspernatur quis
-                                              distinctio quo? Dolorem aut, neque
-                                              non ex libero optio rerum delectus
-                                              hic expedita illum, deserunt eos.
-                                              Neque aut enim praesentium odio
-                                              saepe! Porro facere voluptas, nemo
-                                              enim, aspernatur ratione mollitia
-                                              magnam libero magni, quia alias
-                                              beatae id itaque sunt hic vel?
-                                              Error animi ipsam delectus
-                                              molestias, voluptatem, culpa ut
-                                              temporibus consequuntur deserunt
-                                              excepturi voluptates earum laborum
-                                              obcaecati quod et explicabo quae
-                                              tempora distinctio! Quia quaerat
-                                              perspiciatis, sed itaque excepturi
-                                              eos repellat saepe, tempore earum
-                                              ipsam aliquam! Quaerat laudantium
-                                              natus officia voluptatum, possimus
-                                              consequatur obcaecati id
-                                              reiciendis vero in exercitationem.
-                                              Quis, explicabo perferendis? Odio
-                                              ipsam consequatur iure numquam
-                                              suscipit exercitationem illum
-                                              quisquam sapiente veniam quasi
-                                              saepe beatae delectus commodi nam,
-                                              nulla minus modi eos. Dolore,
-                                              officiis quo, quibusdam autem
-                                              nesciunt reiciendis maiores,
-                                              deleniti perferendis aperiam cum
-                                              eum reprehenderit.
-                                            </dd>
-                                            <dt className="mb-2 font-semibold leading-none text-gray-900 dark:text-white">
-                                              Category
-                                            </dt>
-                                            <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                                              Electronics/PC
-                                            </dd>
-                                          </dl>
+                                            Flag
+                                          </label>
+                                        </div>
+                                      </form>
+                                    </div>
 
-                                          <div className="relative z-0 w-full mb-6 group">
-                                            <input
-                                              type="text"
-                                              name="floating_email"
-                                              id="floating_email"
-                                              className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                              placeholder=" "
-                                              required=""
-                                            />
-                                            <label
-                                              htmlFor="floating_email"
-                                              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                                            >
-                                              Flag
-                                            </label>
-                                          </div>
-                                        </form>
-                                      </div>
-
-                                      <div className="mt-4">
-                                        <button
-                                          type="button"
-                                          className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white  hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                        >
-                                          Submit flag
-                                        </button>
-                                        <button
-                                          type="button"
-                                          className="inline-flex mx-3 justify-center rounded-md border border-transparent bg-gray-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                          onClick={() => setShowCTF(false)}
-                                        >
-                                          Cancel
-                                        </button>
-                                      </div>
-                                    </Dialog.Panel>
-                                  </Transition.Child>
-                                </div>
+                                    <div className="mt-4">
+                                      <button
+                                        type="button"
+                                        className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white  hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        onClick={() => submitFlag(ctf.id)}
+                                      >
+                                        Submit flag
+                                      </button>
+                                      <button
+                                        type="button"
+                                        className="inline-flex mx-3 justify-center rounded-md border border-transparent bg-gray-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        onClick={closeModal}
+                                      >
+                                        Cancel
+                                      </button>
+                                    </div>
+                                  </Dialog.Panel>
+                                </Transition.Child>
                               </div>
-                            </Dialog>
-                          </Transition>
-                        </>
-                      ) : (
-                        ""
-                      )}
+                            </div>
+                          </Dialog>
+                        </Transition>
+                      </>
+
                       <th
                         scope="row"
                         className="flex items-center px-5 py-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
