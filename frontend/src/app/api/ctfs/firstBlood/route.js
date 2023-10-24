@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-import excuteQuery from "@/app/lib/db";
+import excuteQuery from "../../../lib/db";
 const prisma = new PrismaClient();
  
 export async function GET(req) {

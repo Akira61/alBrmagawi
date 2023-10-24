@@ -1,22 +1,77 @@
 "use client";
-import { Dialog } from "@headlessui/react";
 import { useEffect } from "react";
 import { Open_Sans } from "next/font/google";
 import React, { useState } from "react";
 const openSans = Open_Sans({ subsets: ["cyrillic"] });
-import { VscTerminalLinux } from "react-icons/vsc";
-import { ImWindows } from "react-icons/im";
 import axios from "axios";
 import { Animator } from "@arwes/react-animator";
 import { Text } from "@arwes/react-text";
 import Table from "./Table";
 import Box from "./Box";
-import Popup from "./Popup";
 import { createFrameOctagonClip } from "@arwes/frames";
 import CTF from "./CTF";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AllCTFs() {
   const [showCTFId, setShowCTFId] = useState(-1);
+  const [showCTF, setShowCTF] = useState(-1);
+  const [flag, setFlag] = useState("");
+  const [_, setCtfs] = useState([]);
+  function closeModal() {
+    setShowCTF(-1);
+  }
+
+  //get first blood
+  async function firstBlood() {
+    try {
+      const { data } = await axios.get("/api/ctfs/firstBlood");
+      console.log(data);
+    } catch (error) {
+      console.log(window.location.pathname, error.message);
+    }
+  }
+
+  useEffect(() => {
+    // get all ctfs
+    getCTFs();
+    async function getCTFs() {
+      try {
+        const { data } = await axios.get(`/api/ctfs/getAll`);
+        console.log(data);
+        setCtfs(data.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    //get first blood
+    firstBlood();
+  }, []);
+
+  //submit flag
+  async function submitFlag(ctfId) {
+    try {
+      const { data } = await axios.post(`/api/ctfs/submitFlag`, {
+        ctfId: ctfId,
+        flag: flag,
+      });
+      if (data.err_message) {
+        return toast.error(data.err_message);
+      }
+      //check if first blood
+      else if (data.firstBlood) {
+        toast.success(data.message);
+        closeModal();
+      }
+      // if not fist blood but success
+      else if (data.success) {
+        toast.success(data.message);
+        closeModal();
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   const ctfs = [
     {
@@ -109,100 +164,71 @@ export default function AllCTFs() {
       matchineType: "windows",
       description: `!1 is False
 
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 3,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "Crack it",
-  //     level: "medium",
-  //     rating: 3.5,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: `!1 is False
+      author : otoom`,
+    },
+    {
+      id: 4,
+      thumbnail:
+        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+      title: "CryptoAnalyst",
+      level: "hard",
+      rating: 5.0,
+      userOwns: 0,
+      systemOwns: 0,
+      matchineType: "windows",
+      description: `I found this clipping on the mathematics professor's desk
 
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 4,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "CryptoAnalyst",
-  //     level: "hard",
-  //     rating: 5.0,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: `I found this clipping on the mathematics professor's desk
-
-  //     can you help me to understand it ?!
+      can you help me to understand it ?!
       
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 5,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "FTW",
-  //     level: "easy",
-  //     rating: 3.0,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: ` what _ _ ?  you want to complete it :)
+      author : otoom`,
+    },
+    {
+      id: 5,
+      thumbnail:
+        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+      title: "FTW",
+      level: "easy",
+      rating: 3.0,
+      userOwns: 0,
+      systemOwns: 0,
+      matchineType: "windows",
+      description: ` what _ _ ?  you want to complete it :)
 
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 6,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "RSA101",
-  //     level: "hard",
-  //     rating: 4.5,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: `Break it !!
+      author : otoom`,
+    },
+    {
+      id: 6,
+      thumbnail:
+        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+      title: "RSA101",
+      level: "hard",
+      rating: 4.5,
+      userOwns: 0,
+      systemOwns: 0,
+      matchineType: "windows",
+      description: `Break it !!
 
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 7,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "SHA-1",
-  //     level: "medium",
-  //     rating: 3.5,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: `This looks like a hash of some kind INTEL says,
+      author : otoom`,
+    },
+    {
+      id: 7,
+      thumbnail:
+        "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
+      title: "SHA-1",
+      level: "medium",
+      rating: 3.5,
+      userOwns: 0,
+      systemOwns: 0,
+      matchineType: "windows",
+      description: `Break it !!
 
       author : otoom`,
     },
   ];
 
-  useEffect(() => {
-    // get all ctfs
-    getCTFs();
-    async function getCTFs() {
-      try {
-        const { data } = await axios.get(`/api/ctfs/getAll`);
-        console.log(data);
-        setCtfs(data.data);
-      } catch (error) {
-        console.log(error.message);
-      }
-    }
-    //get first blood
-    firstBlood();
-  }, []);
-
   return (
     <>
+      <Toaster />
       <section style={openSans.style} className="py-3 sm:py-20 bg-jaguar">
         <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
           <div className="relative overflow-hidden sm:rounded-lg">
