@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Open_Sans } from "next/font/google";
 import React, { useState } from "react";
 const openSans = Open_Sans({ subsets: ["cyrillic"] });
@@ -17,9 +17,20 @@ export default function AllCTFs() {
   const [showCTF, setShowCTF] = useState(-1);
   const [flag, setFlag] = useState("");
   const [ctfs, setCtfs] = useState([]);
+  const [filter, setFilter] = useState("");
   function closeModal() {
     setShowCTF(-1);
   }
+
+  const categories = useMemo(
+    () => [...new Set(ctfs.map((ctf) => ctf.catigory))],
+    [ctfs],
+  );
+
+  const filteredCTFs = useMemo(
+    () => (filter ? ctfs.filter((ctf) => ctf.catigory === filter) : ctfs),
+    [ctfs, filter],
+  );
 
   //get first blood
   async function firstBlood() {
@@ -73,184 +84,12 @@ export default function AllCTFs() {
     }
   }
 
-  // const ctfs = [
-  //   {
-  //     id: 1,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-  //     title: "Aeswhat",
-  //     level: "hard",
-  //     rating: 5.0,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: "hmmmm!   author : Otoom",
-  //     children: [
-  //       {
-  //         id: 8391,
-  //         thumbnail:
-  //           "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-  //         title: "Aeswhat",
-  //         level: "hard",
-  //         rating: 5.0,
-  //         userOwns: 0,
-  //         systemOwns: 0,
-  //         matchineType: "windows",
-  //         description: "hmmmm!   author : Otoom",
-  //       },
-  //       {
-  //         id: 8389,
-  //         thumbnail:
-  //           "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-  //         title: "Aeswhat",
-  //         level: "hard",
-  //         rating: 5.0,
-  //         userOwns: 0,
-  //         systemOwns: 0,
-  //         matchineType: "windows",
-  //         description: "hmmmm!   author : Otoom",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 2,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png",
-  //     title: "Binary_1",
-  //     level: "easy",
-  //     rating: 2.0,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "linux",
-  //     description: `it looks familiar
-
-  //     author : otoom`,
-  //     children: [
-  //       {
-  //         id: 887,
-  //         thumbnail:
-  //           "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-  //         title: "Aeswhat",
-  //         level: "hard",
-  //         rating: 5.0,
-  //         userOwns: 0,
-  //         systemOwns: 0,
-  //         matchineType: "windows",
-  //         description: "hmmmm!   author : Otoom",
-  //       },
-  //       {
-  //         id: 819,
-  //         thumbnail:
-  //           "https://www.hackthebox.com/storage/avatars/f86fcf4c1cfcc690b43f43e100f89718.png",
-  //         title: "Aeswhat",
-  //         level: "hard",
-  //         rating: 5.0,
-  //         userOwns: 0,
-  //         systemOwns: 0,
-  //         matchineType: "windows",
-  //         description: "hmmmm!   author : Otoom",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: 3,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "Crack it",
-  //     level: "medium",
-  //     rating: 3.5,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: `!1 is False
-
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 4,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "CryptoAnalyst",
-  //     level: "hard",
-  //     rating: 5.0,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: `I found this clipping on the mathematics professor's desk
-
-  //     can you help me to understand it ?!
-
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 5,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "FTW",
-  //     level: "easy",
-  //     rating: 3.0,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: ` what _ _ ?  you want to complete it :)
-
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 6,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "RSA101",
-  //     level: "hard",
-  //     rating: 4.5,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: `Break it !!
-
-  //     author : otoom`,
-  //   },
-  //   {
-  //     id: 7,
-  //     thumbnail:
-  //       "https://www.hackthebox.com/storage/avatars/2ad5dcb2fb97e40f5e88a0d6fc569bdd.png",
-  //     title: "SHA-1",
-  //     level: "medium",
-  //     rating: 3.5,
-  //     userOwns: 0,
-  //     systemOwns: 0,
-  //     matchineType: "windows",
-  //     description: `Break it !!
-
-  //     author : otoom`,
-  //   },
-  // ];
-
   return (
     <>
       <Toaster />
       <section style={openSans.style} className="py-3 sm:py-20 bg-jaguar">
         <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
           <div className="relative overflow-hidden sm:rounded-lg">
-            {/* <>
-              <div class="max-w-screen-md mb-8 lg:mb-16">
-                <Animator active={true} combine manager="sequence">
-                  <Animator>
-                    <Text className="mb-4 text-4xl tracking-tight font-extrabold text-jaguar dark:text-white">
-                      Designed for business teams like yours
-                    </Text>
-                  </Animator>
-                  <Animator>
-                    <Text className="text-gray-500 text-xl dark:text-gray-400">
-                      Here at Flowbite we focus on markets where technology,
-                      innovation, and capital can unlock long-term value and
-                      drive economic growth.
-                    </Text>
-                  </Animator>
-                </Animator>
-              </div>
-            </> */}
-
             <div className="flex flex-col px-8 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
               <div className="w-full md:w-1/2">
                 <form className="flex items-center">
@@ -338,40 +177,25 @@ export default function AllCTFs() {
                     </div>
                   </div>
                   <Box>
-                    <button
-                      id="filterDropdownButton"
-                      data-dropdown-toggle="filterDropdown"
-                      className="flex items-center justify-center py-4 px-6"
-                      type="button"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                        className="h-4 w-4 mr-2 text-gray-400"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                    <label for="filter" hidden>
                       Filter
-                      <svg
-                        className="-mr-1 ml-1.5 w-5 h-5"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                      >
-                        <path
-                          clipRule="evenodd"
-                          fillRule="evenodd"
-                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        />
-                      </svg>
-                    </button>
+                    </label>
+                    <select
+                      id="filter"
+                      type="button"
+                      className="flex items-center justify-center py-4 px-6 focus:outline-none"
+                      value={filter}
+                      onChange={(e) => setFilter(e.target.value)}
+                    >
+                      <option value="" selected>
+                        All
+                      </option>
+                      {categories.map((ctg) => (
+                        <option key={ctg} value={ctg}>
+                          {ctg}
+                        </option>
+                      ))}
+                    </select>
                   </Box>
                   <div
                     id="filterDropdown"
@@ -490,8 +314,8 @@ export default function AllCTFs() {
                     </tr>
                   </thead>
                   <tbody className="bg-jaguar">
-                    {ctfs.length > 0 &&
-                      ctfs.map((ctf, index) => (
+                    {filteredCTFs.length > 0 &&
+                      filteredCTFs.map((ctf, index) => (
                         <CTF
                           key={index}
                           ctf={ctf}
@@ -511,7 +335,7 @@ export default function AllCTFs() {
               <span className="text-sm font-normal text-gray-500 dark:text-gray-400">
                 <span className="tracking-tight font-extrabold">TOTAL</span>{" "}
                 <span className="text-white mx-1 tracking-tight font-extrabold">
-                  {ctfs.length}
+                  {filteredCTFs.length}
                 </span>
               </span>
             </nav>
