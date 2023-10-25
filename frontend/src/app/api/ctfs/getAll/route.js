@@ -7,6 +7,7 @@ export async function GET(req) {
   const allCTFs = await prisma.ctfs.findMany({
     select: {
       id: true,
+      catigory: true,
       description : true,
       title: true,
       thumbnail: true,

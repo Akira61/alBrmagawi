@@ -114,7 +114,9 @@ export async function verifyEmail(email, id, role) {
         user.first_name + " " + user.last_name
       }</h1><p>Please click <a href='${
         process.env.domain
-      }/verifyemail?token=${token}'>here</a> to verify your email</p>`,
+      }/verifyemail?token=${token}'>${
+        process.env.domain
+      }/verifyemail?token=${token}</a> to verify your email</p>`,
     };
     const mail = await transport.sendMail(mailOptions);
     console.log(mail);

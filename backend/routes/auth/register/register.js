@@ -63,7 +63,7 @@ router.post('/auth/register', async(req, res) => {
     // insert the user with unverified
     const userId = uuid();
     const query = `
-    INSERT INTO users(user_id, first_name, last_name, email, password, joining_date)
+    INSERT INTO users (user_id, first_name, last_name, email, password, joining_date)
     VALUES( ?, ?, ?,?, ?,?);`
     Query.query(query, 
         [userId, firstName, lastName, email, hashedPass, Date()], 
@@ -73,6 +73,7 @@ router.post('/auth/register', async(req, res) => {
         console.log("user added successfully ✅")
 
     })
+    
 
     // send verification code
     // res.redirect(process.env.HOST + `/auth/verify-code?to=${userId}`)

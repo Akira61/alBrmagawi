@@ -65,7 +65,7 @@ model orders {
   course_id    Int
   user_id      Int
   payment_id   String   @db.VarChar(255)
-  payment_data Json
+  payment_data String   @db.LongText
   date         DateTime @db.Date
 }
 
@@ -144,28 +144,37 @@ model users {
 }
 
 model ctfs {
-  id           Int    @id @default(autoincrement())
-  title        String @db.VarChar(255)
-  links        Json?
-  thumbnail    String @db.VarChar(255)
-  level        String @db.VarChar(255)
+  id           Int     @id @default(autoincrement())
+  catigory     String  @db.VarChar(255)
+  title        String  @db.VarChar(255)
+  links        String? @db.LongText
+  thumbnail    String  @db.VarChar(255)
+  level        String  @db.VarChar(255)
   rating       Int
   userOwns     Int
   systemOwns   Int
-  matchineType String @db.VarChar(255)
-  flag         String @db.VarChar(255)
+  matchineType String  @db.VarChar(255)
+  flag         String  @db.VarChar(255)
   first_blood  Int?
-  description  String @db.Text
-  joining_date String @db.VarChar(255)
+  description  String  @db.Text
+  joining_date String  @db.VarChar(255)
 
   @@index([first_blood], map: "firstBlood")
 }
 
 model blogs {
+  id           Int      @id @default(autoincrement())
+  blog_id      String   @unique(map: "blogId") @db.VarChar(255)
+  title        String   @db.VarChar(255)
+  content      String?  @db.LongText
+  thumbnail    String   @db.VarChar(255)
+  author       String   @db.VarChar(255)
+  created_date DateTime @default(now()) @db.Timestamp(0)
+}
+
+model ctfs_catigories {
   id        Int    @id @default(autoincrement())
-  blog_id   String @unique(map: "blogId") @db.VarChar(255)
   title     String @db.VarChar(255)
-  content   Json
   thumbnail String @db.VarChar(255)
-  author    String @db.VarChar(255)
+  level     String @db.VarChar(255)
 }

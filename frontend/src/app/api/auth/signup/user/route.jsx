@@ -64,6 +64,14 @@ export async function POST(req) {
         joining_date: Date(),
       },
     });
+    // const createUser = await excuteQuery({
+    //   query: `INSERT INTO users 
+    //   (user_id, first_name, last_name, email, password, joining_date)
+    //   VALUES 
+    //   (?,?,?,?,?,?);
+    //   `,
+    //   values: [v4(),firstName,lastName,email,hashedPass, Date()]
+    // })
     console.log(createUser);
 
     //send verification code

@@ -134,9 +134,9 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                                     Links
                                   </Text>
                                   <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                                    {ctf.links.data.map((link, i) => (
-                                      <>
-                                        <p>
+                                    {JSON.parse(ctf.links).data.map((link, i) => (
+                                      <div key={i}>
+                                        <p >
                                           <Link
                                             target="_blank"
                                             className="underline"
@@ -145,7 +145,7 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                                             {link.title}
                                           </Link>
                                         </p>
-                                      </>
+                                      </div>
                                     ))}
                                   </dd>
                                 </>

@@ -1,7 +1,8 @@
-const { NextResponse } = require("next/server");
+
 import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
+import { NextResponse } from "next/server";
 const prisma = new PrismaClient();
 
 const transport = nodemailer.createTransport({
@@ -16,8 +17,8 @@ export async function GET(req) {
   try {
     // const body = await req.json();
     // const {email,id,role} = body
-    const sendemail = await verifyEmail('jorad98215@ipniel.com', 3, 'student');
-    console.log(sendemail);
+    // const sendemail = await verifyEmail('jorad98215@ipniel.com', 3, 'student');
+    // console.log(sendemail);
     // const token = `${randomUUID()}${randomUUID()}`.replace(/-/g, "");
     // // update user token based on role
     // let user;
@@ -43,6 +44,7 @@ export async function GET(req) {
     //   }/verifyemail?token=${token}'>here</a> to verify your email</p>`,
     // };
     // await transport.sendMail(mailOptions);
+    return NextResponse.json({data: "none"});
   } catch (error) {
     throw new Error(error.message);
   }

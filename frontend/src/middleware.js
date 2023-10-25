@@ -14,7 +14,7 @@ export async function middleware(request) {
   const loggedIn =
     (await token) &&
     (await verifyJwtToken(request).catch((err) => {
-      console.log("error from verifyJwtToken: ",err);
+      console.log("error from verifyJwtToken: ", err);
     }));
   // if(!token){
   //   return NextResponse.redirect(new URL("/login", request.nextUrl));
@@ -36,7 +36,14 @@ export async function middleware(request) {
   console.log("loggedin: ", loggedIn);
   const visitWithoutToken =
     path === "/login" || path === "/register" || path === "/verifyemail";
-
+  
+  //don't allow visit these pages
+  const forbiddenPages =
+    path === "/dashboard/:path*" || path === "/courses/:path*";
+  if (forbiddenPages) {
+    return NextResponse.redirect(new URL("/", request.nextUrl));
+  }
+  
   if (visitWithoutToken && loggedIn) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
@@ -57,7 +64,8 @@ export const config = {
     "/register",
     "/verifyemail",
     "/courses/createCourse/:path*",
-    // "/ctfs",
+    "/ctfs",
+    "/dashboard/:path*",
     "/courses",
   ],
 };
