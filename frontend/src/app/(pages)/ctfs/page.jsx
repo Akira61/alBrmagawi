@@ -54,7 +54,7 @@ export default function Allctfs() {
         <BleepsProvider {...bleepsSettings}>
           <ConfettiProvider>
             <Illuminator />
-            {/* <Background /> */}
+            <Background />
             <Theme />
             <AllCTFs />
             <Confetti />
