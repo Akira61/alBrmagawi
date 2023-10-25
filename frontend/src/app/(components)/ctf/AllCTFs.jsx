@@ -179,7 +179,7 @@ export default function AllCTFs() {
   //     description: `I found this clipping on the mathematics professor's desk
 
   //     can you help me to understand it ?!
-      
+
   //     author : otoom`,
   //   },
   //   {
@@ -490,15 +490,16 @@ export default function AllCTFs() {
                     </tr>
                   </thead>
                   <tbody className="bg-jaguar">
-                    {ctfs.map((ctf, index) => (
-                      <CTF
-                        key={index}
-                        ctf={ctf}
-                        id={ctf.id}
-                        showCTFId={showCTFId}
-                        setShowCTFId={setShowCTFId}
-                      />
-                    ))}
+                    {ctfs.length > 0 &&
+                      ctfs.map((ctf, index) => (
+                        <CTF
+                          key={index}
+                          ctf={ctf}
+                          id={ctf.id}
+                          showCTFId={showCTFId}
+                          setShowCTFId={setShowCTFId}
+                        />
+                      ))}
                   </tbody>
                 </table>
               </Table>

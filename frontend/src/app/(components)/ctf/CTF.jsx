@@ -328,8 +328,8 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
       </tr>
       {(ctf.children?.some((child) => child.id === showCTFId) ||
         ctf.id === showCTFId) &&
-        !!ctf.children?.length &&
-        ctf.children.map((ctf2) => (
+        ctf.children?.length > 0 &&
+        ctf.children?.map((ctf2) => (
           <CTF
             key={ctf2.id}
             ctf={ctf2}
