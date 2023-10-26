@@ -7,9 +7,10 @@ export async function GET(req) {
   // const token = req.cookies.get("token")?.value || "";
   //get fist bloods
   const firstBlod = await excuteQuery({
-    query: `SELECT ctfs.id,ctfs.title,ctfs.thumbnail,ctfs.first_blood, users.first_name, users.last_name 
+    query: `SELECT ctfs.id,ctfs.title,ctfs.thumbnail,ctfs.first_blood,ctfs.team, teams.name AS teamName,users.first_name, users.last_name 
     FROM ctfs 
-    INNER JOIN users ON ctfs.first_blood=users.id`,
+    INNER JOIN users ON ctfs.first_blood=users.id
+    LEFT JOIN teams ON ctfs.team=teams.id `,
   }); 
   console.log(firstBlod)
 //   const allBlood = await prisma.ctfs.findMany({

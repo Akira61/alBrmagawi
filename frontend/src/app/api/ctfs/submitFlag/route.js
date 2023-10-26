@@ -10,10 +10,15 @@ export async function POST(req) {
     const { ctfId, flag } = await body;
     const { id: userId } = await verifyJwtToken(req);
     console.log("userId : ", userId);
+    // get user
+    const user = await prisma.users.findFirst({
+      where: { id: parseInt(userId) },
+    });
+
     const validFlag = await prisma.ctfs.findFirst({
       where: {
         AND: [{ id: parseInt(ctfId) }, { flag: flag }],
-      }
+      },
     });
     console.log(validFlag);
     // not valid flag
@@ -22,11 +27,13 @@ export async function POST(req) {
     }
 
     //check if not first blood then the update the first blood to the user
+    
     if (!validFlag.first_blood) {
       const firstBlood = await prisma.ctfs.update({
         where: { id: parseInt(ctfId) },
         data: {
           first_blood: parseInt(userId),
+          team: user.team,
         },
       });
       // first blood message
