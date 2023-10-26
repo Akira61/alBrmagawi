@@ -4,11 +4,12 @@ import "./style/Home.css";
 import Content from "./(components)/Home/Content";
 import Banner from "./(components)/Home/Banner";
 import About from "./(components)/Home/About";
+import Arwes from "./(components)/Arwes";
 import Testimonials from "./(components)/Home/testimonials";
 
 export default function Home() {
   return (
-    <>
+    <Arwes nobg>
       <main className="wrapper">
         <Navbar />
 
@@ -20,6 +21,6 @@ export default function Home() {
         {/* <Carousel /> */}
         <Footer />
       </main>
-    </>
+    </Arwes>
   );
 }

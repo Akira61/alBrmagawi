@@ -20,13 +20,18 @@
   }
 }
 
-body {
+html, body {
   color: rgb(var(--foreground-rgb));
   font-family: "neue-haas-unica", sans-serif !important;
-  @apply bg-jaguar;
+  @apply bg-jaguar !important;
 }
 
 th,
 td {
   vertical-align: middle !important;
+}
+
+:where(ul) li::marker{
+  display: none !important;
+  content: "" !important;
 }

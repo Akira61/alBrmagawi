@@ -42,14 +42,13 @@ export default function Banner() {
                 <span className="text-white"> — all in one place.</span>
               </p>
               <Box>
-              <a
-                href="https://tailwindcss.com/docs"
-                type="button"
-                class="bg-gradient-to-r hover:bg-gradient-to-l flex items-center gap-2 from-sky-500 to-indigo-500 text-white px-6 py-4 rounded-sm hover:bg-slate-700"
-              >
-                <span>Get started</span>
-                <span>&rarr;</span>
-              </a>
+                <a
+                  href="https://tailwindcss.com/docs"
+                  type="button"
+                  className="py-4 px-8"
+                >
+                  Get started
+                </a>
               </Box>
             </div>
           </li>

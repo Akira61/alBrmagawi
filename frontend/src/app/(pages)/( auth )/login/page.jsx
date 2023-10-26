@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Kranox from "@/app/(components)/ctf/Kranox";
 import Box from "@/app/(components)/ctf/Box";
-// import toast from "react-hot-toast";
+import Background from "@/app/(components)/ctf/Background";
 
 export default function Login() {
   const route = useRouter();
@@ -53,11 +53,13 @@ export default function Login() {
       setError(data.err_message);
     } catch (error) {
       // toast.error(error);
-      setError(error);
+      setError(error.message);
     }
   }
+
   return (
     <Arwes>
+      <Background />
       <Navbar />
       <Kranox className="max-w-lg mx-auto mt-8">
         <div className="p-4 shadow sm:p-6 md:p-8 z-50">

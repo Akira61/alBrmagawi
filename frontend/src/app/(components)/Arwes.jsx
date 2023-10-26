@@ -7,7 +7,6 @@ import {
   BleepsProvider,
 } from "@arwes/react";
 import Confetti from "@/app/(components)/ctf/Confetti";
-import Background from "@/app/(components)/ctf/Background";
 import Illuminator from "@/app/(components)/ctf/Illuminator";
 import "@/app/style/ctfs.css";
 import ConfettiProvider from "@/app/providers/Confetti";
@@ -44,7 +43,7 @@ const bleepsSettings = {
   },
 };
 
-export default function Allctfs({children}) {
+export default function Allctfs({ children }) {
   const [active] = useState(true);
 
   return (
@@ -53,7 +52,6 @@ export default function Allctfs({children}) {
         <BleepsProvider {...bleepsSettings}>
           <ConfettiProvider>
             <Illuminator />
-            <Background />
             <Theme />
             {children}
             <Confetti />
