@@ -18,7 +18,7 @@ export async function GET(req) {
       first_blood: true,
       links: true,
       matchineType: true,
-      joining_date: true,
+      joining_date: true, 
     },
   });
   console.log(allCTFs);

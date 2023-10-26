@@ -215,7 +215,7 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
               alt="iMac Front Image"
               className="w-auto h-12 mr-3"
             />
-            {ctf.matchineType === "windows" ? (
+            {/* {ctf.matchineType === "windows" ? (
               <ImWindows
                 title="windows"
                 className="bottom-0 left-8 absolute  w-5 h-5 bg-gray-600 border-2 border-white dark:border-russian-violet rounded-full"
@@ -225,13 +225,13 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                 title="linux"
                 className="bottom-0 left-8 absolute  w-5 h-5 bg-gray-600 border-2 border-white dark:border-russian-violet rounded-full"
               />
-            ) : (
+            ) : ( */}
               <img
                 src={ctf.thumbnail}
                 title="thumbnail"
                 className="bottom-0 left-8 absolute  w-6 bg-green-400 border-2 border-white dark:border-russian-violet rounded-full"
               />
-            )}
+            {/* )} */}
           </div>
           <div className="px-1">
             <p className="tracking-tight font-extrabold cursor-pointer hover:text-purple-500">

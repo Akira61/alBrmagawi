@@ -72,6 +72,15 @@ export default function JoinTeam({ params }) {
             >
               Join
             </button>
+            <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+            do not have a team?{" "}
+            <a
+              href="/team/createTeam"
+              className="text-blue-700 hover:underline dark:text-blue-500"
+            >
+              Create One
+            </a>
+          </div>
           </form>
         </div>
       </div>
