@@ -3,7 +3,7 @@
 import { jsx } from "@emotion/react";
 import { FrameSVGKranox } from "@arwes/react-frames";
 
-const Box = ({ children, style, squareSize = "1.5rem", ...props }) => {
+const Kranox = ({ children, style, squareSize = "1.5rem", ...props }) => {
   return (
     <div
       style={{
@@ -32,4 +32,4 @@ const Box = ({ children, style, squareSize = "1.5rem", ...props }) => {
   );
 };
 
-export default Box;
+export default Kranox;
