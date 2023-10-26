@@ -1,7 +1,7 @@
 export default function Testimonials() {
   return (
     <>
-      <section className="py-5">
+      <section className="py-10">
         <figure className="max-w-screen-md mx-auto text-center">
           <svg
             className="w-10 h-10 mx-auto mb-3 text-gray-400 dark:text-gray-600"

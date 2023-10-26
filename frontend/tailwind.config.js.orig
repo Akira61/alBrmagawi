@@ -25,13 +25,16 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+<<<<<<< HEAD
       colors: {
         "russian-violet": "#2D1042",
         "chinese-black": "#161A11",
         "american-purple": "#461C55",
         "cetacean-blue": "#12133D",
-        jaguar: "#100317",
+        "jaguar": "#100317",
       },
+||||||| 4d63019
+=======
       keyframes: {
         fade: {
           from: {
@@ -45,6 +48,7 @@ module.exports = {
       animation: {
         fade: "fade 3s linear infinite alternate",
       },
+>>>>>>> new
     },
   },
   plugins: [

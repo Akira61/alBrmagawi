@@ -41,8 +41,8 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="font-[Exo 2] md:sticky top-0 dark:bg-[#111927]">
-        <nav className="flex justify-between items-center w-[92%] mx-auto py-5">
+      <header className="font-[Exo 2] md:sticky top-0 dark:bg-[#111927] z-50">
+        <nav className="flex justify-between items-center py-5 container mx-auto">
           <div>
             <a href="/">
               <img className="h-14 mr-3" src="/logo.png" alt="Albrmagawi" />
