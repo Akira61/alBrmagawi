@@ -10,7 +10,7 @@ export async function GET(req) {
     query: `SELECT ctfs.id,ctfs.title,ctfs.thumbnail,ctfs.first_blood,ctfs.team, teams.name AS teamName,users.first_name, users.last_name 
     FROM ctfs 
     INNER JOIN users ON ctfs.first_blood=users.id
-    LEFT JOIN teams ON ctfs.team=teams.id `,
+    LEFT JOIN teams ON ctfs.team=teams.id;`,
   }); 
   console.log(firstBlod)
 //   const allBlood = await prisma.ctfs.findMany({
