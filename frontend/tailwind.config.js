@@ -32,19 +32,6 @@ module.exports = {
         "cetacean-blue": "#12133D",
         jaguar: "#100317",
       },
-      keyframes: {
-        fade: {
-          from: {
-            opacity: 0,
-          },
-          to: {
-            opacity: 1,
-          },
-        },
-      },
-      animation: {
-        fade: "fade 3s linear infinite alternate",
-      },
     },
   },
   plugins: [
