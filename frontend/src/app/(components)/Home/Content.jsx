@@ -10,7 +10,7 @@ export default function Content() {
         </h1>
         <ul className="md:flex lg:md:flex items-center justify-between mx-auto mt-auto py-6 gap-4">
           <li className="flex-1">
-            <div className="w-full items-center text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-[#1a2332] dark:border-gray-700">
+            <div className="w-full items-center text-center border border-gray-200 rounded-lg shadow bg-jaguar dark:border-gray-700">
               <div className="flex justify-center">
                 <img
                   className="rounded-t-lg"
@@ -29,7 +29,7 @@ export default function Content() {
             </div>
           </li>
           <li className="flex-1">
-            <div className="w-full items-center text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-[#1a2332] dark:border-gray-700 py-4">
+            <div className="w-full items-center text-center border border-gray-200 rounded-lg shadow bg-jaguar dark:border-gray-700">
               <div className="flex justify-center">
                 <img
                   className="rounded-t-lg"
@@ -48,7 +48,7 @@ export default function Content() {
             </div>
           </li>
           <li className="flex-1">
-            <div className="w-full items-center text-center bg-white border border-gray-200 rounded-lg shadow dark:bg-[#1a2332] dark:border-gray-700">
+            <div className="w-full items-center text-center border border-gray-200 rounded-lg shadow bg-jaguar dark:border-gray-700">
               <div className="flex justify-center">
                 <img
                   className="rounded-t-lg"

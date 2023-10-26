@@ -1,5 +1,6 @@
 "use client";
 import { Typewriter } from "react-simple-typewriter";
+import Box from "../ctf/Box";
 
 export default function Banner() {
   return (
@@ -40,13 +41,16 @@ export default function Banner() {
                 capabilities
                 <span className="text-white"> — all in one place.</span>
               </p>
+              <Box>
               <a
                 href="https://tailwindcss.com/docs"
-                class="bg-gradient-to-r hover:bg-gradient-to-l flex items-center gap-2 from-sky-500 to-indigo-500 text-white px-5 py-4 rounded-sm hover:bg-slate-700"
+                type="button"
+                class="bg-gradient-to-r hover:bg-gradient-to-l flex items-center gap-2 from-sky-500 to-indigo-500 text-white px-6 py-4 rounded-sm hover:bg-slate-700"
               >
                 <span>Get started</span>
                 <span>&rarr;</span>
               </a>
+              </Box>
             </div>
           </li>
 

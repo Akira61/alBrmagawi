@@ -60,7 +60,7 @@ export default function Login() {
         style={{ backgroundImage: "url(/background-squars.svg)" }}
         className="flex items-center justify-center py-6"
       >
-        <div className="w-full max-w-lg p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full max-w-lg p-4 border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 bg-russian-violet/50 dark:border-gray-700">
           <form className="space-y-6" action="#">
             <h5 className="text-3xl py-5 text-center font-medium text-gray-900 dark:text-white">
               Login
@@ -128,8 +128,8 @@ export default function Login() {
 
             <button
               type="submit"
-              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               onClick={(e) => onLogin(e)}
+              className="bg-gradient-to-r w-full hover:bg-gradient-to-l from-sky-500 to-indigo-500 text-white px-4 py-3 rounded-sm hover:bg-slate-700"
             >
               Login
             </button>

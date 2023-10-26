@@ -1,14 +1,14 @@
 export default function Footer() {
   return (
     <>
-      <footer className="bg-white rounded-lg shadow dark:bg-gray-900 mt-20">
+      <footer className="rounded-lg shadow bg-jaguar mt-20">
         <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
           <div className="flex items-center justify-between">
             <a
               href="/"
               className="flex items-center mb-4 sm:mb-0"
             >
-              <img className="h-14 mr-3" src="/logo.png" alt="Albrmagawi" />
+              Ceybarani
             </a>
             <ul className="flex flex-wrap items-center text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
               <li>
