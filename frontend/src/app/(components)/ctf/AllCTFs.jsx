@@ -6,7 +6,7 @@ const openSans = Open_Sans({ subsets: ["cyrillic"] });
 import axios from "axios";
 import { Animator } from "@arwes/react-animator";
 import { Text } from "@arwes/react-text";
-import Table from "./Table";
+import Table from "./Kranox";
 import Box from "./Box";
 import { createFrameOctagonClip } from "@arwes/frames";
 import CTF from "./CTF";
