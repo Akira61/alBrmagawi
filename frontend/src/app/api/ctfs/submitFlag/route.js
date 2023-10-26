@@ -13,7 +13,7 @@ export async function POST(req) {
     const validFlag = await prisma.ctfs.findFirst({
       where: {
         AND: [{ id: parseInt(ctfId) }, { flag: flag }],
-      },
+      }
     });
     console.log(validFlag);
     // not valid flag

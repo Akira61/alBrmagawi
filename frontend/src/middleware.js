@@ -43,13 +43,14 @@ export async function middleware(request) {
   if (forbiddenPages) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
-  
+
   if (visitWithoutToken && loggedIn) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
   // if (visitWithoutToken && !loggedIn) {
   //   return NextResponse.redirect(new URL("/login", request.nextUrl));
   // }
+
   if (!visitWithoutToken && !loggedIn) {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
@@ -67,5 +68,6 @@ export const config = {
     "/ctfs",
     "/dashboard/:path*",
     "/courses",
+    "/team/:path*"
   ],
 };

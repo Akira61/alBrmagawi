@@ -60,6 +60,7 @@ export async function POST(req, res) {
     // set up session
     const tokenData = {
       id: user[0].id,
+      team: user[0].team,
       email: user[0].email,
       role: user[0].role,
     };
