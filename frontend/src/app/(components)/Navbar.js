@@ -6,6 +6,7 @@ import { faBarsStaggered, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Box from "@/app/(components)/ctf/Box";
+import Lines from "./ctf/Lines";
 
 export default function Navbar() {
   const [icon, setIcon] = useState(faBarsStaggered);
@@ -34,9 +35,9 @@ export default function Navbar() {
   }
 
   return (
-    <>
-      <header className="font-[Exo 2] md:sticky top-0 bg-jaguar z-50">
-        <nav className="flex justify-between items-center py-5 container mx-auto">
+    <Lines  className="md:sticky top-4 z-50 container mb-16">
+      <header className="px-4">
+        <nav className="flex justify-between items-center py-2 container mx-auto">
           <div>
             <a href="/">Ceybarani</a>
           </div>
@@ -104,6 +105,6 @@ export default function Navbar() {
           </div>
         </nav>
       </header>
-    </>
+    </Lines>
   );
 }

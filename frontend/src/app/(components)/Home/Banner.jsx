@@ -7,18 +7,17 @@ export default function Banner() {
     <>
       <div
         style={{ backgroundImage: "url(/background-squars.svg)" }}
-        className="wrapper py-10"
+        className="wrapper my-32 bg-top"
       >
         <ul className="flex items-center justify-between gap-[7vw] container">
-          <li>
-            <div className="col-12 flex flex-col gap-6 items-start pb-4 py-11">
+          <li className="flex-1">
+            <div className="col-12 flex flex-col gap-6 items-start">
               <div className="col-12">
                 <h1
-                  style={{ fontSize: "48px", fontWeight: 600 }}
-                  className="items-center"
+                  className="items-center text-white text-4xl"
                 >
                   The{" "}
-                  <span class="text-sky-500 hover:text-sky-600 inline-block min-w-[4ch]">
+                  <span className="text-sky-500 hover:text-sky-600 inline-block min-w-[4ch]">
                     <Typewriter
                       words={["#1", "one"]}
                       loop={true}
@@ -28,13 +27,12 @@ export default function Banner() {
                     />
                   </span>
                   platform to improve <br /> your{" "}
-                  <span className="text-sky-500"></span>
                   cybersecurity skills
                 </h1>
               </div>
               <p
                 style={{ fontSize: "20px", fontWeight: 400 }}
-                className="text-slate-400 max-w-[65ch]"
+                className="text-slate-400 max-w-[65ch] py-4"
               >
                 Albrmagawi gives individuals, businesses and universities the
                 tools they need to continuously improve their cybersecurity
@@ -53,7 +51,7 @@ export default function Banner() {
             </div>
           </li>
 
-          <li>
+          <li className="flex-shrink">
             <div className="banner-img">
               <img
                 className="rounded-t-lg w-[470px]"

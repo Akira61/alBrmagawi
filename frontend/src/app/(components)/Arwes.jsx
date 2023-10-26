@@ -10,6 +10,7 @@ import Confetti from "@/app/(components)/ctf/Confetti";
 import Illuminator from "@/app/(components)/ctf/Illuminator";
 import "@/app/style/ctfs.css";
 import ConfettiProvider from "@/app/providers/Confetti";
+import { ReactLenis } from "@studio-freight/react-lenis";
 
 const animatorsSettings = {
   duration: {
@@ -53,7 +54,7 @@ export default function Allctfs({ children }) {
           <ConfettiProvider>
             <Illuminator />
             <Theme />
-            {children}
+            <ReactLenis root>{children}</ReactLenis>
             <Confetti />
           </ConfettiProvider>
         </BleepsProvider>

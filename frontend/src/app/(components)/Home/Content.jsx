@@ -1,3 +1,6 @@
+"use client";
+import Kranox from "../ctf/Kranox";
+
 export default function Content() {
   return (
     <>
@@ -9,8 +12,8 @@ export default function Content() {
           Albrmagawi provides
         </h1>
         <ul className="md:flex lg:md:flex items-center justify-between mx-auto mt-auto py-6 gap-4">
-          <li className="flex-1">
-            <div className="w-full items-center text-center border border-gray-200 rounded-lg shadow bg-jaguar dark:border-gray-700">
+          <Kranox className="flex-1">
+            <li className="text-center">
               <div className="flex justify-center">
                 <img
                   className="rounded-t-lg"
@@ -26,10 +29,10 @@ export default function Content() {
                   Anyone can learn, from zero to hero
                 </p>
               </div>
-            </div>
-          </li>
-          <li className="flex-1">
-            <div className="w-full items-center text-center border border-gray-200 rounded-lg shadow bg-jaguar dark:border-gray-700">
+            </li>
+          </Kranox>
+          <Kranox className="flex-1">
+            <li className="text-center">
               <div className="flex justify-center">
                 <img
                   className="rounded-t-lg"
@@ -45,10 +48,10 @@ export default function Content() {
                   There are always mountains to claimed, Chalange your self
                 </p>
               </div>
-            </div>
-          </li>
-          <li className="flex-1">
-            <div className="w-full items-center text-center border border-gray-200 rounded-lg shadow bg-jaguar dark:border-gray-700">
+            </li>
+          </Kranox>
+          <Kranox className="flex-1">
+            <li className="text-center">
               <div className="flex justify-center">
                 <img
                   className="rounded-t-lg"
@@ -64,8 +67,8 @@ export default function Content() {
                   Comunity to support you and help you
                 </p>
               </div>
-            </div>
-          </li>
+            </li>
+          </Kranox>
         </ul>
       </div>
     </>
