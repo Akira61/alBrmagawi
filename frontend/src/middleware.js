@@ -37,6 +37,9 @@ export async function middleware(request) {
   const visitWithoutToken =
     path === "/login" || path === "/register" || path === "/verifyemail";
   
+  if(path=== "/ctfs"){
+    return NextResponse.redirect(new URL("/", request.nextUrl));
+  }
   //don't allow visit these pages
   const forbiddenPages =
     path === "/dashboard/:path*" || path === "/courses/:path*";
@@ -63,9 +66,8 @@ export const config = {
   matcher: [
     "/login",
     "/register",
-    "/verifyemail",
     "/courses/createCourse/:path*",
-    // "/ctfs",
+    "/ctfs",
     "/dashboard/:path*",
     "/courses",
     "/team/:path*"
