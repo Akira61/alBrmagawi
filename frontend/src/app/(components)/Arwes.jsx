@@ -41,6 +41,18 @@ const bleepsSettings = {
         },
       ],
     },
+    error: {
+      sources: [
+        {
+          src: "https://arwes.dev/assets/sounds/error.webm",
+          type: "audio/webm",
+        },
+        {
+          src: "https://arwes.dev/assets/sounds/error.mp3",
+          type: "audio/mpeg",
+        },
+      ],
+    },
   },
 };
 

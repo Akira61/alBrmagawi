@@ -18,7 +18,7 @@ const Popup = ({ children }) => {
   useEffect(() => {
     setTimeout(() => {
       bleeps.assemble?.play();
-    }, 650)
+    }, 500)
 
     return () => {
       bleeps.assemble?.stop();

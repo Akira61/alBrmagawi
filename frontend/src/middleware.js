@@ -67,7 +67,7 @@ export const config = {
     "/login",
     "/register",
     "/courses/createCourse/:path*",
-    "/ctfs",
+    // "/ctfs",
     "/dashboard/:path*",
     "/courses",
     "/team/:path*"

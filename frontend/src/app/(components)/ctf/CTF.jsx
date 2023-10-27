@@ -1,8 +1,6 @@
 "use client";
 import { Dialog } from "@headlessui/react";
 import React, { useState } from "react";
-import { VscTerminalLinux } from "react-icons/vsc";
-import { ImWindows } from "react-icons/im";
 import { Animator } from "@arwes/react-animator";
 import { Text } from "@arwes/react-text";
 import Box from "./Box";
@@ -11,11 +9,25 @@ import { useConfetti } from "../../providers/Confetti";
 import Link from "next/link";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+import { Shake } from "reshake";
+import { useBleeps } from "@arwes/react-bleeps";
+import Kranox from "./Kranox";
 
 const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
   const { activate } = useConfetti();
   const [flag, setFlag] = useState("");
-  //submit flag
+  const [shake, setShake] = useState(false);
+  const [firstblood, setFirstblood] = useState(0);
+  const bleeps = useBleeps();
+
+  const shakeIt = () => {
+    setShake(true);
+    bleeps.error?.play();
+
+    setTimeout(() => {
+      setShake(false);
+    }, 1000);
+  };
 
   async function submitFlag(ctfId) {
     try {
@@ -24,18 +36,21 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
         flag: flag,
       });
       if (data.err_message) {
+        shakeIt();
         return toast.error(data.err_message);
       }
       //check if first blood
       else if (data.firstBlood) {
         activate();
         toast.success(data.message);
+        setFirstblood(1);
         closeModal();
       }
       // if not fist blood but success
       else if (data.success) {
         activate();
         toast.success(data.message);
+        setFirstblood(-1);
         closeModal();
       }
       console.log(data);
@@ -44,15 +59,20 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
     }
   }
 
+  const links = (ctf) => {
+    try {
+      return JSON.parse(ctf.links);
+    } catch {
+      return null;
+    }
+  };
+
   return (
     <>
-    <Toaster />
+      <Toaster />
       <tr
         onClick={() => {
-          showCTFId === ctf.id ||
-          ctf.children?.some((child) => child.id === showCTFId)
-            ? setShowCTFId(-1)
-            : setShowCTFId(ctf.id);
+          setShowCTFId(ctf.id);
         }}
         className="cursor-pointer dark:hover:bg-russian-violet/30"
       >
@@ -67,135 +87,150 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
               <div className="bg-black/20 fixed inset-0" />
               <div className="fixed inset-0 overflow-y-auto">
                 <div className="flex min-h-full w-full max-w-4xl mx-auto items-center justify-center p-4 text-center">
-                  <Popup>
-                    <Dialog.Panel className="w-full transform p-10 text-left align-middle transition-all ">
-                      <Dialog.Title
-                        as="h3"
-                        className="flex items-center bg-no-repeat max-w-full h-auto w-full text-lg font-medium leading-6 text-jaguar"
-                        // style={{backgroundImage: "url('https://www.hackthebox.com/storage/avatars/a75ac8ed04e6e728547538bfa41cfc68.png')"}}
-                      >
-                        <div className="flex items-center flex-1">
-                          <img
-                            src={ctf.thumbnail}
-                            alt="iMac Front Image"
-                            className="w-auto h-14 mr-3"
-                          />
-                          <span className="text-white">{ctf.title}</span>
-                        </div>
-                        <Box>
-                          <button
-                            type="button"
-                            onClick={() => setShowCTFId(-1)}
-                            className="text-gray-400 bg-transparent p-4 text-sm"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              className="w-5 h-5"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
+                  <Shake
+                    h={30}
+                    v={30}
+                    r={0}
+                    dur={1000}
+                    int={1}
+                    max={40}
+                    fixed
+                    active={shake}
+                  >
+                    <Popup>
+                      <Dialog.Panel className="w-full transform p-10 text-left align-middle transition-all ">
+                        <Dialog.Title
+                          as="h3"
+                          className="flex items-center bg-no-repeat max-w-full h-auto w-full text-lg font-medium leading-6 text-jaguar"
+                        >
+                          <div className="flex items-center flex-1">
+                            <img
+                              src={ctf.thumbnail}
+                              alt="iMac Front Image"
+                              className="w-auto h-14 mr-3"
+                            />
+                            <span className="text-white">{ctf.title}</span>
+                          </div>
+                          <Box>
+                            <button
+                              type="button"
+                              onClick={() => setShowCTFId(-1)}
+                              className="text-gray-400 bg-transparent p-4 text-sm"
                             >
-                              <path
-                                fillRule="evenodd"
-                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
-                            <span className="sr-only">Close modal</span>
-                          </button>
-                        </Box>
-                      </Dialog.Title>
-                      <div className="mt-2">
-                        <form>
-                          <dl>
-                            <Animator active={true} combine manager="sequence">
-                              <Animator>
-                                <Text
-                                  as="h1"
-                                  className="mb-2 pt-10 font-semibold leading-none text-jaguar dark:text-white"
-                                >
-                                  Description
-                                </Text>
-                              </Animator>
-                              <Animator>
-                                <Text
-                                  as="dd"
-                                  className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"
-                                >
-                                  {ctf.description}
-                                </Text>
-                              </Animator>
-                              {ctf.links ? (
-                                <>
+                              <svg
+                                aria-hidden="true"
+                                className="w-5 h-5"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                              <span className="sr-only">Close modal</span>
+                            </button>
+                          </Box>
+                        </Dialog.Title>
+                        <div className="mt-2">
+                          <form>
+                            <dl>
+                              <Animator
+                                active={true}
+                                combine
+                                manager="sequence"
+                              >
+                                <Animator>
                                   <Text
                                     as="h1"
                                     className="mb-2 pt-10 font-semibold leading-none text-jaguar dark:text-white"
                                   >
-                                    Links
+                                    Description
                                   </Text>
-                                  <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                                    {JSON.parse(ctf.links).data.map((link, i) => (
-                                      <>
-                                        <p>
-                                          <Link
-                                            target="_blank"
-                                            className="underline"
-                                            href={link.link}
-                                          >
-                                            {link.title}
-                                          </Link>
-                                        </p>
-                                      </>
-                                    ))}
-                                  </dd>
-                                </>
-                              ) : (
-                                ""
-                              )}
-                            </Animator>
-                          </dl>
+                                </Animator>
+                                <Animator>
+                                  <Text
+                                    as="dd"
+                                    className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"
+                                  >
+                                    {ctf.description}
+                                  </Text>
+                                </Animator>
+                                {links(ctf) ? (
+                                  <>
+                                    <Animator>
+                                      <Text
+                                        as="h1"
+                                        className="mb-2 pt-10 font-semibold leading-none text-jaguar dark:text-white"
+                                      >
+                                        Links
+                                      </Text>
+                                    </Animator>
+                                    <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                                      {links(ctf).data?.map((link, i) => (
+                                        <Animator key={i}>
+                                          <Text>
+                                            <Link
+                                              target="_blank"
+                                              className="underline"
+                                              href={link.link}
+                                            >
+                                              {link.title}
+                                            </Link>
+                                          </Text>
+                                        </Animator>
+                                      ))}
+                                    </dd>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                              </Animator>
+                            </dl>
 
-                          <div className="relative z-0 w-full mb-6 group">
-                            <input
-                              type="text"
-                              name="floating_email"
-                              id="floating_email"
-                              className="block py-2.5 px-0 w-full text-sm text-jaguar bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                              placeholder=" "
-                              required=""
-                              onChange={(e)=> setFlag(e.target.value)}
-                            />
-                            <label
-                              htmlFor="floating_email"
-                              className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                            <div className="relative z-0 w-full mb-6 group">
+                              <input
+                                type="text"
+                                name="floating_email"
+                                id="floating_email"
+                                className="block py-2.5 px-0 w-full text-sm text-jaguar bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                placeholder=" "
+                                required=""
+                                onChange={(e) => setFlag(e.target.value)}
+                              />
+                              <label
+                                htmlFor="floating_email"
+                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                              >
+                                Flag
+                              </label>
+                            </div>
+                          </form>
+                        </div>
+
+                        <div className="mt-4 flex items-center gap-4">
+                          <Box>
+                            <button
+                              onClick={() => submitFlag(ctf.id)}
+                              className="py-4 px-6"
                             >
-                              Flag
-                            </label>
-                          </div>
-                        </form>
-                      </div>
-
-                      <div className="mt-4 flex items-center gap-4">
-                        <Box>
-                          <button
-                            onClick={() => submitFlag(ctf.id)}
-                            className="py-4 px-6"
-    
-                          >
-                            Submit flag
-                          </button>
-                        </Box>
-                        <Box>
-                          <button
-                            className="py-4 px-6"
-                            onClick={() => setShowCTFId(-1)}
-                          >
-                            Cancel
-                          </button>
-                        </Box>
-                      </div>
-                    </Dialog.Panel>
-                  </Popup>
+                              Submit flag
+                            </button>
+                          </Box>
+                          <Box>
+                            <button
+                              className="py-4 px-6"
+                              onClick={() => setShowCTFId(-1)}
+                            >
+                              Cancel
+                            </button>
+                          </Box>
+                        </div>
+                      </Dialog.Panel>
+                    </Popup>
+                  </Shake>
                 </div>
               </div>
             </Dialog>
@@ -226,11 +261,11 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                 className="bottom-0 left-8 absolute  w-5 h-5 bg-gray-600 border-2 border-white dark:border-russian-violet rounded-full"
               />
             ) : ( */}
-              <img
-                src={ctf.thumbnail}
-                title="thumbnail"
-                className="bottom-0 left-8 absolute  w-6 bg-green-400 border-2 border-white dark:border-russian-violet rounded-full"
-              />
+            <img
+              src={ctf.thumbnail}
+              title="thumbnail"
+              className="bottom-0 left-8 absolute  w-6 bg-green-400 border-2 border-white dark:border-russian-violet rounded-full"
+            />
             {/* )} */}
           </div>
           <div className="px-1">
@@ -243,13 +278,12 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
         <td className="px-4 py-2 font-medium text-jaguar whitespace-nowrap dark:text-white">
           <div className="flex items-center">
             <div
-              className={`inline-block w-4 h-4 mr-2 ${
-                ctf.level == "easy"
+              className={`inline-block w-4 h-4 mr-2 ${ctf.level == "easy"
                   ? "bg-green-400"
                   : ctf.level == "medium"
-                  ? "bg-orange-500"
-                  : "bg-red-700"
-              } rounded-full`}
+                    ? "bg-orange-500"
+                    : "bg-red-700"
+                } rounded-full`}
             />
             <span className="uppercase text-sm tracking-tight font-extrabold text-gray-500 dark:text-gray-400">
               {ctf.level}
@@ -326,19 +360,6 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
           </svg>
         </td>
       </tr>
-      {(ctf.children?.some((child) => child.id === showCTFId) ||
-        ctf.id === showCTFId) &&
-        ctf.children?.length > 0 &&
-        ctf.children?.map((ctf2) => (
-          <CTF
-            key={ctf2.id}
-            ctf={ctf2}
-            id={ctf2.id}
-            showCTFId={showCTFId}
-            setShowCTFId={setShowCTFId}
-            indent={indent + 2.5}
-          />
-        ))}
     </>
   );
 };
