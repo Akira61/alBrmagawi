@@ -8,6 +8,7 @@ import Box from "@/app/(components)/ctf/Box";
 
 export default function RegisterStudentForm() {
   const route = useRouter();
+  const [button, setButton] = useState("Register");
   let [firstName, setFirstName] = useState();
   let [lastName, setLastName] = useState();
   let [email, setEmail] = useState();
@@ -45,6 +46,7 @@ export default function RegisterStudentForm() {
   // signup with nextjs route
   async function onSignup(e) {
     e.preventDefault();
+    setButton("Loading...")
     if (password !== confirmPassword) return setError("passwords dosn't match");
     try {
       const { data } = await axios.post("/api/auth/signup/user", {
@@ -55,12 +57,15 @@ export default function RegisterStudentForm() {
       });
       console.log(data);
       if (data.success) {
-        route.push("/login");
+        setButton("Register");
+        return route.push("/login");
       }
       setError(data.err_message);
+      setButton("Register");
     } catch (error) {
       toast.error(error);
       setError(error.message);
+      setButton("Register")
     }
   }
   return (
@@ -148,7 +153,7 @@ export default function RegisterStudentForm() {
                 className="w-full text-center p-4"
                 onClick={(e) => onSignup(e)}
               >
-                Register
+                {button}
               </button>
             </Box>
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">

@@ -12,6 +12,7 @@ import Background from "@/app/(components)/ctf/Background";
 export default function Login() {
   const route = useRouter();
   let [email, setEmail] = useState();
+  const [button, setButton] = useState("Login");
   let [password, setPassword] = useState();
   let [error, setError] = useState();
 
@@ -40,6 +41,7 @@ export default function Login() {
   // login with nextjs route
   async function onLogin(e) {
     e.preventDefault();
+    setButton("Loading...")
     try {
       const { data } = await axios.post("/api/auth/login", {
         email,
@@ -48,12 +50,15 @@ export default function Login() {
       console.log(data);
       if (data.success) {
         // toast.success(data.message)
-        route.push("/");
+        setButton('Login');
+        return route.push("/");
       }
       setError(data.err_message);
+      setButton('Login');
     } catch (error) {
       // toast.error(error);
       setError(error.message);
+      setButton('Login');
     }
   }
 
@@ -128,7 +133,7 @@ export default function Login() {
                 onClick={(e) => onLogin(e)}
                 className="p-4 w-full text-center cursor-pointer"
               >
-                Login
+                {button}
               </button>
             </Box>
             <div className="text-sm font-medium text-gray-500 dark:text-gray-300">

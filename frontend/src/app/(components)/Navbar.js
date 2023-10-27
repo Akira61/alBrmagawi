@@ -49,28 +49,13 @@ export default function Navbar() {
           >
             <ul className="flex text-gray-400 md:flex-row flex-col md:items-center md:gap-[1vw] gap-8">
               <li>
-                <a className="hover:text-white" href="#">
-                  Business
+                <a className="hover:text-white" href="/ctfs">
+                  ctf
                 </a>
               </li>
               <li>
-                <a className="hover:text-white " href="#">
-                  Hackers
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-white" href="#">
-                  Industries
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-white" href="#">
-                  Resources
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-white" href="#">
-                  Company
+                <a className="hover:text-white " href="/team/createTeam">
+                  create team
                 </a>
               </li>
             </ul>

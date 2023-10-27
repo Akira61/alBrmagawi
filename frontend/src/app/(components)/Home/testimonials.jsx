@@ -14,7 +14,7 @@ export default function Testimonials() {
           </svg>
           <blockquote>
             <p className="text-2xl italic font-medium text-gray-900 dark:text-white">
-            &apos;Flowbite is just awesome. It contains tons of predesigned
+            &apos;Ceybarani is just awesome. It contains tons of predesigned
               components and pages starting from login screen to complex
               dashboard. Perfect choice for your next SaaS application.&apos;
             </p>
@@ -28,9 +28,6 @@ export default function Testimonials() {
             <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
               <cite className="pr-3 font-medium text-gray-900 dark:text-white">
                 Micheal Gough
-              </cite>
-              <cite className="pl-3 text-sm text-gray-500 dark:text-gray-400">
-                CEO at Google
               </cite>
             </div>
           </figcaption>

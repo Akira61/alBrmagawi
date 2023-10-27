@@ -9,7 +9,7 @@ export default function Content() {
           style={{ fontSize: "48px", fontWeight: 600 }}
           className="items-center text-center pb-10"
         >
-          Albrmagawi provides
+          Cebarany provides
         </h1>
         <ul className="md:flex lg:md:flex items-center justify-between mx-auto mt-auto py-6 gap-4">
           <Kranox className="flex-1">

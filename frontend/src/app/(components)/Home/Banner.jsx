@@ -41,11 +41,11 @@ export default function Banner() {
               </p>
               <Box>
                 <a
-                  href="https://tailwindcss.com/docs"
+                  href="/ctfs"
                   type="button"
                   className="py-4 px-8"
                 >
-                  Get started
+                  CTFS
                 </a>
               </Box>
             </div>

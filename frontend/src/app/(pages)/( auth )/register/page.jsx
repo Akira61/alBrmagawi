@@ -9,7 +9,6 @@ import Arwes from "@/app/(components)/Arwes";
 
 export default function Register({ searchParams }) {
   const registerType = searchParams.type;
-
   return (
     <Arwes>
       <div className="registration">

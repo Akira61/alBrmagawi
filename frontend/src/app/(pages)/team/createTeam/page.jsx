@@ -1,5 +1,6 @@
 "use client";
 import axios from "axios";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
@@ -7,11 +8,14 @@ import toast, { Toaster } from "react-hot-toast";
 export default function CreateTeam() {
   const route = useRouter();
   const [error, setError] = useState();
+  const [button, setButton] = useState("Create Team");
+  const [teamLink, setTeamLink] = useState("");
   const [teamName, setTeamName] = useState("");
   const [teamPassword, setTeamPassword] = useState("");
   // validate password
   async function onSubmit(e) {
     e.preventDefault();
+    setButton("Loading...");
     //reset errors if any
     setError("");
     try {
@@ -24,11 +28,13 @@ export default function CreateTeam() {
       if (data.err_message) {
         toast.error(data.err_message);
         setError(data.err_message);
+        setButton("Create Team");
         return;
       }
       if (data.success) {
         toast.success(data.message);
-        return route.push("/");
+        setButton("Create Team");
+        return setTeamLink(`${window.location.host}/team/joinTeam/${teamName}`);
       }
     } catch (error) {
       console.log("`app/joinTeam` error: ", error.message);
@@ -46,6 +52,14 @@ export default function CreateTeam() {
             <h5 className="text-3xl py-5 text-center font-medium text-gray-900 dark:text-white">
               Create A Team
             </h5>
+            <div>
+              <Link
+                className="text-green-500 text-center underline"
+                href={`/team/joinTeam/${teamName}`}
+              >
+                {teamLink ? "Team Link: " + teamLink : ""}
+              </Link>
+            </div>
             <div className="text-red-500 text-center">{error}</div>
 
             <div className="relative z-0 w-full mb-6 grou]">
@@ -84,7 +98,7 @@ export default function CreateTeam() {
               className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-sm text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               onClick={(e) => onSubmit(e)}
             >
-              Create Team
+              {button}
             </button>
           </form>
         </div>
