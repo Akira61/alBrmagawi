@@ -1,3 +1,4 @@
+"use client"
 import Navbar from "./(components)/Navbar";
 import Footer from "./(components)/footer";
 import "./style/Home.css";
@@ -6,11 +7,13 @@ import Banner from "./(components)/Home/Banner";
 import About from "./(components)/Home/About";
 import Arwes from "./(components)/Arwes";
 import Testimonials from "./(components)/Home/testimonials";
+import Circles from "@/app/assets/imgs/circles.svg";
 
 export default function Home() {
   return (
     <Arwes nobg>
-      <main className="wrapper">
+      <main className="wrapper bg-jaguar bg-gradient-radial to-jaguar via-russian-violet/30 from-cetacean-blue/90">
+        <img src={Circles.src} alt="circles" className="absolute top-8 opacity-70 right-0 w-1/2 pointer-events-none z-0" />
         <Navbar />
 
         <Banner />

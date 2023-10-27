@@ -6,10 +6,9 @@ export default function Banner() {
   return (
     <>
       <div
-        style={{ backgroundImage: "url(/background-squars.svg)" }}
-        className="wrapper my-32 bg-top"
+        className="wrapper my-32"
       >
-        <ul className="flex items-center justify-between gap-[7vw] container">
+        <ul className="flex items-center justify-between gap-[7vw] container relative">
           <li className="flex-1">
             <div className="col-12 flex flex-col gap-6 items-start">
               <div className="col-12">
