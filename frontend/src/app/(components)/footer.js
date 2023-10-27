@@ -37,7 +37,7 @@ export default function Footer() {
           <div className="text-sm pt-4 text-gray-500 sm:text-center dark:text-gray-400">
             © 2023{" "}
             <a href="/" className="hover:underline">
-              Albrmagawi™
+              Ceybarani
             </a>
             . All Rights Reserved.
           </div>

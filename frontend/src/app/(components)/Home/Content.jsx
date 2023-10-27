@@ -1,6 +1,9 @@
 "use client";
 import Kranox from "../ctf/Kranox";
 import Lines from "@/app/assets/imgs/lines.svg"
+import Lock from "@/app/assets/imgs/lock.png"
+import Pass from "@/app/assets/imgs/pass.png"
+import Doc from "@/app/assets/imgs/doc.png"
 
 export default function Content() {
   return (
@@ -14,12 +17,12 @@ export default function Content() {
           Cebarany provides
         </h1>
         <ul className="md:flex lg:md:flex items-center justify-between mx-auto mt-auto py-6 gap-4">
-          <Kranox className="flex-1">
-            <li className="text-center">
-              <div className="flex justify-center">
+          <Kranox className="flex-1 h-full">
+            <li className="text-center flex items-center gap-4 flex-col py-8">
+              <div className="h-48">
                 <img
-                  className="rounded-t-lg"
-                  src="https://hackthebox.com/images/landingv3/home/why-1.svg"
+                  className="h-full object-contain"
+                  src={Lock.src}
                   alt="product image"
                 />
               </div>
@@ -33,12 +36,12 @@ export default function Content() {
               </div>
             </li>
           </Kranox>
-          <Kranox className="flex-1">
-            <li className="text-center">
-              <div className="flex justify-center">
+          <Kranox className="flex-1 h-full">
+            <li className="text-center flex items-center gap-4 flex-col py-8">
+              <div className="h-48">
                 <img
-                  className="rounded-t-lg"
-                  src="https://hackthebox.com/images/landingv3/home/why-2.svg"
+                  className="h-full object-contain"
+                  src={Pass.src}
                   alt="product image"
                 />
               </div>
@@ -52,12 +55,12 @@ export default function Content() {
               </div>
             </li>
           </Kranox>
-          <Kranox className="flex-1">
-            <li className="text-center">
-              <div className="flex justify-center">
+          <Kranox className="flex-1 h-full">
+            <li className="text-center flex items-center gap-4 flex-col py-8">
+              <div className="h-48">
                 <img
-                  className="rounded-t-lg"
-                  src="https://hackthebox.com/images/landingv3/home/why-3.svg"
+                  className="h-full object-contain"
+                  src={Doc.src}
                   alt="product image"
                 />
               </div>

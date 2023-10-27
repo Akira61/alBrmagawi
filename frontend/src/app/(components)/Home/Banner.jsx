@@ -1,6 +1,7 @@
 "use client";
 import { Typewriter } from "react-simple-typewriter";
 import Box from "../ctf/Box";
+import Laptop from "@/app/assets/imgs/laptop.png";
 
 export default function Banner() {
   return (
@@ -33,7 +34,7 @@ export default function Banner() {
                 style={{ fontSize: "20px", fontWeight: 400 }}
                 className="text-slate-400 max-w-[65ch] py-4"
               >
-                Albrmagawi gives individuals, businesses and universities the
+                Ceybarani gives individuals, businesses and universities the
                 tools they need to continuously improve their cybersecurity
                 capabilities
                 <span className="text-white"> — all in one place.</span>
@@ -53,9 +54,9 @@ export default function Banner() {
           <li className="flex-shrink">
             <div className="banner-img">
               <img
-                className="rounded-t-lg w-[470px]"
-                src="https://hackthebox.com/images/landingv3/home/why-3.svg"
-                alt="product image"
+                className="w-[470px]"
+                src={Laptop.src}
+                alt="laptop image"
               />
             </div>
           </li>
