@@ -16,7 +16,7 @@ export default function Register({ searchParams }) {
         <Navbar />
         {/* register option panel */}
         <Kranox
-          className="max-w-lg mx-auto mt-8 text-center"
+          className="max-w-lg mx-auto mt-36 text-center"
         >
           {registerType === "student" ? (
             <RegisterStudentForm />
