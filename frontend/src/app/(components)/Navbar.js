@@ -72,7 +72,7 @@ export default function Navbar() {
               <>
                 <a
                   href="/login"
-                  className="hover:underline hover:cursor-pointer"
+                  className="hover:underline"
                 >
                   Login
                 </a>

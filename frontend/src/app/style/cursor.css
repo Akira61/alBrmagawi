@@ -1,0 +1,21 @@
+body {
+  cursor: url("/cursors/main.png"), auto;
+}
+
+a,
+button,
+label,
+input[type="submit"],
+input[type="button"],
+input[type="checkbox"],
+.cursor-pointer {
+  cursor: url("/cursors/pointer.png"), auto !important;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea,
+.ibeam {
+  cursor: url("/cursors/ibeam.png"), auto;
+}
