@@ -1,14 +1,12 @@
 "use client";
 import Kranox from "../ctf/Kranox";
-import Lines from "@/app/assets/imgs/lines.svg"
 import Lock from "@/app/assets/imgs/lock.png"
 import Pass from "@/app/assets/imgs/pass.png"
 import Doc from "@/app/assets/imgs/doc.png"
 
 export default function Content() {
   return (
-    <div className="relative">
-      <img src={Lines.src} alt="lines" className="absolute bottom-0 -left-8 -right-8 mx-auto min-w-[105vw] w-[105vw] translate-y-1/2 opacity-50" />
+    <>
       <div className="wrapper container py-20">
         <h1
           style={{ fontSize: "48px", fontWeight: 600 }}
@@ -76,6 +74,6 @@ export default function Content() {
           </Kranox>
         </ul>
       </div>
-    </div>
+    </>
   );
 }

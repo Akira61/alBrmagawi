@@ -35,7 +35,8 @@ export default function Navbar() {
   }
 
   return (
-    <Lines  className="md:sticky top-4 z-50 container mb-16">
+    <div className="bg-jaguar fixed top-2 left-0 right-0 z-50 container mb-16">
+    <Lines>
       <header className="px-4">
         <nav className="flex justify-between items-center py-2 container mx-auto">
           <div>
@@ -92,5 +93,6 @@ export default function Navbar() {
         </nav>
       </header>
     </Lines>
+    </div>
   );
 }

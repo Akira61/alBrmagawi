@@ -2,10 +2,12 @@
 import { Typewriter } from "react-simple-typewriter";
 import Box from "../ctf/Box";
 import Laptop from "@/app/assets/imgs/laptop.png";
+import Lines from "@/app/assets/imgs/lines-1.svg"
 
 export default function Banner() {
   return (
-    <>
+    <div className="relative">
+      <img src={Lines.src} alt="lines" className="absolute left-0 right-0 top-0 w-full opacity-50" />
       <div
         className="wrapper my-32"
       >
@@ -62,6 +64,6 @@ export default function Banner() {
           </li>
         </ul>
       </div>
-    </>
+    </div>
   );
 }

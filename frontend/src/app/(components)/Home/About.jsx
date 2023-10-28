@@ -1,7 +1,10 @@
+import Lines from "@/app/assets/imgs/lines-2.svg"
+
 export default function About() {
   return (
-    <>
-      <section className="py-20 container">
+    <div className="relative">
+      <img src={Lines.src} alt="lines" className="absolute bottom-0 -left-8 -right-8 mx-auto min-w-[105vw] w-[105vw] opacity-40" />
+      <section className="py-20 container relative">
         <h1
           style={{ fontSize: "48px", fontWeight: 600 }}
           className="items-center text-center pb-10"
@@ -41,6 +44,6 @@ export default function About() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
