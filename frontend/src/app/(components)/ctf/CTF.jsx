@@ -11,7 +11,6 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { Shake } from "reshake";
 import { useBleeps } from "@arwes/react-bleeps";
-import Kranox from "./Kranox";
 
 const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
   const { activate } = useConfetti();
@@ -19,6 +18,11 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
   const [shake, setShake] = useState(false);
   const [firstblood, setFirstblood] = useState(0);
   const bleeps = useBleeps();
+
+  const closeIt = () => {
+    setFirstblood(0);
+    setShowCTFId(-1);
+  }
 
   const shakeIt = () => {
     setShake(true);
@@ -44,14 +48,12 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
         activate();
         toast.success(data.message);
         setFirstblood(1);
-        closeModal();
       }
       // if not fist blood but success
       else if (data.success) {
         activate();
         toast.success(data.message);
         setFirstblood(-1);
-        closeModal();
       }
       console.log(data);
     } catch (error) {
@@ -76,13 +78,13 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
         }}
         className="cursor-pointer dark:hover:bg-russian-violet/30"
       >
-        {!ctf.children?.length && showCTFId === ctf.id && (
+        {showCTFId === ctf.id && (
           <>
             <Dialog
               as="div"
               className="relative z-10"
               open={true}
-              onClose={() => setShowCTFId(-1)}
+              onClose={closeIt}
             >
               <div className="bg-black/20 fixed inset-0" />
               <div className="fixed inset-0 overflow-y-auto">
@@ -109,12 +111,18 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                               alt="iMac Front Image"
                               className="w-auto h-14 mr-3"
                             />
-                            <span className="text-white">{ctf.title}</span>
+                            <span className="text-white">
+                              {firstblood === 1
+                                ? "firstblood"
+                                : firstblood === -1
+                                  ? "not firstblood"
+                                  : ctf.title}
+                            </span>
                           </div>
                           <Box>
                             <button
                               type="button"
-                              onClick={() => setShowCTFId(-1)}
+                              onClick={closeIt}
                               className="text-gray-400 bg-transparent p-4 text-sm"
                             >
                               <svg
@@ -134,95 +142,99 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                             </button>
                           </Box>
                         </Dialog.Title>
-                        <div className="mt-2">
-                          <form>
-                            <dl>
-                              <Animator
-                                active={true}
-                                combine
-                                manager="sequence"
-                              >
-                                <Animator>
-                                  <Text
-                                    as="h1"
-                                    className="mb-2 pt-10 font-semibold leading-none text-jaguar dark:text-white"
-                                  >
-                                    Description
-                                  </Text>
+                        {firstblood === 0 && (
+                          <div className="mt-2">
+                            <form>
+                              <dl>
+                                <Animator
+                                  active={true}
+                                  combine
+                                  manager="sequence"
+                                >
+                                  <Animator>
+                                    <Text
+                                      as="h1"
+                                      className="mb-2 pt-10 font-semibold leading-none text-jaguar dark:text-white"
+                                    >
+                                      Description
+                                    </Text>
+                                  </Animator>
+                                  <Animator>
+                                    <Text
+                                      as="dd"
+                                      className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"
+                                    >
+                                      {ctf.description}
+                                    </Text>
+                                  </Animator>
+                                  {links(ctf) ? (
+                                    <>
+                                      <Animator>
+                                        <Text
+                                          as="h1"
+                                          className="mb-2 pt-10 font-semibold leading-none text-jaguar dark:text-white"
+                                        >
+                                          Links
+                                        </Text>
+                                      </Animator>
+                                      <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+                                        {links(ctf).data?.map((link, i) => (
+                                          <Animator key={i}>
+                                            <Text>
+                                              <Link
+                                                target="_blank"
+                                                className="underline"
+                                                href={link.link}
+                                              >
+                                                {link.title}
+                                              </Link>
+                                            </Text>
+                                          </Animator>
+                                        ))}
+                                      </dd>
+                                    </>
+                                  ) : (
+                                    ""
+                                  )}
                                 </Animator>
-                                <Animator>
-                                  <Text
-                                    as="dd"
-                                    className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"
-                                  >
-                                    {ctf.description}
-                                  </Text>
-                                </Animator>
-                                {links(ctf) ? (
-                                  <>
-                                    <Animator>
-                                      <Text
-                                        as="h1"
-                                        className="mb-2 pt-10 font-semibold leading-none text-jaguar dark:text-white"
-                                      >
-                                        Links
-                                      </Text>
-                                    </Animator>
-                                    <dd className="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
-                                      {links(ctf).data?.map((link, i) => (
-                                        <Animator key={i}>
-                                          <Text>
-                                            <Link
-                                              target="_blank"
-                                              className="underline"
-                                              href={link.link}
-                                            >
-                                              {link.title}
-                                            </Link>
-                                          </Text>
-                                        </Animator>
-                                      ))}
-                                    </dd>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                              </Animator>
-                            </dl>
+                              </dl>
 
-                            <div className="relative z-0 w-full mb-6 group">
-                              <input
-                                type="text"
-                                name="floating_email"
-                                id="floating_email"
-                                className="block py-2.5 px-0 w-full text-sm text-jaguar bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required=""
-                                onChange={(e) => setFlag(e.target.value)}
-                              />
-                              <label
-                                htmlFor="floating_email"
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                              >
-                                Flag
-                              </label>
-                            </div>
-                          </form>
-                        </div>
+                              <div className="relative z-0 w-full mb-6 group">
+                                <input
+                                  type="text"
+                                  name="floating_email"
+                                  id="floating_email"
+                                  className="block py-2.5 px-0 w-full text-sm text-jaguar bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                                  placeholder=" "
+                                  required=""
+                                  onChange={(e) => setFlag(e.target.value)}
+                                />
+                                <label
+                                  htmlFor="floating_email"
+                                  className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                                >
+                                  Flag
+                                </label>
+                              </div>
+                            </form>
+                          </div>
+                        )}
 
                         <div className="mt-4 flex items-center gap-4">
+                          {firstblood === 0 && (
+                            <Box>
+                              <button
+                                onClick={() => submitFlag(ctf.id)}
+                                className="py-4 px-6"
+                              >
+                                Submit flag
+                              </button>
+                            </Box>
+                          )}
                           <Box>
                             <button
-                              onClick={() => submitFlag(ctf.id)}
                               className="py-4 px-6"
-                            >
-                              Submit flag
-                            </button>
-                          </Box>
-                          <Box>
-                            <button
-                              className="py-4 px-6"
-                              onClick={() => setShowCTFId(-1)}
+                              onClick={() => closeIt()}
                             >
                               Cancel
                             </button>

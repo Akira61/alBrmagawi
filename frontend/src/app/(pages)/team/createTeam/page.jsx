@@ -1,7 +1,6 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Navbar from "@/app/(components)/Navbar";
@@ -11,7 +10,6 @@ import Background from "@/app/(components)/ctf/Background";
 import Box from "@/app/(components)/ctf/Box";
 
 export default function CreateTeam() {
-  const route = useRouter();
   const [error, setError] = useState();
   const [button, setButton] = useState("Create Team");
   const [teamLink, setTeamLink] = useState("");
