@@ -66,7 +66,7 @@ export default function Login() {
     <Arwes>
       <Background />
       <Navbar />
-      <Kranox className="max-w-lg mx-auto mt-8">
+      <Kranox className="max-w-lg mx-auto mt-36">
         <div className="p-4 shadow sm:p-6 md:p-8 z-50">
           <form className="space-y-6" action="#">
             <h5 className="text-3xl py-5 text-center font-medium text-gray-900 dark:text-white">

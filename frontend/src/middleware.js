@@ -64,12 +64,12 @@ export async function middleware(request) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    "/login",
-    "/register",
-    "/courses/createCourse/:path*",
+    // "/login",
+    // "/register",
+    // "/courses/createCourse/:path*",
     // "/ctfs",
-    "/dashboard/:path*",
-    "/courses",
-    "/team/:path*"
+    // "/dashboard/:path*",
+    // "/courses",
+    // "/team/:path*"
   ],
 };

@@ -7,9 +7,9 @@ import Lines from "@/app/assets/imgs/lines-1.svg"
 export default function Banner() {
   return (
     <div className="relative">
-      <img src={Lines.src} alt="lines" className="absolute left-0 right-0 top-0 w-full opacity-50" />
+      <img src={Lines.src} alt="lines" className="absolute left-0 right-0 top-0 translate-y-1/3 w-full opacity-50" />
       <div
-        className="wrapper my-32"
+        className="wrapper py-32"
       >
         <ul className="flex items-center justify-between gap-[7vw] container relative">
           <li className="flex-1">
