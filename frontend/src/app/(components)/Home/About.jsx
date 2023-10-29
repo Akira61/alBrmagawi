@@ -1,5 +1,6 @@
 import Lines from "@/app/assets/imgs/lines.svg"
 import AboutSvg from "@/app/assets/imgs/about.svg"
+import Cyberani from "@/app/assets/imgs/cyberani.png"
 
 export default function About() {
   return (
@@ -33,7 +34,7 @@ export default function About() {
             <div className="grid grid-cols-2 gap-4 mt-8">
               <img
                 className="w-full rounded-lg"
-                src={AboutSvg.src}
+                src={Cyberani.src}
                 alt="office content 1"
               />
               <img
