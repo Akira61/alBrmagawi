@@ -1,4 +1,4 @@
-import Testimonials from "./Home/testimonials";
+import Testimonials from "./LandingPage/testimonials";
 
 
 

@@ -1,69 +1,132 @@
-"use client";
-import { Typewriter } from "react-simple-typewriter";
-import Box from "../ctf/Box";
-import Laptop from "@/app/assets/imgs/laptop.png";
-import Lines from "@/app/assets/imgs/lines-1.svg"
+import Head from "next/head";
+import React from "react";
 
 export default function Banner() {
   return (
-    <div className="relative">
-      <img src={Lines.src} alt="lines" className="absolute left-0 right-0 top-0 translate-y-1/3 w-full opacity-50" />
+    <div>
+      <Head>
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css"
+          rel="stylesheet"
+        />
+      </Head>
       <div
-        className="wrapper py-32"
+        id="custom-controls-gallery"
+        className="relative w-full"
+        data-carousel="slide"
       >
-        <ul className="flex items-center justify-between gap-[7vw] container relative">
-          <li className="flex-1">
-            <div className="col-12 flex flex-col gap-6 items-start">
-              <div className="col-12">
-                <h1
-                  className="items-center text-white text-4xl"
-                >
-                  The{" "}
-                  <span className="text-sky-500 hover:text-sky-600 inline-block min-w-[4ch]">
-                    <Typewriter
-                      words={["#1", "one"]}
-                      loop={true}
-                      cursor
-                      typeSpeed={120}
-                      deleteSpeed={120}
-                    />
-                  </span>
-                  platform to improve <br /> your{" "}
-                  cybersecurity skills
-                </h1>
-              </div>
-              <p
-                style={{ fontSize: "20px", fontWeight: 400 }}
-                className="text-slate-400 max-w-[65ch] py-4"
+        {/* Carousel wrapper */}
+        <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+          {/* Item 1 */}
+          <div
+            className="hidden duration-700 ease-in-out"
+            data-carousel-item=""
+          >
+            <img
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              alt=""
+            />
+          </div>
+          {/* Item 2 */}
+          <div
+            className="hidden duration-700 ease-in-out"
+            data-carousel-item="active"
+          >
+            <img
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
+              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              alt=""
+            />
+          </div>
+          {/* Item 3 */}
+          <div
+            className="hidden duration-700 ease-in-out"
+            data-carousel-item=""
+          >
+            <img
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
+              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              alt=""
+            />
+          </div>
+          {/* Item 4 */}
+          <div
+            className="hidden duration-700 ease-in-out"
+            data-carousel-item=""
+          >
+            <img
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
+              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              alt=""
+            />
+          </div>
+          {/* Item 5 */}
+          <div
+            className="hidden duration-700 ease-in-out"
+            data-carousel-item=""
+          >
+            <img
+              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
+              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+              alt=""
+            />
+          </div>
+        </div>
+        <div className="flex justify-center items-center pt-4">
+          <button
+            type="button"
+            className="flex justify-center items-center mr-4 h-full cursor-pointer group focus:outline-none"
+            data-carousel-prev=""
+          >
+            <span className="text-gray-400 hover:text-gray-900 dark:hover:text-white group-focus:text-gray-900 dark:group-focus:text-white">
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
               >
-                Ceybarani gives individuals, businesses and universities the
-                tools they need to continuously improve their cybersecurity
-                capabilities
-                <span className="text-white"> — all in one place.</span>
-              </p>
-              <Box>
-                <a
-                  href="/ctfs"
-                  type="button"
-                  className="py-4 px-8"
-                >
-                  CTFS
-                </a>
-              </Box>
-            </div>
-          </li>
-
-          <li className="flex-shrink">
-            <div className="banner-img">
-              <img
-                className="w-[470px]"
-                src={Laptop.src}
-                alt="laptop image"
-              />
-            </div>
-          </li>
-        </ul>
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 5H1m0 0 4 4M1 5l4-4"
+                />
+              </svg>
+              <span className="sr-only">Previous</span>
+            </span>
+          </button>
+          <button
+            type="button"
+            className="flex justify-center items-center h-full cursor-pointer group focus:outline-none"
+            data-carousel-next=""
+          >
+            <span className="text-gray-400 hover:text-gray-900 dark:hover:text-white group-focus:text-gray-900 dark:group-focus:text-white">
+              <svg
+                className="w-5 h-5"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+              <span className="sr-only">Next</span>
+            </span>
+          </button>
+        </div>
       </div>
+
+      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
     </div>
   );
 }
