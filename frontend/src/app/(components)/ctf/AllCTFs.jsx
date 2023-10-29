@@ -248,7 +248,7 @@ export default function AllCTFs() {
                         user owns
                       </th>
                       <th scope="col" className="p-4">
-                        system owns
+                        first blood
                       </th>
                       <th scope="col" class="p-4">
                         <span className="sr-only">Actions</span>

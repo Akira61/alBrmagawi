@@ -28,25 +28,25 @@ export async function POST(req) {
 
     //check if not first blood then the update the first blood to the user
     
-    if (!validFlag.first_blood) {
-      const firstBlood = await prisma.ctfs.update({
-        where: { id: parseInt(ctfId) },
-        data: {
-          first_blood: parseInt(userId),
-          team: user.team,
-        },
-      });
-      // first blood message
-      if (firstBlood)
-        return NextResponse.json({
-          success: true,
-          firstBlood: true,
-          message: "First blood",
-        });
-    }
+    // if (!validFlag.first_blood) {
+    //   const firstBlood = await prisma.ctfs.update({
+    //     where: { id: parseInt(ctfId) },
+    //     data: {
+    //       first_blood: parseInt(userId),
+    //       team: user.team,
+    //     },
+    //   });
+    //   // first blood message
+    //   if (firstBlood)
+    //     return NextResponse.json({
+    //       success: true,
+    //       firstBlood: true,
+    //       message: "First blood",
+    //     });
+    // }
     // if valid flag but not first blood
     if (validFlag) {
-      return NextResponse.json({ success: true, message: "Correct Flag" });
+      return NextResponse.json({ success: true, message: "Correct Flag - But CTF ended" });
     }
   } catch (error) {
     console.log("/api/ctfs/submitFlag Error: ", error.message);

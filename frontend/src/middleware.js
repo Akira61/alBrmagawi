@@ -37,9 +37,9 @@ export async function middleware(request) {
   const visitWithoutToken =
     path === "/login" || path === "/register" || path === "/verifyemail";
   
-  if(path=== "/ctfs"){
-    return NextResponse.redirect(new URL("/", request.nextUrl));
-  }
+  // if(path=== "/ctfs"){
+  //   return NextResponse.redirect(new URL("/", request.nextUrl));
+  // }
   //don't allow visit these pages
   const forbiddenPages =
     path === "/dashboard/:path*" || path === "/courses/:path*";
@@ -64,12 +64,13 @@ export async function middleware(request) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    // "/login",
-    // "/register",
-    // "/courses/createCourse/:path*",
-    // "/ctfs",
-    // "/dashboard/:path*",
-    // "/courses",
-    // "/team/:path*"
+    "/login",
+    "/register",
+    "/courses/createCourse/:path*",
+    "/ctfs",
+    "/dashboard",
+    "/dashboard/:path*",
+    "/courses",
+    "/team/:path*",
   ],
 };

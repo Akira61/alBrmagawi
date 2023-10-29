@@ -22,7 +22,7 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
   const closeIt = () => {
     setFirstblood(0);
     setShowCTFId(-1);
-  }
+  };
 
   const shakeIt = () => {
     setShake(true);
@@ -106,17 +106,17 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                           className="flex items-center bg-no-repeat max-w-full h-auto w-full text-lg font-medium leading-6 text-jaguar"
                         >
                           <div className="flex items-center flex-1">
-                            <img
+                            {/* <img
                               src={ctf.thumbnail}
                               alt="iMac Front Image"
                               className="w-auto h-14 mr-3"
-                            />
+                            /> */}
                             <span className="text-white">
                               {firstblood === 1
                                 ? "firstblood"
                                 : firstblood === -1
-                                  ? "not firstblood"
-                                  : ctf.title}
+                                ? "not firstblood"
+                                : ctf.title}
                             </span>
                           </div>
                           <Box>
@@ -257,11 +257,11 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
           }}
         >
           <div className="relative">
-            <img
+            {/* <img
               src={ctf.thumbnail}
               alt="iMac Front Image"
               className="w-auto h-12 mr-3"
-            />
+            /> */}
             {/* {ctf.matchineType === "windows" ? (
               <ImWindows
                 title="windows"
@@ -273,11 +273,11 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
                 className="bottom-0 left-8 absolute  w-5 h-5 bg-gray-600 border-2 border-white dark:border-russian-violet rounded-full"
               />
             ) : ( */}
-            <img
+            {/* <img
               src={ctf.thumbnail}
               title="thumbnail"
               className="bottom-0 left-8 absolute  w-6 bg-green-400 border-2 border-white dark:border-russian-violet rounded-full"
-            />
+            /> */}
             {/* )} */}
           </div>
           <div className="px-1">
@@ -290,12 +290,13 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
         <td className="px-4 py-2 font-medium text-jaguar whitespace-nowrap dark:text-white">
           <div className="flex items-center">
             <div
-              className={`inline-block w-4 h-4 mr-2 ${ctf.level == "easy"
+              className={`inline-block w-4 h-4 mr-2 ${
+                ctf.level == "easy"
                   ? "bg-green-400"
                   : ctf.level == "medium"
-                    ? "bg-orange-500"
-                    : "bg-red-700"
-                } rounded-full`}
+                  ? "bg-orange-500"
+                  : "bg-red-700"
+              } rounded-full`}
             />
             <span className="uppercase text-sm tracking-tight font-extrabold text-gray-500 dark:text-gray-400">
               {ctf.level}
@@ -350,7 +351,11 @@ const CTF = ({ ctf, showCTFId, setShowCTFId, indent = 0 }) => {
             </svg>
 
             <span className="text-gray-500 tracking-tight font-extrabold px-2 dark:text-gray-400">
-              {ctf.systemOwns}
+              {ctf.teamName
+                ? ctf.teamName
+                : ctf.first_name
+                ? ctf.first_name + " " + ctf.last_name
+                : "None"}
             </span>
           </div>
         </td>
