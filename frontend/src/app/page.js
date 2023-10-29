@@ -2,11 +2,11 @@
 import Navbar from "./(components)/Navbar";
 import Footer from "./(components)/footer";
 import "./style/Home.css";
-import Content from "./(components)/Home/Content";
-import Banner from "./(components)/Home/Banner";
-import About from "./(components)/Home/About";
+import Content from "./(components)/LandingPage/Content";
+import Banner from "./(components)/LandingPage/Banner";
+import About from "./(components)/LandingPage/About";
 import Arwes from "./(components)/Arwes";
-import Testimonials from "./(components)/Home/testimonials";
+import Testimonials from "./(components)/LandingPage/testimonials";
 
 export default function Home() {
   return (

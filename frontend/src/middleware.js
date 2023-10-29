@@ -72,5 +72,6 @@ export const config = {
     "/dashboard/:path*",
     "/courses",
     "/team/:path*",
+    "/home",
   ],
 };
