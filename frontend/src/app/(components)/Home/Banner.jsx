@@ -1,132 +1,53 @@
-import Head from "next/head";
-import React from "react";
+"use client";
+import { Typewriter } from "react-simple-typewriter";
+import Box from "../ctf/Box";
+import Man from "@/app/assets/imgs/man.svg";
+import Circles from "@/app/assets/imgs/circles.svg";
 
 export default function Banner() {
   return (
-    <div>
-      <Head>
-        <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.css"
-          rel="stylesheet"
-        />
-      </Head>
-      <div
-        id="custom-controls-gallery"
-        className="relative w-full"
-        data-carousel="slide"
-      >
-        {/* Carousel wrapper */}
-        <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
-          {/* Item 1 */}
-          <div
-            className="hidden duration-700 ease-in-out"
-            data-carousel-item=""
-          >
-            <img
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt=""
-            />
+    <div className="wrapper py-32 relative mt-16">
+      <ul className="flex items-center justify-between gap-[7vw] container relative">
+        <li className="flex-1">
+          <div className="col-12 flex flex-col gap-6 items-start">
+            <div className="col-12">
+              <h1 className="items-center text-white text-4xl">
+                The{" "}
+                <span className="text-sky-500 hover:text-sky-600 inline-block min-w-[4ch]">
+                  <Typewriter
+                    words={["#1", "one"]}
+                    loop={true}
+                    cursor
+                    typeSpeed={120}
+                    deleteSpeed={120}
+                  />
+                </span>
+                platform to improve <br /> your cybersecurity skills
+              </h1>
+            </div>
+            <p
+              style={{ fontSize: "20px", fontWeight: 400 }}
+              className="text-slate-400 max-w-[65ch] py-4"
+            >
+              Ceybarani gives individuals, businesses and universities the tools
+              they need to continuously improve their cybersecurity capabilities
+              <span className="text-white"> — all in one place.</span>
+            </p>
+            <Box>
+              <a href="/ctfs" type="button" className="py-4 px-8">
+                CTFS
+              </a>
+            </Box>
           </div>
-          {/* Item 2 */}
-          <div
-            className="hidden duration-700 ease-in-out"
-            data-carousel-item="active"
-          >
-            <img
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt=""
-            />
-          </div>
-          {/* Item 3 */}
-          <div
-            className="hidden duration-700 ease-in-out"
-            data-carousel-item=""
-          >
-            <img
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
-              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt=""
-            />
-          </div>
-          {/* Item 4 */}
-          <div
-            className="hidden duration-700 ease-in-out"
-            data-carousel-item=""
-          >
-            <img
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
-              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt=""
-            />
-          </div>
-          {/* Item 5 */}
-          <div
-            className="hidden duration-700 ease-in-out"
-            data-carousel-item=""
-          >
-            <img
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
-              className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              alt=""
-            />
-          </div>
-        </div>
-        <div className="flex justify-center items-center pt-4">
-          <button
-            type="button"
-            className="flex justify-center items-center mr-4 h-full cursor-pointer group focus:outline-none"
-            data-carousel-prev=""
-          >
-            <span className="text-gray-400 hover:text-gray-900 dark:hover:text-white group-focus:text-gray-900 dark:group-focus:text-white">
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 5H1m0 0 4 4M1 5l4-4"
-                />
-              </svg>
-              <span className="sr-only">Previous</span>
-            </span>
-          </button>
-          <button
-            type="button"
-            className="flex justify-center items-center h-full cursor-pointer group focus:outline-none"
-            data-carousel-next=""
-          >
-            <span className="text-gray-400 hover:text-gray-900 dark:hover:text-white group-focus:text-gray-900 dark:group-focus:text-white">
-              <svg
-                className="w-5 h-5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
-              <span className="sr-only">Next</span>
-            </span>
-          </button>
-        </div>
-      </div>
+        </li>
 
-      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.0.0/flowbite.min.js"></script>
+        <li className="flex-shrink">
+          <div className="banner-img relative">
+            <img className="w-80 relative z-10" src={Man.src} alt="" />
+            <img className="absolute inset-0 scale-[250%] opacity-50 z-0 translate-y-12 -translate-x-24" src={Circles.src} alt="" />
+          </div>
+        </li>
+      </ul>
     </div>
   );
 }

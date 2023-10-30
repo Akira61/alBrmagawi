@@ -1,13 +1,13 @@
 "use client";
 import Kranox from "../ctf/Kranox";
-import Lock from "@/app/assets/imgs/lock.png"
-import Pass from "@/app/assets/imgs/pass.png"
-import Doc from "@/app/assets/imgs/doc.png"
+import CD from "@/app/assets/imgs/cd.png"
+import Ghost from "@/app/assets/imgs/ghost.png"
+import Book from "@/app/assets/imgs/book.png"
 
 export default function Content() {
   return (
     <>
-      <div className="wrapper container py-20">
+      <div id="provides" className="wrapper container py-20">
         <h1
           style={{ fontSize: "48px", fontWeight: 600 }}
           className="items-center text-center pb-10"
@@ -20,7 +20,7 @@ export default function Content() {
               <div className="h-48">
                 <img
                   className="h-full object-contain"
-                  src={Lock.src}
+                  src={CD.src}
                   alt="product image"
                 />
               </div>
@@ -39,7 +39,7 @@ export default function Content() {
               <div className="h-48">
                 <img
                   className="h-full object-contain"
-                  src={Pass.src}
+                  src={Ghost.src}
                   alt="product image"
                 />
               </div>
@@ -58,7 +58,7 @@ export default function Content() {
               <div className="h-48">
                 <img
                   className="h-full object-contain"
-                  src={Doc.src}
+                  src={Book.src}
                   alt="product image"
                 />
               </div>

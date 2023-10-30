@@ -12,5 +12,5 @@ export async function GET(req) {
     LEFT JOIN teams ON ctfs.team=teams.id;
     `
   })
-  return NextResponse.json({ data: firstBlod });
+  return NextResponse.json({ data: score });
 }

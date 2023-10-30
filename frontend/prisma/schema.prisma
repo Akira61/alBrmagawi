@@ -144,7 +144,6 @@ model users {
   joining_date              String  @db.VarChar(255)
 
   @@index([team], map: "belongToTeam")
-
 }
 
 model ctfs {
@@ -171,10 +170,10 @@ model ctfs {
 model blogs {
   id           Int      @id @default(autoincrement())
   blog_id      String   @unique(map: "blogId") @db.VarChar(255)
-  title        String   @db.VarChar(255)
-  content      String?  @db.LongText
-  thumbnail    String   @db.VarChar(255)
-  author       String   @db.VarChar(255)
+  title        String   @default("New Blog") @db.VarChar(255)
+  content      Json?
+  thumbnail    String?  @db.VarChar(255)
+  author       String?  @db.VarChar(255)
   created_date DateTime @default(now()) @db.Timestamp(0)
 }
 
@@ -193,4 +192,13 @@ model teams {
   joining_date DateTime @default(now()) @db.Timestamp(0)
 
   @@index([leader], map: "leaderId")
+}
+
+model ctf_solved {
+  id      Int @id @default(autoincrement())
+  ctf_id  Int
+  user_id Int
+
+  @@index([ctf_id], map: "ctfId")
+  @@index([user_id], map: "userID")
 }

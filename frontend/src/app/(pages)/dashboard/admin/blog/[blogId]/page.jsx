@@ -20,11 +20,30 @@ import Link from "next/link";
 import { SimpleImage } from "./simple-image";
 import { BsChevronLeft } from "react-icons/bs";
 import "@/app/style/Simple-image.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
-export default function NewBlog() {
+export default function NewBlog({params}) {
+  const {blogId} = params;
+  const [title, setTitle] = useState("New Blog");
+  const [content, setContent] = useState();
+  useEffect(()=> {
+    getBlogData();
+  },[])
+  async function getBlogData(){
+    try {
+      const {data} = await axios.get(`/api/blogs/${blogId}/getBlog`);
+      console.log(data.data);
+      setContent(data.data.content);
+      setTitle(data.data.title)
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
   const editor = new EditorJS({
     holder: "editorjs",
     placeholder: "Type here to write your post...",
+    data: content,
     // data: {
     //   blocks: [
     //     {
@@ -95,17 +114,27 @@ export default function NewBlog() {
     },
     onChange: (api, event) => {
       console.log("Editor's content changed!", event);
-      onSave();
+      // onSave();
     },
   });
 
   function onSave() {
     editor
       .save()
-      .then((outputData) => {
+      .then(async (outputData) => {
         console.log("Article data: ", outputData);
-        // api request to update blog
         
+        // api request to update blog
+        try {
+          const {data} = axios.post(`/api/blogs/editor`, {
+            blogId: blogId,
+            title: title,
+            content: outputData,
+          })
+          console.log(data);
+        } catch (error) {
+          console.log(error.message)
+        }
       })
       .catch((error) => {
         console.log("Saving failed: ", error);
@@ -136,9 +165,10 @@ export default function NewBlog() {
         <TextareaAutosize
           autoFocus
           id="title"
-          defaultValue={`New Blog`}
+          defaultValue={title}
           placeholder="Post title"
           className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
+          onChange={(e)=> setTitle(e.target.value)}
         />
       </div>
         <div id="editorjs"></div>
