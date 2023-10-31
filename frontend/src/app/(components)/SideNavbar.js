@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Head from "next/head";
 import { configURL } from "../url.config";
+import Link from "next/link";
 export default function SideNavbar() {
   const [open, setOpen] = useState(true);
 
@@ -54,13 +55,14 @@ export default function SideNavbar() {
     // { title: "Search", icon: "Search" },
     // { title: "Analytics", icon: "Chart" },
     // { title: "Files ", icon: "Folder" },
+    { title: "Machines", icon: "Chart", src: `/dashboard/admin/machines/all` },
+    { title: "CTFs", icon: "Chart",src:`/dashboard/admin/ctfs/all` },
+    { title: "New blog", icon: "Chart" },
     { title: "Settings", icon: "Setting", gap: true, bottom: true },
     // { title: "Logout", icon: "Setting" },
   ];
 
-  const teacher = [
-    { title: "Create course ",src:'3', icon: "Chart" },
-  ]
+  const teacher = [{ title: "Create course ", src: "3", icon: "Chart" }];
   return (
     <>
       <Head>
@@ -244,7 +246,7 @@ export default function SideNavbar() {
                         data-collapse-toggle={`dropdown-${Menu.title}`}
                       >
                         {Menu.icon ? (
-                          <img src={`/icons/${Menu.icon}.png`} alt=""/>
+                          <img src={`/icons/${Menu.icon}.png`} alt="" />
                         ) : (
                           ""
                         )}
@@ -282,7 +284,10 @@ export default function SideNavbar() {
                               >
                                 <>
                                   {item.icon ? (
-                                    <img src={`/icons/${item.icon}.png`} alt=""/>
+                                    <img
+                                      src={`/icons/${item.icon}.png`}
+                                      alt=""
+                                    />
                                   ) : (
                                     ""
                                   )}
@@ -297,22 +302,23 @@ export default function SideNavbar() {
                       </div>
                     </li>
                   ) : (
-                    <li
+                    <Link
                       key={index}
+                      href={Menu.src ? Menu.src : "#"}
                       className={`flex rounded-md p-2 cursor-pointer hover:bg-light-white text-gray-300 text-lg font-semibold transition duration-200 ease-in-out items-center gap-x-4 hover:bg-slate-600
                         ${Menu.gap ? "mt-9" : "mt-2"} ${
                         index === 0 && "bg-light-white"
                       } `}
                     >
-                      <img src={`/icons/${Menu.icon}.png`} alt=""/>
-                      <h1
-                        className={`${
-                          !open && "hidden"
-                        } origin-left duration-200 `}
-                      >
-                        {Menu.title}
-                      </h1>
-                    </li>
+                        <img src={`/icons/${Menu.icon}.png`} alt="" />
+                        <h1
+                          className={`${
+                            !open && "hidden"
+                          } origin-left duration-200 `}
+                        >
+                          {Menu.title}
+                        </h1>
+                    </Link>
                   )}
                 </>
               ))}

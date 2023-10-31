@@ -155,7 +155,7 @@ model ctfs {
   thumbnail    String  @db.VarChar(255)
   level        String  @db.VarChar(255)
   rating       Int
-  userOwns     Int
+  userOwns     Int     @default(0)
   systemOwns   Int
   matchineType String  @db.VarChar(255)
   flag         String  @db.VarChar(255)
@@ -201,4 +201,25 @@ model ctf_solved {
 
   @@index([ctf_id], map: "ctfId")
   @@index([user_id], map: "userID")
+}
+
+model machines {
+  id           Int      @id @default(autoincrement())
+  machine_id   String   @unique(map: "machine_id") @db.VarChar(255)
+  title        String   @db.VarChar(255)
+  links        String   @db.LongText
+  thumbnail    String?  @db.VarChar(255)
+  level        String   @db.VarChar(255)
+  points       Int
+  userOwns     Int      @default(0)
+  machineType  String   @db.VarChar(255)
+  user_flag    String   @db.VarChar(255)
+  root_flag    String   @db.VarChar(255)
+  description  String   @db.Text
+  first_blood  Int?
+  team         Int?
+  joining_date DateTime @default(now()) @db.Timestamp(0)
+
+  @@index([first_blood], map: "machineFirstBlood")
+  @@index([team], map: "team")
 }
