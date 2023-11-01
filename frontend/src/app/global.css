@@ -36,7 +36,7 @@ td {
   vertical-align: middle !important;
 }
 
-.nomarker li::marker {
+:where(ul.nomarker) li::marker {
   display: none !important;
   content: "" !important;
 }
