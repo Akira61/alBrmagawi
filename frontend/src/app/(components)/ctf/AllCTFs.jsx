@@ -15,7 +15,7 @@ export default function AllCTFs() {
   const [filter, setFilter] = useState("");
 
   const categories = useMemo(
-    () => [...new Set(ctfs.map((ctf) => ctf.catigory))],
+    () => [...new Set(ctfs?.length ? ctfs.map((ctf) => ctf.catigory) : [])],
     [ctfs],
   );
 
