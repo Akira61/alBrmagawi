@@ -11,7 +11,7 @@ export default function Tabs({
     <div className={className}>
       <hr />
       <ul
-        className={`flex my-2 flex-wrap text-sm font-medium text-center text-gray-400`}
+        className={`flex nomarker my-2 flex-wrap text-sm font-medium text-center text-gray-400`}
       >
         {tabs.map(({ href, label, children }) => (
           <Tab
