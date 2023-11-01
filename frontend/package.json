@@ -72,6 +72,7 @@
     "@editorjs/marker": "^1.3.0",
     "@editorjs/raw": "^2.4.0",
     "@editorjs/simple-image": "^1.5.1",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/react": "18.2.31",
     "encoding": "^0.1.13",
     "prisma": "^5.3.1"

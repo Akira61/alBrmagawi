@@ -23,7 +23,7 @@ const Kranox = ({
       }}
       css={{
         "&:hover > svg [data-name=line]": {
-          color: hover ? "red" : "hsl(200, 87%, 26.42%)",
+          color: hover ? "hsla(200,84%,54.74%,1)" : "hsl(200, 87%, 26.42%)",
         },
       }}
       {...props}

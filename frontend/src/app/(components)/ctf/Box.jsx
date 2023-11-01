@@ -27,7 +27,7 @@ const Box = ({ children, active = true, onClick: handleClick, ...props }) => {
         {...props}
         onClick={onClick}
         onMouseEnter={() => setA(true)}
-        onMouseLeave={() => !active && setA(false)}
+        onMouseLeave={() => setA(false)}
         css={{
           position: "relative",
           zIndex: 10,
