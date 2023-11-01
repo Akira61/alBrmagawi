@@ -3,7 +3,13 @@
 import { jsx } from "@emotion/react";
 import { FrameSVGKranox } from "@arwes/react-frames";
 
-const Kranox = ({ children, style, squareSize = "1.5rem", ...props }) => {
+const Kranox = ({
+  children,
+  style,
+  hover,
+  squareSize = "1.5rem",
+  ...props
+}) => {
   return (
     <div
       style={{
@@ -14,6 +20,11 @@ const Kranox = ({ children, style, squareSize = "1.5rem", ...props }) => {
         zIndex: 1,
         paddingInline: "17px",
         paddingBlock: "1px",
+      }}
+      css={{
+        "&:hover > svg [data-name=line]": {
+          color: hover ? "red" : "hsl(200, 87%, 26.42%)",
+        },
       }}
       {...props}
     >

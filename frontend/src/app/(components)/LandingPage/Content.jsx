@@ -1,7 +1,7 @@
 "use client";
 import Kranox from "../ctf/Kranox";
 import CD from "@/app/assets/imgs/cd.png"
-import Ghost from "@/app/assets/imgs/ghost.png"
+import Flags from "@/app/assets/imgs/flags.svg"
 import Book from "@/app/assets/imgs/book.png"
 
 export default function Content() {
@@ -15,7 +15,7 @@ export default function Content() {
           Ceybarani provides
         </h1>
         <ul className="md:flex lg:md:flex items-center justify-between mx-auto mt-auto py-6 gap-4">
-          <Kranox className="flex-1 h-full">
+          <Kranox hover className="flex-1 h-full">
             <li className="text-center flex items-center gap-4 flex-col py-8">
               <div className="h-48">
                 <img
@@ -34,12 +34,12 @@ export default function Content() {
               </div>
             </li>
           </Kranox>
-          <Kranox className="flex-1 h-full">
+          <Kranox hover className="flex-1 h-full">
             <li className="text-center flex items-center gap-4 flex-col py-8">
               <div className="h-48">
                 <img
-                  className="h-full object-contain"
-                  src={Ghost.src}
+                  className="h-[70%] object-contain"
+                  src={Flags.src}
                   alt="product image"
                 />
               </div>
@@ -53,7 +53,7 @@ export default function Content() {
               </div>
             </li>
           </Kranox>
-          <Kranox className="flex-1 h-full">
+          <Kranox hover className="flex-1 h-full">
             <li className="text-center flex items-center gap-4 flex-col py-8">
               <div className="h-48">
                 <img
