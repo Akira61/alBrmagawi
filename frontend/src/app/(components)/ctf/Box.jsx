@@ -13,7 +13,7 @@ import {
 const Box = ({ children, active = true, onClick: handleClick, ...props }) => {
   const svgRef = useRef(null);
   const { onRender } = useFrameSVGAssemblingAnimation(svgRef);
-  const [a, setA] = useState(active);
+  const [a, setA] = useState(false);
   const bleeps = useBleeps();
 
   const onClick = () => {

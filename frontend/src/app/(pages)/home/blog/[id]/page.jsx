@@ -1,4 +1,9 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import Box from "@/app/(components)/ctf/Box";
 import ModulSections from "../components/ModuleSections";
+import Kranox from "@/app/(components)/ctf/Kranox";
 
 const MODULE_SECTIONS = [
   { title: "Introduction" },
@@ -23,14 +28,37 @@ const MODULE_SECTIONS = [
   { title: "Skills Assessment" },
 ];
 
-export default function BlogPost() {
+export default function BlogPost({searchParams}) {
+  const { section = 1 } = searchParams;
+  const router = useRouter();
+
   return (
     <div className="p-4 md:p-8">
       <h1 className="mb-8 text-4xl">Blog</h1>
+      <Kranox className="mb-4">
+        <div className="flex gap-4 p-4">
+          <div className="flex-[.3]">
+            <img
+              className="w-full h-auto object-cover max-h-64"
+              src="https://www.hackthebox.com/storage/tracks/27.png"
+              alt=""
+            />
+          </div>
+          <div className="flex-[.7]">
+            <h4>Inroduction</h4>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta
+              doloremque odio at explicabo expedita quaerat temporibus
+              voluptatibus amet debitis, hic iure tempore vel numquam sed
+              deserunt deleniti ipsa cupiditate facilis?
+            </p>
+          </div>
+        </div>
+      </Kranox>
       <div className="flex gap-4 flex-col md:flex-row-reverse">
         <ModulSections sections={MODULE_SECTIONS} />
         <article className="flex-[.7] list-disc marker prose-invert lg:prose-xl">
-          <div class="col-lg-8">
+          <div>
             <h3>Module Summary</h3>
             <p>
               Game Reversing &amp; Modding is an evolution of the first module,{" "}
@@ -89,9 +117,9 @@ export default function BlogPost() {
               <li>
                 A thorough examination of <code>man-in-the-middle</code> (MITM)
                 attacks, their methodology, and preventive techniques, both
-                generally and specific to gaming. Well finalise with a
-                practical approach to MITM game hacking, focusing on setup,
-                analysis, and manipulation of a game’s HTTP calls.
+                generally and specific to gaming. Well finalise with a practical
+                approach to MITM game hacking, focusing on setup, analysis, and
+                manipulation of a game’s HTTP calls.
               </li>
             </ul>
             <p>
@@ -130,6 +158,24 @@ export default function BlogPost() {
             </ul>
           </div>
         </article>
+      </div>
+      <div className="flex items-center gap-4">
+        <Box>
+          <button
+            onClick={() => router.push(`?section=${Number(section) - 1}`)}
+            className="p-4"
+          >
+            previous
+          </button>
+        </Box>
+        <Box>
+          <button
+            onClick={() => router.push(`?section=${Number(section) + 1}`)}
+            className="p-4"
+          >
+            next
+          </button>
+        </Box>
       </div>
     </div>
   );
