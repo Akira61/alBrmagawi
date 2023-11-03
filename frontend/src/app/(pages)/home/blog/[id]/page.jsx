@@ -33,7 +33,7 @@ export default function BlogPost({searchParams}) {
   const router = useRouter();
 
   return (
-    <div className="p-4 md:p-8">
+    <div className="p-4 lg:p-8">
       <h1 className="mb-8 text-4xl">Blog</h1>
       <Kranox className="mb-4">
         <div className="flex gap-4 p-4">
@@ -55,7 +55,7 @@ export default function BlogPost({searchParams}) {
           </div>
         </div>
       </Kranox>
-      <div className="flex gap-4 flex-col md:flex-row-reverse">
+      <div className="flex gap-4 flex-col lg:flex-row-reverse">
         <ModulSections sections={MODULE_SECTIONS} />
         <article className="flex-[.7] list-disc marker prose-invert lg:prose-xl">
           <div>

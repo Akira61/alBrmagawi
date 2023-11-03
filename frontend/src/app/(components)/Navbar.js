@@ -73,6 +73,10 @@ export default function Navbar() {
                     label: "Univercities",
                     href: "/univercities",
                   },
+                  {
+                    label: "About Us",
+                    href: "/aboutus",
+                  },
                 ].map(({ href, label }) => (
                   <li key={href}>
                     <Link className="hover:text-white" href={href}>

@@ -1,5 +1,5 @@
 import { Animator } from "@arwes/react-animator";
-import { GridLines, Dots, MovingLines } from "@arwes/react-bgs";
+import { GridLines, Dots } from "@arwes/react-bgs";
 
 const Background = () => {
   return (
@@ -13,11 +13,6 @@ const Background = () => {
       >
         <GridLines lineColor="hsla(180, 100%, 75%, 0.05)" distance={30} />
         <Dots color="hsla(180, 100%, 75%, 0.05)" distance={30} />
-        <MovingLines
-          lineColor="hsla(180, 100%, 75%, 0.07)"
-          distance={30}
-          sets={20}
-        />
       </div>
     </Animator>
   );
