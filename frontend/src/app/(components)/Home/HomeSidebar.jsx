@@ -62,10 +62,10 @@ export default function HomeSidebar() {
                     </button>
                   </div>
                   <div
-                    className="z-50 hidden my-4 text-base list-none bg-jaguar border border-blue-sapphire"
+                    className="z-50 hidden p-4 my-4 text-base list-none bg-jaguar border border-blue-sapphire"
                     id="dropdown-user"
                   >
-                    <div className="px-4 py-3" role="none">
+                    <div className="p-2" role="none">
                       <p
                         className="text-sm text-gray-900 dark:text-white"
                         role="none"
@@ -79,7 +79,7 @@ export default function HomeSidebar() {
                         neil.sims@flowbite.com
                       </p>
                     </div>
-                    <ul className="py-1 space-y-2 nomarker" role="none">
+                    <ul className="mt-4 space-y-2 nomarker" role="none">
                       {[
                         {
                           href: "/home/profile/profile/overview",

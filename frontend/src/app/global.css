@@ -41,6 +41,11 @@ td {
   content: "" !important;
 }
 
+ol.nomarker,
+ul.nomarker {
+  padding-left: unset !important;
+}
+
 @font-face {
   font-family: "Hexaframe CF";
   src: url("./assets/fonts/HexaframeCF/HexaframeCF-Bold.eot");
