@@ -52,7 +52,7 @@ export default function AllCTFs() {
 
   return (
     <>
-      <section style={openSans.style} className="py-3 sm:py-20 bg-jaguar">
+      <section style={openSans.style} className="py-4">
         <div className="px-4 mx-auto max-w-screen-2xl lg:px-12">
           <div className="relative overflow-hidden sm:rounded-lg">
             <div className="flex flex-col px-8 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
