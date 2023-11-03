@@ -31,6 +31,7 @@ module.exports = {
         "american-purple": "#461C55",
         "cetacean-blue": "#12133D",
         jaguar: "#100317",
+        "blue-sapphire": "#09577e",
       },
     },
   },
