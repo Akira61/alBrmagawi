@@ -134,7 +134,7 @@ export default function HomeSidebar() {
                   ),
                 },
                 {
-                  href: "/ctf",
+                  href: "/home/ctfs",
                   label: "CTF",
                   icon: (
                     <svg
