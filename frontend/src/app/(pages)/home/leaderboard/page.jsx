@@ -42,7 +42,7 @@ export default function LeaderBoard() {
             </tr>
           </thead>
           <tbody className="bg-jaguar">
-            {Object.entries(data).map(([name, score], idx) => (
+            {Object.entries(data).sort((a, b) => b[1] - a[1]).map(([name, score], idx) => (
               <tr key={idx} className="dark:hover:bg-russian-violet/30">
                 <td className="px-4 py-2 font-medium text-jaguar whitespace-nowrap dark:text-white">
                   {name}
