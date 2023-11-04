@@ -7,6 +7,7 @@ import Banner from "./(components)/LandingPage/Banner";
 import About from "./(components)/LandingPage/About";
 import Arwes from "./(components)/Arwes";
 import Testimonials from "./(components)/LandingPage/testimonials";
+import For from "./(components)/LandingPage/For";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <About />
         <Testimonials />
         {/* <Carousel /> */}
+        <For />
         <Footer />
       </main>
     </Arwes>

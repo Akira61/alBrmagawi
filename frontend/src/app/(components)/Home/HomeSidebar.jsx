@@ -118,7 +118,7 @@ export default function HomeSidebar() {
             <ul className="space-y-4 nomarker font-medium">
               {[
                 {
-                  href: "/machines",
+                  href: "/home/machines",
                   label: "Machines",
                   icon: (
                     <svg
