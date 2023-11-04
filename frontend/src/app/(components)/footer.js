@@ -10,7 +10,7 @@ export default function Footer() {
             >
               Ceybarani
             </a>
-            <ul className="flex flex-wrap items-center text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+            <ul className="flex nomarker flex-wrap items-center text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
               <li>
                 <a href="#" className="mr-4 hover:underline md:mr-6 ">
                   About
