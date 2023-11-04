@@ -174,6 +174,7 @@ model blogs {
   content      Json?
   thumbnail    String?  @db.VarChar(255)
   author       String?  @db.VarChar(255)
+  published    Boolean  @default(false)
   created_date DateTime @default(now()) @db.Timestamp(0)
 }
 

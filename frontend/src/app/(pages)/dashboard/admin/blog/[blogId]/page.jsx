@@ -34,16 +34,17 @@ export default function NewBlog({params}) {
     try {
       const {data} = await axios.get(`/api/blogs/${blogId}/getBlog`);
       console.log(data.data);
-      setContent(data.data.content);
+      data.data.content?setContent(data.data.content):"";
       setTitle(data.data.title)
     } catch (error) {
       console.log(error.message)
     }
   }
   const editor = new EditorJS({
-    holder: "editorjs",
+    holderId: "editorjs",
     placeholder: "Type here to write your post...",
     data: content,
+    inlineToolbar: true,
     // data: {
     //   blocks: [
     //     {
@@ -62,32 +63,16 @@ export default function NewBlog({params}) {
         class: Header,
         shortcut: "CMD+SHIFT+H",
       },
-      Embed: {
-        class: Embed,
-      },
-      List: {
-        class: List,
-      },
-      Marker: {
-        class: Marker,
-      },
+      Embed: Embed,
+      List: List,
+      Marker: Marker,
       Underline: Underline,
       Delimiter: Delimiter,
-      Code: {
-        class: Code,
-      },
-      Table: {
-        class: Table,
-      },
+      Code: Code,
+      Table: Table,
       Link: editorLink,
-      InlineCode: {
-        class: InlineCode,
-      },
+      InlineCode: InlineCode,
       Quote: Quote,
-      Paragraph: {
-        class: Paragraph,
-        inlineToolbar: true,
-      },
       raw: {
         class: RawTool,
         InlineCode: true,
@@ -118,29 +103,24 @@ export default function NewBlog({params}) {
     },
   });
 
-  function onSave() {
-    editor
-      .save()
-      .then(async (outputData) => {
-        console.log("Article data: ", outputData);
-        
+  async function onSave() {
+    const blocks = await editor.save();
+    console.log("blocks: ",blocks)    
         // api request to update blog
         try {
           const {data} = axios.post(`/api/blogs/editor`, {
             blogId: blogId,
             title: title,
-            content: outputData,
+            content: blocks,
           })
           console.log(data);
         } catch (error) {
           console.log(error.message)
         }
-      })
-      .catch((error) => {
-        console.log("Saving failed: ", error);
-      });
   }
   return (
+    <>
+    <style>{'body {backgroundColor : white; }'}</style>
     <div className="bg-white text-black h-screen">
       <div className="flex justify-between navigation py-7 px-16">
         <div className="flex items-center back">
@@ -165,7 +145,7 @@ export default function NewBlog({params}) {
         <TextareaAutosize
           autoFocus
           id="title"
-          defaultValue={title}
+          value={title}
           placeholder="Post title"
           className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
           onChange={(e)=> setTitle(e.target.value)}
@@ -180,5 +160,6 @@ export default function NewBlog({params}) {
             to open the command menu.
           </p>
     </div>
+    </>
   );
 }
