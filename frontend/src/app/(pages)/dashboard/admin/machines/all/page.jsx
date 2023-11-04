@@ -1,7 +1,5 @@
 "use client";
 import SideNavbar from "@/app/(components)/SideNavbar";
-import ListTable from "@/app/(components)/dashboards/table";
-import { configURL } from "@/app/url.config";
 import {
   faAngleRight,
   faPenToSquare,
