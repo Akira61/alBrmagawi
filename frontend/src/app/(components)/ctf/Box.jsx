@@ -10,7 +10,7 @@ import {
   useFrameSVGAssemblingAnimation,
 } from "@arwes/react-frames";
 
-const Box = ({ children, onClick: handleClick, ...props }) => {
+const Box = ({ children, active = true, onClick: handleClick, ...props }) => {
   const svgRef = useRef(null);
   const { onRender } = useFrameSVGAssemblingAnimation(svgRef);
   const [a, setA] = useState(false);
@@ -33,8 +33,10 @@ const Box = ({ children, onClick: handleClick, ...props }) => {
           zIndex: 10,
 
           "[data-name=bg]": {
-            color: "hsla(200, 87%, 26.42%, 0.25)",
-            filter: "drop-shadow(0 0 4px hsla(200, 87%, 26.42%, 0.25))",
+            color: active ? "hsla(200, 87%, 26.42%, 0.25)" : "transparent",
+            filter: active
+              ? "drop-shadow(0 0 4px hsla(200, 87%, 26.42%, 0.25))"
+              : "transparent",
           },
           "[data-name=line]": {
             color: "hsl(200, 87%, 26.42%)",

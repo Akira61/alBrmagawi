@@ -20,14 +20,15 @@
   }
 }
 
-html, body {
+html,
+body {
   color: rgb(var(--foreground-rgb));
   overflow-x: hidden;
   @apply bg-jaguar !important;
 }
 
 * {
-  font-family: 'Hexaframe CF', sans-serif !important;
+  font-family: "Hexaframe CF", sans-serif !important;
 }
 
 th,
@@ -35,175 +36,247 @@ td {
   vertical-align: middle !important;
 }
 
-:where(ul) li::marker{
+:where(ul.nomarker) li::marker {
   display: none !important;
   content: "" !important;
 }
 
-@font-face {
-    font-family: 'Hexaframe CF';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-Bold.eot');
-    src: local('Hexaframe CF Bold'), local('HexaframeCF-Bold'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Bold.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Bold.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Bold.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+ol.nomarker,
+ul.nomarker {
+  padding-left: unset !important;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Bold Oblique';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.eot');
-    src: local('Hexaframe CF Bold Oblique'), local('HexaframeCF-BoldOblique'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.ttf') format('truetype');
-    font-weight: bold;
-    font-style: italic;
+  font-family: "Hexaframe CF";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-Bold.eot");
+  src:
+    local("Hexaframe CF Bold"),
+    local("HexaframeCF-Bold"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Bold.woff2") format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Bold.woff") format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Extra';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.eot');
-    src: local('Hexaframe CF Extra Light'), local('HexaframeCF-ExtraLight'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.ttf') format('truetype');
-    font-weight: 200;
-    font-style: normal;
+  font-family: "Hexaframe CF Bold Oblique";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.eot");
+  src:
+    local("Hexaframe CF Bold Oblique"),
+    local("HexaframeCF-BoldOblique"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.woff")
+      format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-BoldOblique.ttf")
+      format("truetype");
+  font-weight: bold;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Extra';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.eot');
-    src: local('Hexaframe CF Extra Bold'), local('HexaframeCF-ExtraBold'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.ttf') format('truetype');
-    font-weight: 800;
-    font-style: normal;
+  font-family: "Hexaframe CF Extra";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.eot");
+  src:
+    local("Hexaframe CF Extra Light"),
+    local("HexaframeCF-ExtraLight"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.woff") format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLight.ttf")
+      format("truetype");
+  font-weight: 200;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-Light.eot');
-    src: local('Hexaframe CF Light'), local('HexaframeCF-Light'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Light.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Light.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Light.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
+  font-family: "Hexaframe CF Extra";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.eot");
+  src:
+    local("Hexaframe CF Extra Bold"),
+    local("HexaframeCF-ExtraBold"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.woff") format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBold.ttf")
+      format("truetype");
+  font-weight: 800;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Light Oblique';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.eot');
-    src: local('Hexaframe CF Light Oblique'), local('HexaframeCF-LightOblique'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.ttf') format('truetype');
-    font-weight: 300;
-    font-style: italic;
+  font-family: "Hexaframe CF";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-Light.eot");
+  src:
+    local("Hexaframe CF Light"),
+    local("HexaframeCF-Light"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Light.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Light.woff2") format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Light.woff") format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Oblique';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.eot');
-    src: local('Hexaframe CF Oblique'), local('HexaframeCF-RegularOblique'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.ttf') format('truetype');
-    font-weight: normal;
-    font-style: italic;
+  font-family: "Hexaframe CF Light Oblique";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.eot");
+  src:
+    local("Hexaframe CF Light Oblique"),
+    local("HexaframeCF-LightOblique"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.woff")
+      format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-LightOblique.ttf")
+      format("truetype");
+  font-weight: 300;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Extra Bold Oblique';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.eot');
-    src: local('Hexaframe CF Extra Bold Oblique'), local('HexaframeCF-ExtraBoldOblique'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.ttf') format('truetype');
-    font-weight: 800;
-    font-style: italic;
+  font-family: "Hexaframe CF Oblique";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.eot");
+  src:
+    local("Hexaframe CF Oblique"),
+    local("HexaframeCF-RegularOblique"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.woff")
+      format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-RegularOblique.ttf")
+      format("truetype");
+  font-weight: normal;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Heavy Oblique';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.eot');
-    src: local('Hexaframe CF Heavy Oblique'), local('HexaframeCF-HeavyOblique'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.ttf') format('truetype');
-    font-weight: 900;
-    font-style: italic;
+  font-family: "Hexaframe CF Extra Bold Oblique";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.eot");
+  src:
+    local("Hexaframe CF Extra Bold Oblique"),
+    local("HexaframeCF-ExtraBoldOblique"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.woff")
+      format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraBoldOblique.ttf")
+      format("truetype");
+  font-weight: 800;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-Heavy.eot');
-    src: local('Hexaframe CF Heavy'), local('HexaframeCF-Heavy'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Heavy.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Heavy.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Heavy.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Heavy.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
+  font-family: "Hexaframe CF Heavy Oblique";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.eot");
+  src:
+    local("Hexaframe CF Heavy Oblique"),
+    local("HexaframeCF-HeavyOblique"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.woff")
+      format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-HeavyOblique.ttf")
+      format("truetype");
+  font-weight: 900;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Extra Light Oblique';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.eot');
-    src: local('Hexaframe CF Extra Light Oblique'), local('HexaframeCF-ExtraLightOblique'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.ttf') format('truetype');
-    font-weight: 200;
-    font-style: italic;
+  font-family: "Hexaframe CF";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-Heavy.eot");
+  src:
+    local("Hexaframe CF Heavy"),
+    local("HexaframeCF-Heavy"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Heavy.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Heavy.woff2") format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Heavy.woff") format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Heavy.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF Thin Oblique';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.eot');
-    src: local('Hexaframe CF Thin Oblique'), local('HexaframeCF-ThinOblique'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.ttf') format('truetype');
-    font-weight: 100;
-    font-style: italic;
+  font-family: "Hexaframe CF Extra Light Oblique";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.eot");
+  src:
+    local("Hexaframe CF Extra Light Oblique"),
+    local("HexaframeCF-ExtraLightOblique"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.woff")
+      format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ExtraLightOblique.ttf")
+      format("truetype");
+  font-weight: 200;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-Regular.eot');
-    src: local('Hexaframe CF'), local('HexaframeCF-Regular'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Regular.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Regular.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Regular.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "Hexaframe CF Thin Oblique";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.eot");
+  src:
+    local("Hexaframe CF Thin Oblique"),
+    local("HexaframeCF-ThinOblique"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.woff2")
+      format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.woff")
+      format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-ThinOblique.ttf")
+      format("truetype");
+  font-weight: 100;
+  font-style: italic;
 }
 
 @font-face {
-    font-family: 'Hexaframe CF';
-    src: url('./assets/fonts/HexaframeCF/HexaframeCF-Thin.eot');
-    src: local('Hexaframe CF Thin'), local('HexaframeCF-Thin'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Thin.eot?#iefix') format('embedded-opentype'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Thin.woff2') format('woff2'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Thin.woff') format('woff'),
-        url('./assets/fonts/HexaframeCF/HexaframeCF-Thin.ttf') format('truetype');
-    font-weight: 100;
-    font-style: normal;
+  font-family: "Hexaframe CF";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-Regular.eot");
+  src:
+    local("Hexaframe CF"),
+    local("HexaframeCF-Regular"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Regular.woff2") format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Regular.woff") format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Hexaframe CF";
+  src: url("./assets/fonts/HexaframeCF/HexaframeCF-Thin.eot");
+  src:
+    local("Hexaframe CF Thin"),
+    local("HexaframeCF-Thin"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Thin.eot?#iefix")
+      format("embedded-opentype"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Thin.woff2") format("woff2"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Thin.woff") format("woff"),
+    url("./assets/fonts/HexaframeCF/HexaframeCF-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: normal;
 }

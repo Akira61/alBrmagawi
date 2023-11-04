@@ -51,7 +51,7 @@ export default function Navbar() {
                 menu
               }
             >
-              <ul className="flex text-gray-400 md:flex-row flex-col md:items-center md:gap-[1vw] gap-8">
+              <ul className="flex nomarker text-gray-400 md:flex-row flex-col md:items-center md:gap-[1vw] gap-8">
                 {[
                   {
                     label: "Contact Us",
