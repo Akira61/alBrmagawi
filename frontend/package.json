@@ -30,7 +30,6 @@
     "@hookform/resolvers": "^3.3.2",
     "@prisma/client": "^5.3.1",
     "@radix-ui/react-toast": "^1.1.5",
-    "@studio-freight/react-lenis": "^0.0.36",
     "autoprefixer": "^10.4.15",
     "axios": "^1.5.0",
     "bcrypt": "^5.1.1",
